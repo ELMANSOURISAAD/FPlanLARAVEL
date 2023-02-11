@@ -15,7 +15,9 @@ class Elementstable extends Component
     public string $orderField = 'name';
     public string $orderDirection = 'ASC';
     public array $selection = [];
+
     public string $name;
+    public string $unit;
 
     public int $editId = 0;
 
@@ -26,17 +28,18 @@ class Elementstable extends Component
 
 
     protected $rules = [
-        'name' => 'required|string|min:3'
+        'name' => 'required|string|min:3',
+        'unit' => 'required|string|min:1',
     ];
 
     public function add(){
-
         $this->validate();
         $element = new Element;
         $element->name = $this->name;
-
+        $element->unit = $this->unit;
         $element->save();
         $this->emit('ElementAdded');
+
     }
 
 
