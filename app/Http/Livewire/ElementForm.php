@@ -10,7 +10,8 @@ class ElementForm extends Component
 
     public Element $element;
     protected $rules = [
-        'element.name' => 'required|string|min:6'
+        'element.name' => 'required|string|min:3',
+        'element.unit' => 'required|string|min:1'
     ];
 
     public function save(){

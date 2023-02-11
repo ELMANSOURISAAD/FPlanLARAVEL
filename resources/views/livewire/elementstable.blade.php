@@ -8,6 +8,8 @@
         <form action="" wire:submit.prevent="add">
             <label for="name">Ajouter un element :</label>
             <input type="text" wire:model.defer="name">
+            <label for="name">Unité :</label>
+            <input type="text" wire:model.defer="unit">
             <button type="submit">Save</button>
             @error("name")
             {{$message}}
@@ -23,6 +25,7 @@
             <tr>
                 <th></th>
                 <th scope="col" wire:click="setOrderField('name')">Nom</th>
+                <th scope="col">Unit</th>
                 <th scope="col">Coût</th>
                 <th scope="col">CreatedAt</th>
                 <th scope="col">ACTIONS</th>
@@ -34,6 +37,7 @@
                     <td><input  type="checkbox"  x-model.defer="selection" value="{{$element->id}}"  >
                     </td>
                     <td data-label="Nom"><a href="#">{{ $element->name }}</a></td>
+                    <td data-label="Unit"><a href="#">{{ $element->unit }}</a></td>
                     <td data-label="Coût">673 &#8364;</td>
                     <td data-label="CreatedAt">{{ $element->created_at }}</td>
                     <td data-label="Actions">
