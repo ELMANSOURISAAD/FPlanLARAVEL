@@ -26,7 +26,7 @@ Route::get('/template', function () {
 Route::get('/Dashboard', [DashboardController::class, 'index'])->name('Dashboard');
 Route::get('/Groups', [GroupsController::class, 'index'])->name('Groups');;
 Route::get('/Recettes', [\App\Http\Controllers\RecettesController::class, 'index'])->name('Recettes');
-Route::get('/Ingredients', [\App\Http\Controllers\IngredientsInventaire::class, 'index'])->name('Ingredients');;
+Route::get('/Ingredients', [\App\Http\Controllers\IngredientsController::class, 'index'])->name('Ingredients');;
 Route::get('/Inventaire', [\App\Http\Controllers\InventaireController::class, 'index'])->name('Inventaire');;
 
 
