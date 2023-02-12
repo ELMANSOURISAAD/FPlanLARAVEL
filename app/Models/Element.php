@@ -9,8 +9,7 @@ class Element extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
-
+    protected $fillable = ['name','unit'];
     public function recettes()
     {
         return $this->belongsToMany(Recette::class);
