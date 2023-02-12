@@ -39,11 +39,16 @@
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
                     @endif
                     &#x0023;MES RECETTE <i class="fa-solid fa-plate-wheat"></i></li></a>
+
+
             <a href="{{ route('Ingredients') }}"><li>
                     @if(Route::current()->getName() == 'Ingredients')
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
                     @endif
                     &#x0023;INGREDIENTS <i class="fa-solid fa-egg"></i></li></a>
+
+
+
             <a href="{{ route('Inventaire') }}"><li>
                     @if(Route::current()->getName() == 'Inventaire')
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>

@@ -3,7 +3,7 @@
 
         <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between">
 
-        <button x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)" > Supprimer </button>
+        <button x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>
 
         <form action="" wire:submit.prevent="add">
             <label for="name">Ajouter une recette :</label>
@@ -39,16 +39,25 @@
                     <td data-label="Actions">
                         <button type="button"><i class="far fa-eye"></i></button>
                         <button type="button" wire:click="EditThis('{{ $recette -> id }}')"><i class="fas fa-edit"></i></button>
+                        <button type="button" wire:click="editIngredientsId('{{ $recette -> id }}')"><i class="fas fa-gear" title="voir les ingredients"></i></button>
                     </td>
                 </tr>
 
 
             @if( $editId === $recette -> id )
 
-                <livewire:recette-form :recette="$recette" :key="$recette->id"/>
+                <livewire:recette-form :recette="$recette" :key="time().$recette->id"/>
 
 
             @endif
+            @if( $editIngredientsId === $recette -> id )
+
+             <livewire:recette-ingredients :recette="$recette" :key="time().$recette->id"/>
+
+
+            @endif
+
+
             @endforeach
 
             </tbody>

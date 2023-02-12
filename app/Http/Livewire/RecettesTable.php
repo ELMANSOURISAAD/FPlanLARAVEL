@@ -18,10 +18,12 @@ class RecettesTable extends Component
     public string $name;
 
     public int $editId = 0;
+    public int $editIngredientsId = 0;
 
     protected $listeners = [
         'RecetteUpdated' => 'OnRecetteUpdated',
-        'RecetteAdded' => 'OnRecetteAdd'
+        'RecetteAdded' => 'OnRecetteAdd',
+        'RecetteIngredientsUpdated' => 'OnRecetteIngredientsUpdated',
     ];
 
 
@@ -34,7 +36,6 @@ class RecettesTable extends Component
         $this->validate();
         $recette = new Recette;
         $recette->name = $this->name;
-
         $recette->save();
         $this->emit('RecetteAdded');
     }
@@ -69,7 +70,13 @@ class RecettesTable extends Component
     // Listening to events
     public function OnRecetteUpdated()
     {
-        $this->reset('editId');
+       $this->reset('editId');
+    }
+
+
+    public function OnRecetteIngredientsUpdated()
+    {
+        $this->reset('editIngredientsId');
     }
 
     public function OnRecetteAdd()
@@ -80,7 +87,11 @@ class RecettesTable extends Component
     public function EditThis(int $id)
     {
         $this->editId = $id;
+    }
 
+    public function editIngredientsId(int $id)
+    {
+        $this->editIngredientsId = $id;
     }
 
     // end

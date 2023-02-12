@@ -20,21 +20,31 @@ class RecettesController extends Controller
       //  $element1 = new Element(['name' => 'Fajitas']);
        // $element2 = new Element(['name' => 'WRAP']);
 
-           $recette = Recette::find(1);
+        //$recette = Recette::find(1);
+        //$element1 = new Element([
+      //      'name' => 'EAU',
+        //    'unit' => 'L'
+//
+        // ]);
+       //  $element2 = new Element(['name' => 'Chekc']);
+       //  $recette->elements()->save($element1);
+       // $recette->elements()->save($element2);
+
+
         //  $recette->elements()->save($element1);
         //  $recette->elements()->save($element2);
-          $ingredients =  $recette->elements()->get();
+        //  $ingredients =  $recette->elements()->get();
         //  dump($ingredients);
 
-        foreach ($ingredients as $ingredient){
-            echo ($ingredient->name);
-        }
+      //  foreach ($ingredients as $ingredient){
+        //    echo ($ingredient->name);
+     //   }
 
 
 
-        //return view('Recettes/index')
-          //  ->with('name', 'Admin')
-           //->with('recettes', $recettes);
+        return view('Recettes/index')
+           ->with('name', 'Admin')
+           ->with('recettes', $recettes);
     }
 
 }
