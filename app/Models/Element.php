@@ -9,14 +9,20 @@ class Element extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','unit'];
+    protected $fillable = ['name','unit','price'];
     public function recettes()
     {
-        return $this->belongsToMany(Recette::class);
+        return $this->belongsToMany(Recette::class)
+            ->withPivot('quantity');;
     }
 
     public function element_recette()
     {
         return $this->hasMany(ElementsRecettes::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

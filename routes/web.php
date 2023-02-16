@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupsController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,19 +16,16 @@ use App\Http\Controllers\GroupsController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('Dashboard');
+    return redirect()->route('Recettes');
 });
 
-Route::get('/template', function () {
-    return view('template');
-});
-
-Route::get('/Dashboard', [DashboardController::class, 'index'])->name('Dashboard');
-Route::get('/Groups', [GroupsController::class, 'index'])->name('Groups');;
-Route::get('/Recettes', [\App\Http\Controllers\RecettesController::class, 'index'])->name('Recettes');
-Route::get('/Ingredients', [\App\Http\Controllers\IngredientsController::class, 'index'])->name('Ingredients');;
-Route::get('/Inventaire', [\App\Http\Controllers\InventaireController::class, 'index'])->name('Inventaire');;
 
 
-Route::get('/Settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('Settings');
+Route::get('/Recettes', \App\Http\Livewire\Recettes\Recettes::class)->name('Recettes')->middleware('auth');
+Route::get('/Ingredients', \App\Http\Livewire\Elements\Elements::class)->name('Ingredients')->middleware('auth');
+Route::get('/Inventaire', \App\Http\Livewire\Inventaire\Inventaire::class)->name('Inventaire')->middleware('auth');
 
+
+Route::get('/register' , App\Http\Livewire\Register::class)->name('register');
+Route::get('/login' , App\Http\Livewire\Login::class)->name('login');
+Route::get('/logout' , App\Http\Livewire\Logout::class)->name('logout');
