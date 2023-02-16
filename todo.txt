@@ -1,0 +1,49 @@
+
+#0
+Etablir une liste d'ingredient predifini pour tous les users
+Nom , Prix , Unit ,Calorie,  Photo(facultatif)
+
+une recette peut etre partageable ou pas , afin de l'ajouter dans le catalogue des recettes proposées.....
+
+- la possibilité de noter les recettes.
+
+
+#1
+- Ne pas interdire les duplicate, plutot proposer un autre nom.
+Ex : (omelette)
+
+Si on ecrit omelette -> on propose omelette_1 ..
+
+
+
+
+
+#2
+- chaque utilisateur peut creer un groupe : 
+	- peut inviter des utilisateurs
+	- peut ajouter/modifier le FPlanning du groupe
+	- gerer les droits du groupe
+
+
+
+#3
+Le partage d'inventaire
+
+- un utilisateur peut choisir de partager une partie/all de son inventaire avec un/s groupes.
+- peut notifier un groupe concernant son partage. (afin que les autres puisse creer des recettes par exemple)
+
+
+
+#4 ajouter DateLimiteConsommation a tous les element de l'inventaire.
+
+
+#5
+Lier la liste des courses avec les drives a proximité
+
+
+#6
+classer les ingredients selon le nombre d'utilisation.
+
+#7
+Ajouter la liste des courses sous la rubrique Inventaire -> Liste des courses 
+la liste de courses peut etre trier selon une periode ou jour. (periode/jour des recettes)

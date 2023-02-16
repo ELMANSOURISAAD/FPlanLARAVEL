@@ -6,17 +6,43 @@ a {
   text-decoration: none; /* no underline */
 }
 body {
+    display: flex;
   font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   font-size: 16px;
   box-sizing: border-box;
+
+    background: -webkit-linear-gradient(to top, #BDDABF , #D6E8D7); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #BDDABF , #D6E8D7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.mybutton{
+    color: #fff;
+    background: #222A23;
+    font-size: 1em;
+    font-weight: bold;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: .2s ease-in;
+    cursor: pointer;
+}
+.mybutton:hover{
+    background: #C5DFC7;
+}
+.backcolor {
+    background-color: #F7FAF7;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 25px;
+
+    padding: 10px;
 }
 
 .container {
   margin: 50px;
   height: 100vh;
-
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -38,10 +64,11 @@ body {
 
 /* HEADER */
 .Header {
+
   grid-area: Header;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 .form_dates{
   width: 60%;
@@ -168,13 +195,7 @@ input[type="date"]{
   gap: 50px;
 }
 
-.backcolor {
-  background-color: #e5e5e5;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
-    padding: 10px;
-}
 
 .icone {
   -webkit-transition: -webkit-transform 0.8s ease-in-out;

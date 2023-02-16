@@ -6,6 +6,5 @@
         <input type="date" name="to_date" id="to_date" />
         <div class="icone"><i class="fa-solid fa-arrows-rotate"></i></div>
     </div>
-    <livewire:logout></livewire:logout>
 </div>
 
