@@ -15,9 +15,9 @@
     </div>
     <div class="menu showMenu">
         <ul class="flexlist flexgap">
-            <a href="{{ route('Recettes') }}"><li>
+            <a href="{{ route('Calendar') }}"><li>
 
-                    @if(Route::current()->getName() == 'Dashboard')
+                    @if(Route::current()->getName() == 'Calendar')
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
                     @endif
 
@@ -25,15 +25,6 @@
                     <i class="fa-solid fa-house"></i>
                 </li></a>
 
-
-
-            <a href="{{ route('Recettes') }}">
-                <li>
-                    @if(Route::current()->getName() == 'Groups')
-                        <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
-                    @endif
-                    &#x0023;GROUPS
-                    <i class="fa-solid fa-user-group"></i></li></a>
 
             <a href="{{ route('Recettes') }}"><li>
                     @if(Route::current()->getName() == 'Recettes')
@@ -50,13 +41,24 @@
 
 
 
-            <a href="{{ route('Inventaire') }}"><li>
-                    @if(Route::current()->getName() == 'Inventaire')
+            <a href="{{ route('Inventaires') }}"><li>
+                    @if(Route::current()->getName() == 'Inventaires')
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
                     @endif
                     &#x0023;INVENTAIRE <i class="fa-solid fa-basket-shopping"></i>
                 </li>
             </a>
+
+
+
+
+            <a href="{{ route('Inventaires') }}">
+                <li>
+                    @if(Route::current()->getName() == 'Groups')
+                        <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
+                    @endif
+                    &#x0023;GROUPS
+                    <i class="fa-solid fa-user-group"></i></li></a>
         </ul>
     </div>
 </div>
