@@ -9,7 +9,13 @@
             <label for="name">Ajouter un element :</label>
             <input type="text" wire:model.defer="name">
             <label for="name">Unité :</label>
-            <input type="text" wire:model.defer="unit">
+            <select name="" id="" wire:model.defer="unit">
+                <option value=""></option>
+                @foreach ($preunits as $unit)
+
+                    <option value="{{$unit}}">{{$unit}}</option>
+                @endforeach
+            </select>
             <label for="name">Prix :</label>
             <input type="number" step="0.01" wire:model.defer="price">
             <button type="submit">Save</button>

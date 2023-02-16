@@ -49,8 +49,8 @@
 
 
 
-            <a href="{{ route('Inventaire') }}"><li>
-                    @if(Route::current()->getName() == 'Inventaire')
+            <a href="{{ route('Inventaires') }}"><li>
+                    @if(Route::current()->getName() == 'Inventaires')
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
                     @endif
                     &#x0023;INVENTAIRE <i class="fa-solid fa-basket-shopping"></i>

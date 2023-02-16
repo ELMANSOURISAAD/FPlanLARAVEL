@@ -23,6 +23,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Element::class);
     }
+    public function Inventaires()
+    {
+        return $this->hasMany(Inventaire::class);
+    }
 
     public function SetPasswordAttribute($value){
     $this->attributes['password'] = bcrypt($value);

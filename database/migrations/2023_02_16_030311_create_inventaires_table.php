@@ -13,7 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::rename('users','user');
+        Schema::create('inventaires', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('unit');
+            $table->float('price');
+            $table->float('stock');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('inventaires');
     }
 };

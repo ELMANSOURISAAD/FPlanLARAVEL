@@ -16,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('Recettes');
+    return redirect()->route('Calendar');
 });
 
 
 
 Route::get('/Recettes', \App\Http\Livewire\Recettes\Recettes::class)->name('Recettes')->middleware('auth');
 Route::get('/Ingredients', \App\Http\Livewire\Elements\Elements::class)->name('Ingredients')->middleware('auth');
-Route::get('/Inventaire', \App\Http\Livewire\Inventaire\Inventaire::class)->name('Inventaire')->middleware('auth');
+Route::get('/Inventaires', \App\Http\Livewire\Inventaires\Inventaires::class)->name('Inventaires')->middleware('auth');
+Route::get('/Calendar', \App\Http\Livewire\Calendar\Calendar::class)->name('Calendar')->middleware('auth');
 
 
 Route::get('/register' , App\Http\Livewire\Register::class)->name('register');

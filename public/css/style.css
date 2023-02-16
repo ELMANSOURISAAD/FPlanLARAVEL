@@ -21,7 +21,6 @@ body {
     background: #222A23;
     font-size: 1em;
     font-weight: bold;
-
     outline: none;
     border: none;
     border-radius: 5px;
@@ -212,10 +211,12 @@ ul {
   padding: 0;
   list-style-type: none;
 }
-
+/*
 ul li:hover {
   text-decoration: underline;
 }
+*/
+
 .closeIcon {
   display: none;
 }
