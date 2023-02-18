@@ -21,7 +21,7 @@
                         <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
                     @endif
 
-                    &#x0023;HOME
+                    &#x0023;Calendar
                     <i class="fa-solid fa-house"></i>
                 </li></a>
 
