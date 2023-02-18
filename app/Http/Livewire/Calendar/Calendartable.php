@@ -11,28 +11,25 @@ use Livewire\Component;
 
 class Calendartable extends Component
 {
-    public $buttonVisible = 0;
+    public int  $buttonVisible ;
 
-    public function showAddButtonForDay($day)
+    public function showAddButtonForDay($dayint)
     {
-
-        $this->buttonVisible = $day;
+        $this->buttonVisible = $dayint;
     }
 
     public function render()
     {
-        $days = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
-        $date=Carbon::now();
-        $jour = $date->locale('fr')->dayName;
-
+        //$days = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
+        $date=Carbon::now()->locale('fr');
         $userId = Auth::id();
         $repas = User::find($userId)->repas;
         $inventaires = User::find($userId)->inventaires;
         return view('livewire.calendar.calendartable',[
             'repas' => $repas,
             'inventaires' => $inventaires,
-            'days' => $days,
             'carbonDate' => $date,
+
 
         ]);
     }

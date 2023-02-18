@@ -184,15 +184,17 @@
                 </ul>
                 <ul class="weekdays">
 
+                    <li class="currentDay">
+                        {{$carbonDate->locale('fr')->dayName}}
+                    </li>
+                    @for ($i = 0; $i < 6; $i++)
 
-                    @foreach ($days as $day)
-                        @if($day == $carbonDate->locale('fr')->dayName)
-                            <li class="currentDay">{{$day}}</li>
-                        @else
-                            <li>{{$day}} </li>
-                        @endif
-                    @endforeach
+                        <li>
+                            {{$carbonDate->addDays(1)->dayName}}
+                        </li>
 
+                    @endfor
+                    <?php $carbonDate->addDays(-6); ?>
 
 
                 </ul>
@@ -200,22 +202,24 @@
                 <ul class="days">
 
                         <li>
-                            <ul style="list-style: square;"><li >&#9632; Repas 1 &#10003;</li><li >&#9632; Repas 2</li></ul>
-                            <button class="buttona"  wire:click="showAddButtonForDay('{{\Carbon\Carbon::now()->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
-                            @if($buttonVisible == \Carbon\Carbon::now()->dayOfYear)
-                                <livewire:calendar.make-repas-for-day :day="$day" :key="time()"/>
+                            <livewire:calendar.list-repas-for-day :day="$carbonDate"/>
+                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
+                            @if($buttonVisible == $carbonDate->dayOfYear)
+                                <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
                             @endif
                         </li>
 
-                    @for ($i = 1; $i < 6; $i++)
+                    @for ($i = 0; $i < 6; $i++)
                         <li>
-                            <ul style="list-style: square;"><li >&#9632; Repas 1 &#10003;</li><li >&#9632; Repas 2</li></ul>
-                            <button class="buttona"  wire:click="showAddButtonForDay('{{(\Carbon\Carbon::now()->dayOfYear) + $i }}')" ><i class="fa-duotone fa-plus" ></i></button>
-                            @if($buttonVisible == (\Carbon\Carbon::now()->dayOfYear + 1))
-                                <livewire:calendar.make-repas-for-day :day="$i" :key="time()"/>
+                            <livewire:calendar.list-repas-for-day :day="$carbonDate->addDays(1)" :key="time().$carbonDate"/>
+                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
+                            @if($buttonVisible == $carbonDate->dayOfYear)
+                                <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
                             @endif
                         </li>
                     @endfor
+
+
 
 
                 </ul>
