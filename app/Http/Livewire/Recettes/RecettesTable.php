@@ -91,11 +91,13 @@ class RecettesTable extends Component
 
     public function EditThis(int $id)
     {
+        $this->reset('editIngredientsId');
         $this->editId = $id;
     }
 
     public function editIngredientsId(int $id)
     {
+        $this->reset('editId');
         $this->editIngredientsId = $id;
     }
 

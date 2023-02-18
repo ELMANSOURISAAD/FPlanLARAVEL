@@ -24,7 +24,7 @@
                 <th></th>
                 <th scope="col" wire:click="setOrderField('name')">Nom</th>
                 <th scope="col">Coût</th>
-                <th scope="col">CreatedAt</th>
+                <th scope="col">Date de creation</th>
                 <th scope="col">ACTIONS</th>
             </tr>
             </thead>
@@ -37,25 +37,25 @@
                     <td data-label="Coût">{{ $recette->price }} &#8364;</td>
                     <td data-label="CreatedAt">{{ $recette->created_at }}</td>
                     <td data-label="Actions">
-                        <button type="button"><i class="far fa-eye"></i></button>
-                        <button type="button" wire:click="EditThis('{{ $recette -> id }}')"><i class="fas fa-edit"></i></button>
-                        <button type="button" wire:click="editIngredientsId('{{ $recette -> id }}')"><i class="fas fa-gear" title="voir les ingredients"></i></button>
+                        <button type="button" class="mybutton"><i class="far fa-eye"></i></button>
+                        <button type="button" class="mybutton" wire:click="EditThis('{{ $recette -> id }}')"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="mybutton" wire:click="editIngredientsId('{{ $recette -> id }}')"><i class="fas fa-gear" title="voir les ingredients"></i></button>
                     </td>
                 </tr>
 
+                @if( $editIngredientsId === $recette -> id )
 
+                    <livewire:recettes.recette-ingredients :recette="$recette" :key="time().$recette->id"/>
+
+                @endif
             @if( $editId === $recette -> id )
 
                 <livewire:recettes.recette-form :recette="$recette" :key="time().$recette->id"/>
 
 
             @endif
-            @if( $editIngredientsId === $recette -> id )
-
-             <livewire:recettes.recette-ingredients :recette="$recette" :key="time().$recette->id"/>
 
 
-            @endif
 
 
             @endforeach

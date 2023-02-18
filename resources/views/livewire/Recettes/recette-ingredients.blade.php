@@ -25,7 +25,7 @@
                     <div style="  background: #eee; box-shadow: 0 1px 1px rgb(0 0 0 / 0.2);;height:20px;">
                     {{$element->name}} x {{$element->pivot->quantity}}
                     </div>
-                    <i class="fa-solid fa-xmark" wire:click="DeleteIngredientFromRecette('{{$element -> id}}')" style="color:red;font-size: 10px"></i>
+                    <i class="fa-solid fa-xmark" wire:click="DeleteIngredientFromRecette('{{$element -> id}}')" style="cursor: grab;color:red;font-size: 10px"></i>
                 @endforeach
         </div>
 </td>

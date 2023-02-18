@@ -3,7 +3,7 @@
 
     <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;width: 100%;color:#222A23">
 
-        <button x-show="selection.length > 0" x-on:click="$wire.deleteElements(selection)" > Supprimer </button>
+        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteElements(selection)" > Supprimer </button>
 
         <form action="" wire:submit.prevent="add">
             <label for="name">Ajouter un element :</label>
@@ -18,7 +18,7 @@
             </select>
             <label for="name">Prix :</label>
             <input type="number" step="0.01" wire:model.defer="price">
-            <button type="submit">Save</button>
+            <button type="submit" class="mybutton">Save</button>
             @error("element.name")
             {{$message}}
             @enderror
@@ -55,8 +55,8 @@
                     <td data-label="Coût">{{ $element->price }} &#8364;</td>
                     <td data-label="CreatedAt">{{ $element->created_at }}</td>
                     <td data-label="Actions">
-                        <button type="button"><i class="far fa-eye"></i></button>
-                        <button type="button" wire:click="EditThis('{{ $element -> id }}')"><i class="fas fa-edit"></i></button>
+                        <button class="mybutton" type="button"><i class="far fa-eye"></i></button>
+                        <button class="mybutton" type="button" wire:click="EditThis('{{ $element -> id }}')"><i class="fas fa-edit"></i></button>
                     </td>
                 </tr>
 

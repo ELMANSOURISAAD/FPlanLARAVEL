@@ -9,6 +9,8 @@ class Recettes extends Component
 
     public function render()
     {
+
+
         return view('livewire.recettes.recettes');
     }
 }

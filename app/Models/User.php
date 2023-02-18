@@ -27,6 +27,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Inventaire::class);
     }
+    public function Repas()
+    {
+        return $this->hasMany(Repas::class);
+    }
 
     public function SetPasswordAttribute($value){
     $this->attributes['password'] = bcrypt($value);

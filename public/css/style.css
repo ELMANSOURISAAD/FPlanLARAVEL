@@ -23,7 +23,7 @@ body {
     font-weight: bold;
     outline: none;
     border: none;
-    border-radius: 5px;
+    border-radius: 2px;
     transition: .2s ease-in;
     cursor: pointer;
 }

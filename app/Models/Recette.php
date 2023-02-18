@@ -39,4 +39,9 @@ class Recette extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function Repas()
+    {
+        return $this->hasMany(Repas::class);
+    }
+
 }
