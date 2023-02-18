@@ -1,4 +1,4 @@
-
+make model (repas) -> user_id, recette_id, date
 #0
 Etablir une liste d'ingredient predifini pour tous les users
 Nom , Prix , Unit ,Calorie,  Photo(facultatif)

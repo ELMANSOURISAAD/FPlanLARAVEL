@@ -10,6 +10,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "livewire-ui/modal": "^1.0",
         "livewire/livewire": "^2.11",
         "wire-elements/modal": "^1.0",
         "wireui/wireui": "^1.17"
