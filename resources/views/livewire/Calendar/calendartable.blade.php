@@ -103,7 +103,7 @@
             .days li{
                 font-size: 13px;
                 text-align: justify;
-                height: 100%;
+
                 display: flex;
                 flex-direction: column;
                 align-content: center;
@@ -159,16 +159,11 @@
                 }
             }
         </style>
-
-
-        @foreach ($inventaires as $inventaire)
-
-            {{$inventaire->stock}}
-            {{$inventaire->name}}
-
-
-        @endforeach
-
+            <div style="width:100%;display:flex;justify-content: space-around">
+                <div>LEFT</div>
+                <div> MIDDLE </div>
+                <div>RIGHT</div>
+            </div>
             <div id="month-calendar">
 
                 <ul class="month">
@@ -201,12 +196,20 @@
 
                 <ul class="days">
 
-                        <li>
-                            <livewire:calendar.list-repas-for-day :day="$carbonDate"/>
-                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
+                        <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+                            <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
+
+
+                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                                <i class="fa-duotone fa-plus" ></i>
+                            </button>
+
+
                             @if($buttonVisible == $carbonDate->dayOfYear)
-                                <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
+                            <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
                             @endif
+
+
                         </li>
 
                     @for ($i = 0; $i < 6; $i++)

@@ -103,7 +103,7 @@ class Inventairestable extends Component
         $inventaires = User::find($userId)->inventaires()
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
-            ->simplePaginate(2);
+            ->simplePaginate(4);
 
         return view('livewire.inventaires.inventairestable', [
             'inventaires' => $inventaires,

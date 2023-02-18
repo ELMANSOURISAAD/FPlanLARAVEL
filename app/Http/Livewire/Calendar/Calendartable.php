@@ -11,11 +11,21 @@ use Livewire\Component;
 
 class Calendartable extends Component
 {
-    public int  $buttonVisible ;
+    public int  $buttonVisible = 0 ;
+    protected $listeners = [
+        'RepasAdded' => 'OnRepasAdded'
+    ];
+
 
     public function showAddButtonForDay($dayint)
     {
         $this->buttonVisible = $dayint;
+    }
+
+    public function OnRepasAdded()
+    {
+
+        $this->reset('buttonVisible');
     }
 
     public function render()
