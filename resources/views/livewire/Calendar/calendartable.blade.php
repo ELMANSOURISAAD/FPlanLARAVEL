@@ -159,33 +159,31 @@
                 }
             }
         </style>
-            <div style="width:100%;display:flex;justify-content: space-around">
-                <div>LEFT</div>
-                <div> MIDDLE </div>
-                <div>RIGHT</div>
-            </div>
-            <div id="month-calendar">
 
+            <div id="month-calendar">
+                <?php $carbonDate = \Carbon\Carbon::parse($carbonDate) ?>
                 <ul class="month">
-                    <li class="prev"><i class="fas fa-angle-double-left"></i></li>
-                    <li class="next"><i class="fas fa-angle-double-right"></i></li>
+                    <li wire:click="prevv('{{$carbonDate->locale('fr')}}')" class="prev"><i class="fas fa-angle-double-left"></i></li>
+                    <li wire:click="nextt('{{$carbonDate->locale('fr')}}')" class="next"><i class="fas fa-angle-double-right"></i></li>
                     <div style="display: flex;justify-content: center;gap:1em">
-                        <li class="day-name">16</li>
-                        <li class="month-name">Fevrier</li>
-                        <li class="year-name">2023</li>
+                        <li class="day-name">{{$carbonDate->locale('fr')->day}}</li>
+                        <li class="month-name">{{$carbonDate->locale('fr')->monthName}}</li>
+                        <li class="year-name">{{$carbonDate->locale('fr')->year}}</li>
                     </div>
 
 
                 </ul>
                 <ul class="weekdays">
 
-                    <li class="currentDay">
-                        {{$carbonDate->locale('fr')->dayName}}
+                    <li @if(\Carbon\Carbon::now()->dayOfYear === $carbonDate->dayOfYear)
+                            class="currentDay"
+                    @endif>
+                        {{$carbonDate->dayName}} {{$carbonDate->day}} {{$carbonDate->shortMonthName}}
                     </li>
                     @for ($i = 0; $i < 6; $i++)
 
                         <li>
-                            {{$carbonDate->addDays(1)->dayName}}
+                            {{$carbonDate->addDays(1)->dayName}} {{$carbonDate->day}} {{$carbonDate->shortMonthName}}
                         </li>
 
                     @endfor
@@ -199,15 +197,15 @@
                         <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
                             <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
 
-
+                            @if($buttonVisible == $carbonDate->dayOfYear)
+                                <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
+                            @endif
                             <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
                                 <i class="fa-duotone fa-plus" ></i>
                             </button>
 
 
-                            @if($buttonVisible == $carbonDate->dayOfYear)
-                            <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
-                            @endif
+
 
 
                         </li>
@@ -215,19 +213,21 @@
                     @for ($i = 0; $i < 6; $i++)
                         <li>
                             <livewire:calendar.list-repas-for-day :day="$carbonDate->addDays(1)" :key="time().$carbonDate"/>
-                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
                             @if($buttonVisible == $carbonDate->dayOfYear)
                                 <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
                             @endif
+                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
+
                         </li>
                     @endfor
 
-
-
-
                 </ul>
             </div>
-
+        <div style="width:100%;display:flex;justify-content: space-around">
+            <div>LEFT</div>
+            <div> MIDDLE </div>
+            <div>RIGHT</div>
+        </div>
 
 
 
