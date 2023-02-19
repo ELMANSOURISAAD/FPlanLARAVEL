@@ -28,4 +28,21 @@
 ````bash
 > php artisan db:seed
 ````
+
+#### ✨ Watch assets & Run the server (in separated terminal):
+
+````bash
+> npm run watch
+> php artisan serve
+````
+
 ## HAPPY CODING 🚀
+
+### Contributors
+
+This project exists thanks to all the people who volunteer their time to contribute!
+
+<a href="https://github.com/ELMANSOURISAAD/FPlanLARAVEL/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ELMANSOURISAAD/FPlanLARAVEL" />
+</a>
+
