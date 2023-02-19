@@ -41,7 +41,7 @@
                 <th scope="col" wire:click="setOrderField('name')">Nom</th>
                 <th scope="col">Unit</th>
                 <th scope="col">Prix</th>
-                <th scope="col">CreatedAt</th>
+
                 <th scope="col">ACTIONS</th>
             </tr>
             </thead>
@@ -53,7 +53,7 @@
                     <td data-label="Nom"><a href="#">{{ $element->name }}</a></td>
                     <td data-label="Unit"><a href="#">{{ $element->unit }}</a></td>
                     <td data-label="Coût">{{ $element->price }} &#8364;</td>
-                    <td data-label="CreatedAt">{{ $element->created_at }}</td>
+
                     <td data-label="Actions">
                         <button class="mybutton" type="button"><i class="far fa-eye"></i></button>
                         <button class="mybutton" type="button" wire:click="EditThis('{{ $element -> id }}')"><i class="fas fa-edit"></i></button>

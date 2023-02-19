@@ -12,14 +12,25 @@ use Livewire\Component;
 class Calendartable extends Component
 {
     public int  $buttonVisible = 0 ;
+
+    public string $carbonDate = '';
     protected $listeners = [
         'RepasAdded' => 'OnRepasAdded'
     ];
 
-
     public function showAddButtonForDay($dayint)
     {
         $this->buttonVisible = $dayint;
+    }
+    public function nextt($date)
+    {
+        $date = Carbon::parse($date);
+        $this->carbonDate = $date->addDays(7)->locale('fr');
+    }
+    public function prevv($date)
+    {
+        $date = Carbon::parse($date);
+        $this->carbonDate = $date->addDays(-7)->locale('fr');
     }
 
     public function OnRepasAdded()
@@ -38,9 +49,8 @@ class Calendartable extends Component
         return view('livewire.calendar.calendartable',[
             'repas' => $repas,
             'inventaires' => $inventaires,
-            'carbonDate' => $date,
-
-
+            'carbonDate' => $this->carbonDate,
         ]);
+
     }
 }
