@@ -8,11 +8,12 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     @livewireStyles
 
 </head>
 <body>
-<div class="container">
+<div class="flex justify-center items-center w-screen h-screen bg-gradient-to-tl from-slate-100 via-sky-300 to-sky-300">
 
 
 
