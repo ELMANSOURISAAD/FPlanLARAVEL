@@ -1,10 +1,5 @@
-<div style="height: 80%;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;">
-    <ul >
+<div>
+    <ul>
     @forelse ($repas as $repass)
         @if($repass->recette)
         <li style="display: block;">&#9632; {{$repass->recette->name}}
@@ -23,11 +18,11 @@
         @endforeach
         <div>
             @forelse ($MissingInventory as $name=>$quantity)
-                <li style="color:tomato" >{{$name}} -> {{$quantity}} </li>
+                <li style="color:tomato" >{{$name}} -> {{$quantity}} Grammes </li>
 
             @empty
             @endforelse
         </div>
     </ul>
-
 </div>
+

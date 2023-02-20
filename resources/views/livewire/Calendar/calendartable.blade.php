@@ -2,14 +2,8 @@
     <div class="main-wrapper first-data backcolor">
         <style>
             .container {
-                width:100%;
-                margin: 50px;
-                height: 100vh;
-                display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                grid-template-rows: repeat(10, 1fr);
-                gap: 30px;
-                grid-auto-flow: row;
+
+
                 grid-template-areas:
     "left Header Header Header Header"
     "left Header Header Header Header"

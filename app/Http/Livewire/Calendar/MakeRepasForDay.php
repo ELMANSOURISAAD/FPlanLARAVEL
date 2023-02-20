@@ -15,6 +15,9 @@ class MakeRepasForDay extends Component
     public string $day = '0';
     public int $recette_id = 0;
 
+
+    protected $listeners = ['parentIsCalling' => 'AjouterRepasDay'];
+
     protected $rules = [
         'recette_id' => 'required|int|min:1',
     ];

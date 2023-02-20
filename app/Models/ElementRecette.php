@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ElementRecette extends Model
 {
     use HasFactory;
+    protected $table = 'element_recette'; // to fix labeling issue
 
 
     public function recettes()
