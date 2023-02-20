@@ -11,29 +11,30 @@
 `````bash
 > cp .env.example .env
 `````
-#### ➕ Install project dependencies :
+
+#### 🗃️ Start the docker container:
 
 ````bash
-> npm install && composer install
+> ./docky up -d
 ````
-
-#### 🗃️ Start the MYSQL container:
-
+#### ➕ Install project dependencies :
 ````bash
-> docker-compose up -d
+> ./docky npm install
+
+> ./docky composer install
 ````
 
 #### 🏗️ Run Seeds to structure and fill the database :
 
 ````bash
-> php artisan db:seed
+> ./docky php artisan db:seed
 ````
 
 #### ✨ Watch assets & Run the server (in separated terminal):
 
 ````bash
-> npm run watch
-> php artisan serve
+> ./docky npm run watch
+> ./docky php artisan serve
 ````
 
 ## HAPPY CODING 🚀
