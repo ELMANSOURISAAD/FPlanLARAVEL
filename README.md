@@ -30,11 +30,10 @@
 > ./docky php artisan db:seed
 ````
 
-#### ✨ Watch assets & Run the server (in separated terminal):
+#### ✨ Watch assets :
 
 ````bash
 > ./docky npm run watch
-> ./docky php artisan serve
 ````
 
 ## HAPPY CODING 🚀
