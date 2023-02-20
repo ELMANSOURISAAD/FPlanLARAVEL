@@ -14,6 +14,7 @@ class RecetteIngredients extends Component
     public Recette $recette;
     public  $element_toadd = 0;
     public  $quantity_toadd = 0;
+    public  $unitFront = "";
 
 
     protected $rules = [
@@ -38,6 +39,11 @@ class RecetteIngredients extends Component
         $this->emit('refreshRecettes');
         session()->flash('ElementDeleted', 'Ingredient successfully deleted.');
 
+    }
+    public function updateFrontUnit(){
+        $element = Element::find($this->element_toadd);
+
+        $this->unitFront = $element->unit;
     }
     public function addIngredientToRecette()
     {

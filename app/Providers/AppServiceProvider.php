@@ -30,23 +30,20 @@ class AppServiceProvider extends ServiceProvider
             "grammes",
             "kilogrammes",
             "millilitres",
+            "centilitres",
             "litres",
             "cuillères à soupe",
             "cuillères à café",
             "verres",
             "tasses",
             "pincées",
-            "pots",
-            "tranches",
-            "feuilles",
-            "branches",
-            "gousses",
-            "noix"
+            "carres", // for chocolat
         );
         $stock_measurements = array(
             "grammes",
             "kilogrammes",
             "millilitres",
+            "centilitres",
             "litres",
             "gousses"
         );
