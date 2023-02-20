@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `elements`
 -- Structure de la table `element_recette`
 --
 
-DROP TABLE IF EXISTS `element_recettes`;
-CREATE TABLE IF NOT EXISTS `element_recettes`
+DROP TABLE IF EXISTS `element_recette`;
+CREATE TABLE IF NOT EXISTS `element_recette`
 (
     `id`         bigint UNSIGNED NOT NULL AUTO_INCREMENT,
     `recette_id` bigint UNSIGNED NOT NULL,
