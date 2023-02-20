@@ -1,5 +1,19 @@
 version: '3.3'
 services:
+    app:
+        container_name: ${COMPOSE_PROJECT_NAME}_${CONTAINER_APP_NAME}
+        build:
+            context: docker
+            dockerfile: Dockerfile
+            args:
+                USER: ${CONTAINER_USER_NAME}
+                GROUP: ${CONTAINER_GROUP_NAME}
+                UID: ${LOCAL_UID}
+                GID: ${LOCAL_GID}
+        ports:
+            - ${FORWARDED_APP_PORT:-80}:80
+        volumes:
+            - ./:/var/www/app
     mysql:
         image: mysql/mysql-server:8.0
         restart: always
