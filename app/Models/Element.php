@@ -13,12 +13,12 @@ class Element extends Model
     public function recettes()
     {
         return $this->belongsToMany(Recette::class)
-            ->withPivot('quantity');;
+            ->withPivot('quantity');
     }
 
     public function element_recette()
     {
-        return $this->hasMany(ElementsRecettes::class);
+        return $this->hasMany(ElementRecette::class);
     }
 
     public function user()

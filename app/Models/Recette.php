@@ -31,7 +31,7 @@ class Recette extends Model
 
     public function element_recette()
     {
-        return $this->hasMany(ElementsRecettes::class);
+        return $this->hasMany(ElementRecette::class);
     }
 
     public function user()

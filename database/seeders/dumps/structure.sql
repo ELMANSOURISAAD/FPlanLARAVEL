@@ -43,23 +43,14 @@ CREATE TABLE IF NOT EXISTS `elements`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `elements`
---
-
-INSERT INTO `elements` (`id`, `name`, `unit`, `created_at`, `updated_at`, `price`, `user_id`)
-VALUES (36, 'machin', 'kilogrammes', '2023-02-19 00:07:57', '2023-02-19 00:07:57', 0.04, 7),
-       (37, 'Semoule', 'kilogrammes', '2023-02-19 00:24:14', '2023-02-19 00:24:14', 56, 7),
-       (38, 'Agneau', 'kilogrammes', '2023-02-19 00:24:20', '2023-02-19 00:24:20', 4, 7);
-
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `element_recette`
 --
 
-DROP TABLE IF EXISTS `element_recette`;
-CREATE TABLE IF NOT EXISTS `element_recette`
+DROP TABLE IF EXISTS `element_recettes`;
+CREATE TABLE IF NOT EXISTS `element_recettes`
 (
     `id`         bigint UNSIGNED NOT NULL AUTO_INCREMENT,
     `recette_id` bigint UNSIGNED NOT NULL,
@@ -74,15 +65,6 @@ CREATE TABLE IF NOT EXISTS `element_recette`
   AUTO_INCREMENT = 112
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `element_recette`
---
-
-INSERT INTO `element_recette` (`id`, `recette_id`, `element_id`, `created_at`, `updated_at`, `quantity`)
-VALUES (110, 20, 38, NULL, NULL, 1),
-       (111, 20, 37, NULL, NULL, 2),
-       (108, 20, 36, NULL, NULL, 0.05);
 
 -- --------------------------------------------------------
 
@@ -127,17 +109,6 @@ CREATE TABLE IF NOT EXISTS `inventaires`
   AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `inventaires`
---
-
-INSERT INTO `inventaires` (`id`, `name`, `unit`, `stock`, `created_at`, `updated_at`, `user_id`)
-VALUES (5, 'poivre', 'kilogrammes', 1.00, '2023-02-17 20:07:19', '2023-02-17 20:07:19', 9),
-       (12, 'machin', 'millilitres', 0.02, '2023-02-19 00:08:09', '2023-02-19 00:08:09', 7),
-       (13, 'Agneau', 'grammes', 6.00, '2023-02-19 00:24:44', '2023-02-19 00:24:44', 7);
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `migrations`
@@ -236,13 +207,6 @@ CREATE TABLE IF NOT EXISTS `recettes`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `recettes`
---
-
-INSERT INTO `recettes` (`id`, `name`, `created_at`, `updated_at`, `user_id`)
-VALUES (20, 'couscous', '2023-02-19 00:16:17', '2023-02-19 00:16:17', 7);
-
 -- --------------------------------------------------------
 
 --
@@ -263,13 +227,6 @@ CREATE TABLE IF NOT EXISTS `repas`
   AUTO_INCREMENT = 68
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `repas`
---
-
-INSERT INTO `repas` (`id`, `created_at`, `updated_at`, `date_repas`, `user_id`, `recette_id`)
-VALUES (66, '2023-02-19 00:25:10', '2023-02-19 00:25:10', '2023-02-19', 7, 20);
 
 -- --------------------------------------------------------
 
@@ -293,17 +250,6 @@ CREATE TABLE IF NOT EXISTS `user`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `user`
---
-
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`)
-VALUES (9, 'S', 'd@d.d', '$2y$10$/GNMlU9nfHh5LGQf.b1DiO8LVcSTs.mSgfRaYal.wboSAtbkDxrbm', '2023-02-17 20:06:42',
-        '2023-02-17 20:06:42'),
-       (8, 'sasasasa', 'a@a.frs', '$2y$10$JokNCwyGdWvxb1/ozjuL8ugwznBp6xg8b9Sa0T8JoIld.v9EXKAEq', '2023-02-16 01:39:03',
-        '2023-02-16 01:39:03'),
-       (7, 'saaad', 'a@a.fr', '$2y$10$6.ghITc7LVbOReT2CFErMOpyIfysgfqigoNLk5AXhkD/o1VtVq7S6', '2023-02-15 20:57:34',
-        '2023-02-15 20:57:34');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
