@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div class="flex justify-center items-center w-screen h-screen bg-gradient-to-tl from-slate-100 via-sky-300 to-sky-300">
+<div class="container">
 
 
 
