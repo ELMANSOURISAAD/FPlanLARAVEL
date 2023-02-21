@@ -1,4 +1,4 @@
-
+<div class="container">
     <div class="main" >
         <input type="checkbox" id="chk" aria-hidden="true">
 
@@ -22,6 +22,7 @@
 
 
     </div>
+</div>
     <style>
     .container{width:100%; height:100%;display: flex;justify-content: center;flex-direction: row}
         .main{
