@@ -173,6 +173,7 @@ class ListRepasForDay extends Component
             $result = $grams / $conversions[strtolower($ingredient)][strtolower($end_unit)];
 
             return $result;
+
         } else {
             return false;
         }
@@ -219,7 +220,7 @@ class ListRepasForDay extends Component
     }
     public function MissingInventory($adate)
     {
-
+        $b = 0;
         $tobuy = [];
         $disponibles = [];
         $besoins = [];
@@ -229,14 +230,18 @@ class ListRepasForDay extends Component
         foreach ($inventaires as $inventaire)
         {
 
-
+            $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
+            $disponibles[$inventaire->name]['quantity'] = 0;
+            $disponibles[$inventaire->name]['name'] = $inventaire->name;
             if (array_key_exists($inventaire->name, $disponibles))
             {
-                $disponibles[$inventaire->name] += $this->convertIngredient($inventaire->name,$inventaire->stock,$inventaire->unit,'grammes');
+                $disponibles[$inventaire->name]['quantity'] += $inventaire->stock;
+
             }
             else
             {
-                $disponibles[$inventaire->name] = $this->convertIngredient($inventaire->name,$inventaire->stock,$inventaire->unit,'grammes');
+                $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
+
             }
 
         }
@@ -254,37 +259,46 @@ class ListRepasForDay extends Component
                 // convert to gramme
                 // convertIngredient("poivre", 1, "pincée", "cuillères à café")
 
+                $besoins[$element->name]['unit'] = $element->unit;
 
+                $besoins[$element->name]['name'] = $element->name;
                 if (array_key_exists($element->name, $besoins))
                 {
-                    $besoins[$element->name] += $this->convertIngredient($element->name,$element->pivot->quantity,$element->unit,'grammes');
+
+                    $b +=  $element->pivot->quantity;
+
                 }
                 else
                 {
-                    $besoins[$element->name] = $this->convertIngredient($element->name,$element->pivot->quantity,$element->unit,'grammes');
+                    $b  = $element->pivot->quantity;
                 }
+                $besoins[$element->name]['quantity'] = $b;
             }
             }
         }
         // $besoins =  ["Semoule" => 5.0]
 
-        foreach ($besoins as $nom_besoin => $quantity_besoin)
-        {
-            // convert to gramme
 
-            // end converstion
+
+        foreach ($besoins as $nom_besoin => $besoin_data)
+        {
+
             if (array_key_exists($nom_besoin, $disponibles))
             {
-                if ($disponibles[$nom_besoin]<$quantity_besoin){
-                    $tobuy[$nom_besoin] = $quantity_besoin - $disponibles[$nom_besoin];
-                    //  converting to Kgrams
-                    $tobuy[$nom_besoin] =  (float)(1/1000) *  (float)$tobuy[$nom_besoin];
+
+            if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
+
+                    $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes") - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
+                    $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
+                    $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
                 }
 
             }
             else
             {
-                $tobuy[$nom_besoin]= $quantity_besoin;
+                $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
+                $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
+                $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
 
             }
 

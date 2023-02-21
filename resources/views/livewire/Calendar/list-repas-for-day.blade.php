@@ -18,7 +18,7 @@
         @endforeach
         <div>
             @forelse ($MissingInventory as $name=>$quantity)
-                <li style="color:tomato" >{{$name}} -> {{$quantity}} Grammes </li>
+                <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
 
             @empty
             @endforelse

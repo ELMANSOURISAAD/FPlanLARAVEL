@@ -23,7 +23,7 @@
 
                 @foreach ($recette->elements()->get() as $element)
                     <div style="  background: #eee; box-shadow: 0 1px 1px rgb(0 0 0 / 0.2);;height:20px;">
-                    {{$element->name}} x {{$element->pivot->quantity}}
+                    {{$element->name}} - {{$element->pivot->quantity}} {{$element->unit}}
                     </div>
                     <i class="fa-solid fa-xmark" wire:click="DeleteIngredientFromRecette('{{$element -> id}}')" style="cursor: grab;color:red;font-size: 10px"></i>
                 @endforeach
