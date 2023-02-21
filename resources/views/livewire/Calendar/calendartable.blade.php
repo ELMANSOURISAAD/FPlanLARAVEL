@@ -188,7 +188,8 @@
 
                 <ul class="days">
 
-                        <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+
+                    <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
                             <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
 
                             @if($buttonVisible == $carbonDate->dayOfYear)

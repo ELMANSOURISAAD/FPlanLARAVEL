@@ -4,6 +4,7 @@
         <div class="panel" style="display:flex;flex-direction: row;justify-content: space-around;    width: 100%;color:#222A23;">
 
         <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>
+            <button class="mybutton" onclick="Livewire.emit('openModal', 'recettes.suggestions')"><i class="fa-solid fa-file-import"></i> Importer des recettes</button>
 
         <form action="" wire:submit.prevent="add">
             <label for="name">Ajouter une recette :</label>
