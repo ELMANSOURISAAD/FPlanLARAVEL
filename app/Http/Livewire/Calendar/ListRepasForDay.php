@@ -15,20 +15,11 @@ class ListRepasForDay extends Component
 
 
     private function convertIngredient($ingredient, $amount, $start_unit, $end_unit) {
-        if($start_unit == "grammes" && $end_unit == "kilogrammes"){
-            // Convert to grams as the intermediate unit
-            $grams = $amount * 1;
-            // Convert from grams to the desired unit
-            $result = $grams / 1000;
-            return $result;
-        }
-        if($start_unit == "kilogrammes" && $end_unit == "grammes"){
-            // Convert to grams as the intermediate unit
-            $grams = $amount * 1000;
-            // Convert from grams to the desired unit
-            $result = $grams / 1;
-            return $result;
-        }
+        $easy_convertion = ["kilogrammes","grammes"];
+        
+      
+        
+        
         $conversions = array(
             "poivre" => array(
                 "grammes" => 1,
@@ -163,6 +154,24 @@ class ListRepasForDay extends Component
             ],
         );
 
+
+        // on ajoute dans le tableau si on peut calculer facilement regardless l'ingredient , ex: kg -> gram
+        if(in_array($start_unit,$easy_convertion) && in_array($end_unit,$easy_convertion))
+        {
+            
+            $temp = array(strtolower($ingredient) => array(
+                "grammes" => 1,
+                "kilogrammes" => 1000,
+                "litres" => 1,
+                "centilitres" => 0.01,
+                "millilitres" => 0.001,
+            ));
+            
+            $conversions = array_merge($conversions , $temp);
+            
+        }
+        
+
         // Check if ingredient is in the array and if both units are valid
         if (array_key_exists(strtolower($ingredient), $conversions) && array_key_exists(strtolower($start_unit), $conversions[strtolower($ingredient)]) && array_key_exists(strtolower($end_unit), $conversions[strtolower($ingredient)])) {
 
@@ -175,7 +184,8 @@ class ListRepasForDay extends Component
             return $result;
 
         } else {
-            return false;
+            dump("mabghach");
+            return "cant";
         }
     }
 
