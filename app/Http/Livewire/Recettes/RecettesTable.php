@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Recettes;
 
+use App\Models\ElementRecette;
 use App\Models\Recette;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -105,14 +106,15 @@ class RecettesTable extends Component
     public function render()
     {
         $userId = Auth::id();
-
+        $element_recette = Recette::has('elements')->get();
         $recettes = User::find($userId)->recettes()
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
-            ->simplePaginate(4);
+            ->simplePaginate(5);
 
         return view('livewire.recettes.recettes-table', [
             'recettes' => $recettes,
+            'recettes_withelements' => $element_recette,
         ]);
     }
 
