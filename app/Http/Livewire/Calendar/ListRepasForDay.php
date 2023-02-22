@@ -15,11 +15,9 @@ class ListRepasForDay extends Component
 
 
     private function convertIngredient($ingredient, $amount, $start_unit, $end_unit) {
-        $easy_convertion = ["kilogrammes","grammes"];
-        
-      
-        
-        
+        $easy_convertion = ["kilogrammes","grammes","litres","centilitres","millilitres"];
+
+                
         $conversions = array(
             "poivre" => array(
                 "grammes" => 1,
@@ -184,7 +182,7 @@ class ListRepasForDay extends Component
             return $result;
 
         } else {
-            dump("mabghach");
+            dump("STILL WORKING ON IT");
             return "cant";
         }
     }
