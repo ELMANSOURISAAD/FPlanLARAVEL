@@ -91,7 +91,7 @@ body {
 
   grid-area: left;
   flex-direction: column;
-  gap:150px;
+  
   display:flex;
  
 
@@ -191,7 +191,7 @@ input[type="date"]{
 }
 
 .flexgap {
-  gap: 50px;
+  gap: 1em;
 }
 
 
@@ -327,9 +327,7 @@ table th {
   transition: transform 0.5s;
 }
 
-.left{
-  gap:0px;
-}
+
 .days{
   display:none;
 }
