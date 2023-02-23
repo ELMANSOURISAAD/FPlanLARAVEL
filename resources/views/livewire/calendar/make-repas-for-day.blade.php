@@ -8,7 +8,7 @@
                         <option value="{{$recette->id}}">{{$recette->name}}</option>
                     @endforeach
                 </select>
-                <button class="myButton" wire:click="AjouterRepasDay('{{$day}}')"> Ajouter </button>
+                <button class="myButton" wire:click="AjouterRepasDay('{{$day}}')" wire:key="time().$carbonDate"> Ajouter </button>
             @else
                 Pas de recettes.
             @endif

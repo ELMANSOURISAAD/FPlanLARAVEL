@@ -1,4 +1,5 @@
 <div>
+    <div>
     <ul>
     @forelse ($repas as $repass)
         @if($repass->recette)
@@ -11,10 +12,12 @@
         <li style="color:#C0C0C0"> NO RECORDS </li>
     @endforelse
     </ul>
+    </div>
+
+    <div>
     <ul>
         @foreach ($stats as $name=>$stat)
             <li style="color:cornflowerblue" >{{$name}} : {{$stat}} &euro; </li>
-
         @endforeach
         <div>
             @forelse ($MissingInventory as $name=>$quantity)
@@ -24,5 +27,6 @@
             @endforelse
         </div>
     </ul>
+    </div>
 </div>
 

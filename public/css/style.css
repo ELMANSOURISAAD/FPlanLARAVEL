@@ -214,12 +214,14 @@ ul {
 
 ul li:hover {
       background-color: gold;
-  text-decoration: underline;
+
 }
 
-ul li:active {
+ul li.active {
 background-color: gold;
-text-decoration: underline;
+}
+.disabled{
+    pointer-events:none;
 }
 
 .closeIcon {
