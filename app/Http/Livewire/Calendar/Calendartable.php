@@ -15,7 +15,8 @@ class Calendartable extends Component
 
     public string $carbonDate = '';
     protected $listeners = [
-        'RepasAdded' => 'OnRepasAdded'
+        'RepasAdded' => 'OnRepasAdded',
+        'refreshComponent' => '$refresh'
     ];
 
     public array $currentselection = [];
@@ -308,13 +309,15 @@ public function mergeneeds($new)
 
         if(!in_array($date,$this->selected))
         {
-            $this->selected[$date] = $date;
+            $this->selected[] = $date;
             $date = Carbon::parse($date);
             $this->mergeneeds($this->MissingInventory($date));
         }
         else
         {
-            dump($this->selected);
+            $this->selected = [];
+            $this->currentselection = [];
+
         }
 
 

@@ -204,7 +204,7 @@
                         @if($buttonVisible == $carbonDate->dayOfYear)
                             <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
                         @endif
-                    <div style="width:80%;display:flex;flex-direction: column;gap:7px">
+                    <div style="width:80%;display:flex;flex-direction: row;gap:7px;align-items:space-around">
                         <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
                             <i class="fa-duotone fa-plus" ></i>
                         </button>
