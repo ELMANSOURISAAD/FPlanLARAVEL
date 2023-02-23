@@ -204,6 +204,7 @@ class ListRepasForDay extends Component
     public function DeleteRepasFromDay($id_repas)
     {
         Repas::destroy($id_repas);
+        $this->emit("RepasDeletedB");
     }
 
 
