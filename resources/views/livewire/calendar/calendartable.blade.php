@@ -189,7 +189,7 @@
                 <ul class="days">
 
 
-                    <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+                    <li wire:click="addselection('{{$carbonDate->dayOfYear}}')" style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
                             <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
 
                             @if($buttonVisible == $carbonDate->dayOfYear)
@@ -206,7 +206,7 @@
                         </li>
 
                     @for ($i = 0; $i < 6; $i++)
-                        <li>
+                        <li wire:click="addselection('{{$carbonDate->dayOfYear}}')">
                             <livewire:calendar.list-repas-for-day :day="$carbonDate->addDays(1)" :key="time().$carbonDate"/>
                             @if($buttonVisible == $carbonDate->dayOfYear)
                                 <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
@@ -219,7 +219,11 @@
                 </ul>
             </div>
         <div style="width:100%;display:flex;justify-content: space-around">
-            <div>LEFT</div>
+            <div>
+                @foreach ($currentselection as $day)
+                {{$day}}
+                @endforeach
+               </div>
             <div> MIDDLE </div>
             <div>RIGHT</div>
         </div>

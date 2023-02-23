@@ -18,6 +18,13 @@ class Calendartable extends Component
         'RepasAdded' => 'OnRepasAdded'
     ];
 
+    public array $currentselection = [];
+
+
+    public function addselection($date)
+    {
+        $this->currentselection[] = $date;
+    }
 
     public function showAddButtonForDay($dayint)
     {
