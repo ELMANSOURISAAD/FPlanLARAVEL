@@ -189,43 +189,47 @@
                 <ul class="days">
 
 
-                    <li wire:click="addselection('{{$carbonDate->dayOfYear}}')" style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
-                            <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
-
-                            @if($buttonVisible == $carbonDate->dayOfYear)
-                                <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
-                            @endif
-                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
-                                <i class="fa-duotone fa-plus" ></i>
-                            </button>
 
 
+                    @for ($i = 0; $i < 7; $i++)
 
+                     <li
+                     @if (in_array($carbonDate->toDateString(),$selected))
+                     class="active"
+                     @endif
+                     style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
 
+                        <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
 
-                        </li>
+                        @if($buttonVisible == $carbonDate->dayOfYear)
+                            <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
+                        @endif
+                    <div style="width:80%;display:flex;flex-direction: row;gap:7px;align-items:space-around">
+                        <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                            <i class="fa-duotone fa-plus" ></i>
+                        </button>
+                    <button class="buttona"  wire:click="addselection('{{$carbonDate->toDateString()}}')" >
+                        <i class="fa-solid fa-basket-shopping"></i>
+                    </button>
+                    </div>
 
-                    @for ($i = 0; $i < 6; $i++)
-                        <li wire:click="addselection('{{$carbonDate->dayOfYear}}')">
-                            <livewire:calendar.list-repas-for-day :day="$carbonDate->addDays(1)" :key="time().$carbonDate"/>
-                            @if($buttonVisible == $carbonDate->dayOfYear)
-                                <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
-                            @endif
-                            <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" ><i class="fa-duotone fa-plus" ></i></button>
-
-                        </li>
+                    </li>
+                    <?php $carbonDate->addDays(1); ?>
                     @endfor
 
                 </ul>
             </div>
-        <div style="width:100%;display:flex;justify-content: space-around">
+        <div class="days" style="width:100%;display:flex;justify-content: space-around">
             <div>
-                @foreach ($currentselection as $day)
-                {{$day}}
-                @endforeach
+                <h3> Liste de courses : </h3>
+                @forelse ($currentselection as $name=>$quantity)
+                    <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
+
+                @empty
+                    NOTHING TO SHOW
+                @endforelse
                </div>
-            <div> MIDDLE </div>
-            <div>RIGHT</div>
+
         </div>
 
 
