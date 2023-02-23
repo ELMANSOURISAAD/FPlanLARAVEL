@@ -16,6 +16,7 @@ class Calendartable extends Component
     public string $carbonDate = '';
     protected $listeners = [
         'RepasAdded' => 'OnRepasAdded',
+        'RepasDeletedB' => 'OnRepasDeletedB',
         'refreshComponent' => '$refresh'
     ];
 
@@ -304,20 +305,59 @@ public function mergeneeds($new)
     }
 }
 
+public function deleteneeds($new)
+{
+
+    foreach ($new as $titre=>$data)
+    {
+        unset($this->currentselection[$titre]);
+    }
+}
+public function refresh_data()
+{
+    $this->currentselection = [];
+    foreach ($this->selected as $date)
+    {
+        $date = Carbon::parse($date);
+        $missing = $this->MissingInventory($date);
+
+        foreach ($missing as $titre => $data) {
+                    if (array_key_exists($titre, $this->currentselection))
+                {
+                    $this->currentselection[$titre]['quantity'] += $data['quantity'];
+                }
+                else
+                {
+                  $this->currentselection[$titre]['quantity'] = $data['quantity'];
+                  $this->currentselection[$titre]['unit'] = $data['unit'];
+                }
+        }
+
+    }
+}
+
+public function OnRepasDeletedB(){
+    $this->reset('currentselection','selected');
+
+}
     public function addselection($date)
     {
 
         if(!in_array($date,$this->selected))
         {
             $this->selected[] = $date;
-            $date = Carbon::parse($date);
-            $this->mergeneeds($this->MissingInventory($date));
+            $this->refresh_data();
+           // $date = Carbon::parse($date);
+           // $this->mergeneeds($this->MissingInventory($date));
         }
         else
         {
-            $this->selected = [];
-            $this->currentselection = [];
+            if(($key = array_search($date, $this->selected)) !== false) {
+                unset($this->selected[$key]);
+            }
+            $this->refresh_data();
 
+            // $this->reset('currentselection','selected');
         }
 
 
