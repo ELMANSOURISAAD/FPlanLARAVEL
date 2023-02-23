@@ -17,7 +17,7 @@ class ListRepasForDay extends Component
     private function convertIngredient($ingredient, $amount, $start_unit, $end_unit) {
         $easy_convertion = ["kilogrammes","grammes","litres","centilitres","millilitres"];
 
-                
+
         $conversions = array(
             "poivre" => array(
                 "grammes" => 1,
@@ -156,7 +156,7 @@ class ListRepasForDay extends Component
         // on ajoute dans le tableau si on peut calculer facilement regardless l'ingredient , ex: kg -> gram
         if(in_array($start_unit,$easy_convertion) && in_array($end_unit,$easy_convertion))
         {
-            
+
             $temp = array(strtolower($ingredient) => array(
                 "grammes" => 1,
                 "kilogrammes" => 1000,
@@ -164,11 +164,11 @@ class ListRepasForDay extends Component
                 "centilitres" => 0.01,
                 "millilitres" => 0.001,
             ));
-            
+
             $conversions = array_merge($conversions , $temp);
-            
+
         }
-        
+
 
         // Check if ingredient is in the array and if both units are valid
         if (array_key_exists(strtolower($ingredient), $conversions) && array_key_exists(strtolower($start_unit), $conversions[strtolower($ingredient)]) && array_key_exists(strtolower($end_unit), $conversions[strtolower($ingredient)])) {
@@ -238,21 +238,22 @@ class ListRepasForDay extends Component
         foreach ($inventaires as $inventaire)
         {
 
-            $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
-            $disponibles[$inventaire->name]['quantity'] = 0;
-            $disponibles[$inventaire->name]['name'] = $inventaire->name;
             if (array_key_exists($inventaire->name, $disponibles))
             {
+
                 $disponibles[$inventaire->name]['quantity'] += $inventaire->stock;
 
             }
             else
             {
                 $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
+                $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
+                $disponibles[$inventaire->name]['name'] = $inventaire->name;
 
             }
 
         }
+
         // $disponibles = ["Poulet" => 0.2]
 
         $repas = User::find($userId)->repas()
@@ -260,31 +261,33 @@ class ListRepasForDay extends Component
 
         foreach ($repas as $onerepas)
         {
+            $b=0;
             if($onerepas->recette)
             {
             foreach ($onerepas->recette->elements()->get() as $element)
             {
+
                 // convert to gramme
                 // convertIngredient("poivre", 1, "pincée", "cuillères à café")
 
-                $besoins[$element->name]['unit'] = $element->unit;
-
-                $besoins[$element->name]['name'] = $element->name;
                 if (array_key_exists($element->name, $besoins))
                 {
 
-                    $b +=  $element->pivot->quantity;
-
+                    $besoins[$element->name]['quantity'] +=  $element->pivot->quantity;
                 }
                 else
                 {
-                    $b  = $element->pivot->quantity;
+                    $besoins[$element->name]['quantity']  = $element->pivot->quantity;
+                    $besoins[$element->name]['unit'] = $element->unit;
+                    $besoins[$element->name]['name'] = $element->name;
                 }
-                $besoins[$element->name]['quantity'] = $b;
+
             }
+
             }
         }
         // $besoins =  ["Semoule" => 5.0]
+
 
 
 
