@@ -91,9 +91,9 @@ body {
 
   grid-area: left;
   flex-direction: column;
-  
+
   display:flex;
- 
+
 
 }
 
@@ -211,11 +211,16 @@ ul {
   padding: 0;
   list-style-type: none;
 }
-/*
+
 ul li:hover {
+      background-color: gold;
   text-decoration: underline;
 }
-*/
+
+ul li:active {
+background-color: gold;
+text-decoration: underline;
+}
 
 .closeIcon {
   display: none;

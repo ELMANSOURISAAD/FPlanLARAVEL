@@ -5,9 +5,9 @@
 
         <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>
 
-        @if ($recettes_withelements->isEmpty())
+
         <button class="mybutton" onclick="Livewire.emit('openModal', 'recettes.suggestions')"><i class="fa-solid fa-file-import"></i> Importer des recettes</button>
-        @endif
+
 
 
         <form action="" wire:submit.prevent="add">
