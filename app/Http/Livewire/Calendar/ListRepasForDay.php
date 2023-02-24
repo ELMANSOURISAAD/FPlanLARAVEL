@@ -211,19 +211,21 @@ class ListRepasForDay extends Component
     public function getRepasStatsForDay($adate)
     {
         $stats = [
-            "Total" => 0,
+            'Coût' => 0,
+            'Calories' => 0
         ];
         $userId = Auth::id();
         $repas = User::find($userId)->repas()
             ->where('date_repas', $adate->toDateString())->get();
 
-
+        if($repas){
         foreach ($repas as $bruh)
         {
             if($bruh->recette)
-            $stats['Total'] += ($bruh->recette->price);
+            $stats['Coût'] += ($bruh->recette->price);
+            $stats['Calories'] += ($bruh->recette->calories);
         }
-
+        }
 
         return $stats;
     }

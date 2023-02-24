@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Recettes;
 
 use App\Models\Element;
+use App\Models\ElementRecette;
 use App\Models\Recette;
+use App\Models\Repas;
 use Illuminate\Support\Facades\Auth;
 use LivewireUI\Modal\ModalComponent;
 
@@ -13,54 +15,30 @@ class suggestions extends ModalComponent
 
     public function Go()
     {
+        Repas::getQuery()->delete();
         Recette::getQuery()->delete();
         Element::getQuery()->delete();
+        ElementRecette::getQuery()->delete();
 
         $ingredients = array(
-            "Beurre" => array("price" => 0.250, "unit" => "grammes"),
-            "Champignons" => array("price" => 15.00, "unit" => "kilogrammes"),
-            "Huile d'olive" => array("price" => 12.00, "unit" => "litres"),
-            "Oignons" => array("price" => 1.50, "unit" => "kilogrammes"),
-            "Farine" => array("price" => 0.70, "unit" => "kilogrammes"),
-            "Sucre" => array("price" => 0.80, "unit" => "kilogrammes"),
-            "Sel" => array("price" => 0.01, "unit" => "grammes"),
-            "Poivre" => array("price" => 0.03, "unit" => "grammes"),
-            "Bicarbonate de soude" => array("price" => 2.00, "unit" => "kilogrammes"),
-            "Levure chimique" => array("price" => 1.50, "unit" => "kilogrammes"),
-            "Café moulu" => array("price" => 5.00, "unit" => "kilogrammes"),
-            "Thé" => array("price" => 20.00, "unit" => "kilogrammes"),
-            "Eau" => array("price" => 0.001, "unit" => "litres"),
-            "Lait" => array("price" => 0.60, "unit" => "litres"),
-            "Crème fraîche" => array("price" => 1.50, "unit" => "litres"),
-            "Cacao en poudre" => array("price" => 5.00, "unit" => "kilogrammes"),
-            "Noix de muscade" => array("price" => 25.00, "unit" => "kilogrammes"),
-            "Cannelle" => array("price" => 10.00, "unit" => "kilogrammes"),
-            "Vanille en poudre" => array("price" => 100.00, "unit" => "kilogrammes"),
-            "Paprika" => array("price" => 12.00, "unit" => "kilogrammes"),
-            "Curcuma" => array("price" => 18.00, "unit" => "kilogrammes"),
-            "Moutarde" => array("price" => 2.00, "unit" => "kilogrammes"),
-            "Vinaigre balsamique" => array("price" => 10.00, "unit" => "litres"),
-            "Sauce soja" => array("price" => 7.00, "unit" => "litres"),
-            "Ketchup" => array("price" => 3.00, "unit" => "litres"),
-            "Mayonnaise" => array("price" => 4.00, "unit" => "litres"),
-            "Miel" => array("price" => 5.00, "unit" => "kilogrammes"),
-            "Pâte de tomate" => array("price" => 2.00, "unit" => "kilogrammes"),
-            "Ail" => array("price" => 0.200, "unit" => "grammes"),
-            "Persil" => array("price" => 0.150, "unit" => "grammes"),
-            "Citron" => array("price" => 0.50, "unit" => "unité"),
-            "Crème pâtissière" => array("price" => 1.50, "unit" => "litres"),
-            "Gruyère râpé" => array("price" => 15.00, "unit" => "kilogrammes"),
-            "Pommes de terre" => array("price" => 0.50, "unit" => "kilogrammes"),
-            "Carottes" => array("price" => 1.00, "unit" => "kilogrammes"),
-            "Céleri" => array("price" => 1.20, "unit" => "kilogrammes"),
-            "Poireaux" => array("price" => 1.50, "unit" => "kilogrammes"),
-            "Chou-fleur" => array("price" => 2.00, "unit" => "unité"),
+            "Beurre" => array("unit" => "grammes", "price" => 2.5, "calories" => 7),
+        "Carottes" => array("unit" => "kilogrammes", "price" => 1.2, "calories" => 0.41),
+        "Farine" => array("unit" => "grammes", "price" => 0.75, "calories" => 3.8),
+        "Huile d'olive" => array("unit" => "cuillères à soupe", "price" => 0.15, "calories" => 120),
+        "Oeufs" => array("unit" => "unités", "price" => 0.25, "calories" => 155),
+        "Poivre" => array("unit" => "grammes", "price" => 0.05, "calories" => 3.2),
+        "Pommes de terre" => array("unit" => "kilogrammes", "price" => 1.1, "calories" => 0.77),
+        "Sel" => array("unit" => "cuillères à café", "price" => 0.02, "calories" => 0),
+        "Sucre" => array("unit" => "grammes", "price" => 0.8, "calories" => 3.87),
+        "Tomates" => array("unit" => "kilogrammes", "price" => 2.5, "calories" => 0.18),
+
         );
         foreach ($ingredients as $ingredient=>$data) {
             $element = new Element;
             $element->name = $ingredient;
             $element->price = $data['price'];
             $element->unit = $data['unit'];
+            $element->calories = $data['calories'];
             $element->user_id = Auth::id();
             $element->save();
         }
@@ -128,7 +106,7 @@ class suggestions extends ModalComponent
             $temp_r = Recette::where('name', $recette)->first();
             foreach ($ingredients as $name => $data) {
                 $element = Element::where('name',$name)->first();
-                    $temp_r->elements()->attach($element,['quantity'=> $data['quantity']]);
+                    //$temp_r->elements()->attach($element,['quantity'=> $data['quantity']]);
             }
 
         }

@@ -287,32 +287,9 @@ class Calendartable extends Component
         return $tobuy;
     }
 
-public function mergeneeds($new)
-{
 
-    foreach ($new as $titre=>$data)
-    {
 
-        if (array_key_exists($titre, $this->currentselection))
-        {
-            $this->currentselection[$titre]['quantity'] += $data['quantity'];
-        }
-        else
-        {
-            $this->currentselection[$titre]['quantity'] = $data['quantity'];
-            $this->currentselection[$titre]['unit'] = $data['unit'];
-        }
-    }
-}
 
-public function deleteneeds($new)
-{
-
-    foreach ($new as $titre=>$data)
-    {
-        unset($this->currentselection[$titre]);
-    }
-}
 public function refresh_data()
 {
     $this->currentselection = [];
@@ -336,19 +313,14 @@ public function refresh_data()
     }
 }
 
-public function OnRepasDeletedB(){
-    $this->refresh_data();
 
-}
     public function addselection($date)
     {
-
         if(!in_array($date,$this->selected))
         {
             $this->selected[] = $date;
             $this->refresh_data();
-           // $date = Carbon::parse($date);
-           // $this->mergeneeds($this->MissingInventory($date));
+
         }
         else
         {
@@ -359,7 +331,11 @@ public function OnRepasDeletedB(){
 
             // $this->reset('currentselection','selected');
         }
+    }
 
+    // Listener a la suppression d'une recette dans l'agenda.
+    public function OnRepasDeletedB(){
+        $this->refresh_data();
 
     }
 
@@ -381,7 +357,7 @@ public function OnRepasDeletedB(){
 
     public function OnRepasAdded()
     {
-
+        $this->refresh_data();
         $this->reset('buttonVisible');
 
     }

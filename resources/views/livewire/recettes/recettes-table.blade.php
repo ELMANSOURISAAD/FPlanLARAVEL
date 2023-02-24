@@ -29,7 +29,7 @@
                 <th></th>
                 <th scope="col" wire:click="setOrderField('name')">Nom</th>
                 <th scope="col">Coût</th>
-
+                <th scope="col">Calories</th>
                 <th scope="col">ACTIONS</th>
             </tr>
             </thead>
@@ -40,7 +40,7 @@
                     </td>
                     <td data-label="Nom"><a href="#">{{ $recette->name }}</a></td>
                     <td data-label="Coût">{{ $recette->price }} &#8364;</td>
-
+                    <td data-label="Calorires">{{ $recette->calories }} KJ</td>
                     <td data-label="Actions">
                         <button type="button" class="mybutton"><i class="far fa-eye"></i></button>
                         <button type="button" class="mybutton" wire:click="EditThis('{{ $recette -> id }}')"><i class="fas fa-edit"></i></button>

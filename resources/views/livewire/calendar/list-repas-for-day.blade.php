@@ -17,7 +17,7 @@
     <div>
     <ul>
         @foreach ($stats as $name=>$stat)
-            <li style="color:cornflowerblue" >{{$name}} : {{$stat}} &euro; </li>
+            <li style="color:cornflowerblue" >{{$name}} : {{$stat}}  </li>
         @endforeach
         <div>
             @forelse ($MissingInventory as $name=>$quantity)

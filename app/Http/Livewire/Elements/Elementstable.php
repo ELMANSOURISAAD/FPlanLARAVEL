@@ -20,6 +20,7 @@ class Elementstable extends Component
     public string $name;
     public string $unit;
     public string $price;
+    public string $calories;
 
     public int $editId = 0;
 
@@ -33,6 +34,7 @@ class Elementstable extends Component
         'name' => 'required|string|min:3',
         'unit' => 'required|string|min:1',
         'price' => 'required|between:0,999',
+        'calories' => 'required|between:0,9999',
     ];
 
     public function add(){
@@ -41,6 +43,7 @@ class Elementstable extends Component
         $element->name = $this->name;
         $element->unit = $this->unit;
         $element->price = $this->price;
+        $element->calories = $this->calories;
         $element->user_id = Auth::id();
         $element->save();
         $this->emit('ElementAdded');

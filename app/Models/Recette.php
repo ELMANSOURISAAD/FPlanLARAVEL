@@ -10,7 +10,7 @@ class Recette extends Model
     use HasFactory;
 
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','price','calories'];
 
 
     public function getPriceAttribute()
@@ -21,6 +21,16 @@ class Recette extends Model
             $price +=  $element->price * $element->pivot->quantity ;
         }
         return $price;
+    }
+
+    public function getCaloriesAttribute()
+    {
+        $calories = 0;
+        foreach ($this->elements()->get() as $element)
+        {
+            $calories +=  $element->calories * $element->pivot->quantity ;
+        }
+        return $calories;
     }
 
     public function elements()
