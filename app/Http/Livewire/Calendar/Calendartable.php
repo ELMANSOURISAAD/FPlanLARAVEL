@@ -313,7 +313,7 @@ public function refresh_data()
     }
 }
 
-    // Ajouter un element dans la liste de courses
+
     public function addselection($date)
     {
         if(!in_array($date,$this->selected))
