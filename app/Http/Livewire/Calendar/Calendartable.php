@@ -337,7 +337,7 @@ public function refresh_data()
 }
 
 public function OnRepasDeletedB(){
-    $this->reset('currentselection','selected');
+    $this->refresh_data();
 
 }
     public function addselection($date)
