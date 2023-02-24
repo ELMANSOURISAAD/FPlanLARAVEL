@@ -12,7 +12,8 @@ class ElementForm extends Component
     protected $rules = [
         'element.name' => 'required|string|min:3',
         'element.unit' => 'required|string|min:1',
-        'element.price' => 'required|between:0,999'
+        'element.price' => 'required|between:0,999',
+        'element.calories' => 'required|between:0,9999'
     ];
 
     public function save(){
