@@ -191,8 +191,8 @@ class Calendartable extends Component
             return $result;
 
         } else {
-            dump("STILL WORKING ON IT");
-            return "cant";
+            
+            return 0;
         }
     }
     public function MissingInventory($adate)
