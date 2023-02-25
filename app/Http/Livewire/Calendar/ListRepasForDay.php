@@ -179,7 +179,7 @@ class ListRepasForDay extends Component
             // Convert from grams to the desired unit
             $result = $grams / $conversions[strtolower($ingredient)][strtolower($end_unit)];
 
-            return $result;
+            return floatval($result);
 
         } else {
             return 0;
@@ -291,7 +291,7 @@ class ListRepasForDay extends Component
         // $besoins =  ["Semoule" => 5.0]
 
 
-
+        
 
         foreach ($besoins as $nom_besoin => $besoin_data)
         {
@@ -301,7 +301,9 @@ class ListRepasForDay extends Component
 
             if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
 
-                    $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes") - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
+                $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
+                
+                    $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                     $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
                     $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
                 }
