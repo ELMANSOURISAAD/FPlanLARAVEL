@@ -93,6 +93,12 @@ class Inventairestable extends Component
 
     }
 
+    public function ShareThis(int $id)
+    {
+        //$this->editId = $id;
+
+    }
+
     // end
 
     public function render()

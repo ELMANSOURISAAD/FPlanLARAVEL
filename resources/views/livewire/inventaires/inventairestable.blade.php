@@ -62,6 +62,7 @@
                     <td data-label="Actions">
                         <button class="mybutton" type="button"><i class="far fa-eye"></i></button>
                         <button class="mybutton" type="button" wire:click="EditThis('{{$inventaire->id}}')"><i class="fas fa-edit"></i></button>
+                        <button class="mybutton" type="button" onclick="Livewire.emit('openModal', 'inventaires.sharemodal',{{ json_encode(["inventaire" => $inventaire->id]) }})"><i class="fa-solid fa-square-share-nodes"></i></button>
                     </td>
                 </tr>
 

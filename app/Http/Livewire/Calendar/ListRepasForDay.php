@@ -182,8 +182,8 @@ class ListRepasForDay extends Component
             return $result;
 
         } else {
-            dump("STILL WORKING ON IT");
-            return "cant";
+
+            return 0;
         }
     }
 
