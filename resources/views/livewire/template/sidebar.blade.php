@@ -49,6 +49,14 @@
                 </li>
             </a>
 
+            <a href="{{ route('Reporting') }}"><li>
+                    @if(Route::current()->getName() == 'Reporting')
+                        <span style="color: Tomato"><i class="fa-solid fa-chevron-right"></i></span>
+                    @endif
+                    &#x0023;Reporting <i class="fa-solid fa-cash-register"></i>
+                </li>
+            </a>
+
 
 
 
