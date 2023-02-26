@@ -30,7 +30,9 @@ class MakeRepasForDay extends Component
         $repas->recette_id = $this->recette_id;
         $repas->user_id = Auth::id();
         $repas->save();
+
         $this->emit('RepasAdded');
+        
         $this->reset("day");
     }
 
