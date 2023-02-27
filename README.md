@@ -30,6 +30,10 @@
 > ./docky php artisan db:seed
 ````
 
+````bash
+> ./docky php artisan migrate
+````
+
 #### ✨ Watch assets :
 
 ````bash
