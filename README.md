@@ -29,7 +29,6 @@
 ````bash
 > ./docky php artisan db:seed
 ````
-
 ````bash
 > ./docky php artisan migrate
 ````
