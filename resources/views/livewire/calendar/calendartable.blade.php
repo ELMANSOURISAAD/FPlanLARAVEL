@@ -5,16 +5,16 @@
 
 
                 grid-template-areas:
-    "left Header Header Header Header"
-    "left Header Header Header Header"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data";
+    "left Header Header Header right"
+    "left Header Header Header right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right";
             }
             .first-data{
                 display:flex;
@@ -26,9 +26,9 @@
             .month{
                 margin: 0;
                 padding: 3rem 2rem 2rem;
-                background: #96A998;
+                background: #FB9300;
                 text-align: center;
-
+                border-radius: 10px 10px 0px 0px;
                 color: #ffffff;
                 list-style: none;
             }

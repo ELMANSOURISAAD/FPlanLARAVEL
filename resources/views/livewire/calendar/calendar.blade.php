@@ -1,7 +1,8 @@
 <div class="container">
 <livewire:template.header/>
-    <livewire:template.sidebar/>
-        <livewire:calendar.calendartable/>
+    <livewire:template.leftbar/>
+        <livewire:template.rightbar/>
+            <livewire:calendar.calendartable/>
 </div>
 
 
