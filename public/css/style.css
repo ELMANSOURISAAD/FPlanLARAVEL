@@ -12,9 +12,9 @@ body {
   padding: 0;
   font-size: 16px;
   box-sizing: border-box;
-
-    background: -webkit-linear-gradient(to top, #BDDABF , #D6E8D7); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #BDDABF , #D6E8D7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #FAF9FB;
+    /* background: -webkit-linear-gradient(to top, #BDDABF , #D6E8D7);
+   background: linear-gradient(to top, #BDDABF , #D6E8D7); */
 }
 .mybutton{
     color: #fff;
@@ -31,16 +31,16 @@ body {
     background: #C5DFC7;
 }
 .backcolor {
-    background-color: #F7FAF7;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+
+   /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 25px;
 
-    padding: 10px;
+    padding: 10px; */
 }
 
 .container {
-  margin: 50px;
+  margin: 20px;
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -48,16 +48,16 @@ body {
   gap: 30px;
   grid-auto-flow: row;
   grid-template-areas:
-    "left Header Header Header Header"
-    "left Header Header Header Header"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left first-data first-data first-data first-data"
-    "left second-data second-data second-data second-data"
-    "left second-data second-data second-data second-data"
-    "left second-data second-data second-data second-data"
-    "left second-data second-data second-data second-data";
+    "left Header Header Header right"
+    "left Header Header Header right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left first-data first-data first-data right"
+    "left second-data second-data second-data right"
+    "left second-data second-data second-data right"
+    "left second-data second-data second-data right"
+    "left second-data second-data second-data right";
 }
 
 
@@ -95,6 +95,17 @@ body {
   display:flex;
 
 
+}
+.bgleft{
+    margin-top:10px;height:50%;width:100%; margin:auto;padding:0;
+    background: #FB9400;
+    border-radius: 30px 30px 30px 30px;
+}
+
+.back-face{
+    width: 100%; position:relative;
+    top:0px;
+    left:0px;width:200px;height:200px;
 }
 
 .first-data {
@@ -156,6 +167,7 @@ body {
 }
 
 
+
 .operations {
   width: 100%;
   display: flex;
@@ -163,6 +175,109 @@ body {
   align-items: center;
   justify-content: space-around;
 }
+
+/* right */
+
+.right {
+
+  grid-area: right;
+  flex-direction: column;
+    gap:5%;
+  display:flex;
+
+
+}
+.flex{
+    gap:2%;
+    display:flex;
+    align-items: center;
+}
+
+.report h3 {
+    font-size: 2em;
+    margin-top: 0;
+    color:#AFA8CA;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+span {
+    color:#DFDCEA;
+    font-size: 1em;
+    margin-top: 0;
+    color:#AFA8CA;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.report {
+    font-size: x-small;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+  .reportchild {
+    flex: 1 0 calc(50% - 10px);; /* explanation below */
+    margin: 5px;
+    height: 100px;
+
+
+  }
+
+.buttons{
+    display:flex;
+    justify-content: flex-end;
+    gap:2%;
+}
+
+.icon{
+    height:20px;
+    width:20px;
+}
+
+.button-6 {
+    align-items: right;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+
+  .button-6:hover,
+  .button-6:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .button-6:hover {
+    transform: translateY(-1px);
+  }
+
+  .button-6:active {
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }
 
 
 
