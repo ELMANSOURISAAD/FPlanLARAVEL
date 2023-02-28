@@ -40,7 +40,7 @@ body {
 }
 
 .container {
-  margin: 20px;
+ 
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -63,7 +63,7 @@ body {
 
 /* HEADER */
 .Header {
-
+    margin:20px;
   grid-area: Header;
   display: flex;
   align-items: center;
@@ -88,7 +88,8 @@ body {
 /* LEFT column */
 
 .left {
-
+    padding:20px;
+    background-color: #FFFFFF;
   grid-area: left;
   flex-direction: column;
 
@@ -109,6 +110,7 @@ body {
 }
 
 .first-data {
+    margin:20px;
   grid-area: first-data;
   display: flex;
   align-items: center;
@@ -173,13 +175,14 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 /* right */
 
 .right {
-
+    padding:20px;
+    background-color: #FFFFFF;
   grid-area: right;
   flex-direction: column;
     gap:5%;
@@ -201,6 +204,7 @@ body {
 
 }
 span {
+    margin-left: 10%;
     color:#DFDCEA;
     font-size: 1em;
     margin-top: 0;
@@ -433,21 +437,8 @@ table th {
      gap: 10px;
 }
 
-.hamburger {
-  display: block;
 
-  cursor: pointer;
-}
 
-.showMenu {
-  display:none;
-  transform: translateY(-100%);
-}
-
-.menu{
-  transform: translateY(0);
-  transition: transform 0.5s;
-}
 
 
 .days{
