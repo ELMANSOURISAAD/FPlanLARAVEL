@@ -33,11 +33,15 @@
 
 
   <div style="display:flex;height:100%;justify-content:space-around;margin:10px;gap:6px">
-    <div style="background-color: #FFF9F3;border-radius:5px;height:100%;width:50%">
-        A RECIPE
+    <div style="background-color: #FFF9F3;border-radius:5px;height:100%;width:50%;display:flex;justify-content:center;flex-direction:column;align-items: center;">
+        <img src="{{ asset('images/food.png') }}" alt="" height="100" width="100">
+        <h2 style="color:#3B315D;letter-spacing: -1px;font-size:larger"> Omelette </h2>
+        <p style="color:#3F3560;font-size:smaller"> Cout : X </p>
     </div>
-    <div style="background-color: #FFF9F3;border-radius:5px;height:100%;width:50%">
-        A RECIPE
+    <div style="background-color: #FFF9F3;border-radius:5px;height:100%;width:50%;display:flex;justify-content:center;flex-direction:column;align-items: center;">
+        <img src="{{ asset('images/food.png') }}" alt="" height="100" width="100">
+        <h2 style="color:#3B315D;letter-spacing: -1px;font-size:larger"> Omelette </h2>
+        <p style="color:#3F3560;font-size:smaller"> Cout : X </p>
     </div>
 
   </div>
