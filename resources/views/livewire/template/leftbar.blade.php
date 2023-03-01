@@ -14,10 +14,15 @@
         </div>
     </div>
     <div class="menu showMenu">
-        <ul class="flexlist flexgap">
-            <a href="{{ route('Calendar') }}"><li>
+        <ul class="flexlist">
+            <a href="{{ route('Calendar') }}">
+                <li @if(Route::current()->getName() == 'Calendar')
+                class="selectedmenu"
+                @else
+                class="menuitem"
+                @endif>
 
-                    
+
                     <i class="fa-solid fa-house"></i>
                     <span @if(Route::current()->getName() == 'Calendar')
                             class="selectedmenu"
@@ -25,42 +30,59 @@
                     </li></a>
 
 
-            <a href="{{ route('Recettes') }}"><li>
-                   
+            <a href="{{ route('Recettes') }}"><li @if(Route::current()->getName() == 'Recettes')
+                class="selectedmenu"
+                @else
+                class="menuitem"
+                @endif>
+
                     <i class="fa-solid fa-plate-wheat"></i>
-                    <span class=" @if(Route::current()->getName() == 'Recettes')
-                        
-                        @endif">MES RECETTE</span> 
-                
+                    <span @if(Route::current()->getName() == 'Recettes')
+                        class="selectedmenu"
+                        @endif">MES RECETTE</span>
+
                 </li></a>
 
 
-            <a href="{{ route('Ingredients') }}"><li>
-                    
+            <a href="{{ route('Ingredients') }}"><li @if(Route::current()->getName() == 'Ingredients')
+                class="selectedmenu"
+                @else
+                class="menuitem"
+                @endif>
+
                     <i class="fa-solid fa-egg"></i>
                     <span @if(Route::current()->getName() == 'Ingredients')
-                        @endif>INGREDIENTS</span> 
-                
+                        class="selectedmenu"
+                        @endif>INGREDIENTS</span>
+
                 </li></a>
 
 
 
-            <a href="{{ route('Inventaires') }}"><li>
+            <a href="{{ route('Inventaires') }}"><li @if(Route::current()->getName() == 'Inventaires')
+                class="selectedmenu"
+                @else
+                class="menuitem"
+                @endif>
 
                     <i class="fa-solid fa-basket-shopping"></i>
                     <span @if(Route::current()->getName() == 'Inventaires')
                         class="selectedmenu"
-                        @endif>INVENTAIRE</span>     
+                        @endif>INVENTAIRE</span>
                 </li>
             </a>
 
-            <a href="{{ route('Reporting') }}"><li>
+            <a href="{{ route('Reporting') }}"><li @if(Route::current()->getName() == 'Reporting')
+                class="selectedmenu"
+                @else
+                class="menuitem"
+                @endif>
 
                     <i class="fa-solid fa-cash-register"></i>
                     <span @if(Route::current()->getName() == 'Reporting')
                         class="selectedmenu"
                         @endif>Reporting</span>
-                     
+
                 </li>
             </a>
 
@@ -68,15 +90,38 @@
 
 
             <a href="{{ route('Inventaires') }}">
-                <li>
-                    
+                <li @if(Route::current()->getName() == 'Groups')
+                    class="selectedmenu"
+                    @else
+                class="menuitem"
+                    @endif>
+
                     <i class="fa-solid fa-user-group"></i>
                     <span @if(Route::current()->getName() == 'Groups')
                         class="selectedmenu"
                         @endif>GROUPS</span>
                     </li></a>
         </ul>
+
+    </div>
+    <div>
+        <img  src="{{ asset('images/family_lq.png') }}" alt="" height="200px">
+
+    </div>
+    <div>
+        <div style="    padding: 10px;width:100%;border-radius: 0 0 30px 30px;background-color:#FB9300;display:flex;justify-content:space-around;flex-direction:column;align-items: center;">
+            <div style="width:100%">
+
+                    <p>Share recipes with the community</p>
+
+            </div>
+            <div style="text-align: center;width:80%;color:#FB9300;border-radius: 30px;background-color:#FFFFFF">
+                    Upload now!
+            </div>
+
+
+        </div>
     </div>
 
-    <livewire:logout></livewire:logout>
+
 </div>
