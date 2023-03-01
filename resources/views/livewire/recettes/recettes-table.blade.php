@@ -32,7 +32,7 @@
         </div>
 
     <div class="recettes">
-        <div class="title"><h3>Mes recettes</h3></div>
+        <div class="title" ><h3>Mes recettes</h3></div>
 
         <table>
             <thead>
@@ -78,7 +78,7 @@
 
             </tbody>
         </table>
-        {{ $recettes->links() }}
+        {{ $recettes->links('vendor.pagination.default') }}
 
 
 
