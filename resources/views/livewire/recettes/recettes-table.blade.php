@@ -10,7 +10,7 @@
             </div>
             <img  src="{{ asset('images/svg/paela.svg') }}" alt = "Tutorial" height = "100%" width = "100px">
         </div>
-        <div class="panel" style="display:flex;flex-direction: row;justify-content: space-around;    width: 100%;color:#222A23;">
+        <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;    width: 100%;color:#222A23;">
 
         <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>
 
@@ -21,13 +21,13 @@
 
         <form action="" wire:submit.prevent="add">
             <label for="name">Ajouter une recette :</label>
-            <input type="text" wire:model.defer="name">
+            <input class="mybuttonW" type="text" wire:model.defer="name">
             <button class="mybutton" type="submit">Save</button>
             @error("name")
             {{$message}}
             @enderror
         </form>
-        <input wire:model="search" type="text" placeholder="Chercher une recette..."/>
+        <input wire:model="search" class="mybuttonW" type="text" placeholder="Find"/>
         </div>
     <div class="title"><h3>Mes recettes</h3></div>
 

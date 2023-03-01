@@ -19,18 +19,26 @@ body {
 }
 .mybutton{
     color: #fff;
-    background: #222A23;
-    font-size: 1em;
-    font-weight: bold;
+    background: #FB9300;
+
     outline: none;
     border: none;
-    border-radius: 2px;
+    border-radius: 30px;
     transition: .2s ease-in;
     cursor: pointer;
 }
 .mybutton:hover{
-    background: #C5DFC7;
+    background: #614EA5;
 }
+
+.mybuttonW{
+    color: #000;
+    background: white;
+    border-radius: 30px;
+    transition: .2s ease-in;
+    cursor: text;
+}
+
 .backcolor {
 
    /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
