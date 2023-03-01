@@ -110,7 +110,7 @@ class RecettesTable extends Component
         $recettes = User::find($userId)->recettes()
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
-            ->simplePaginate(5);
+            ->simplePaginate(4);
 
         return view('livewire.recettes.recettes-table', [
             'recettes' => $recettes,

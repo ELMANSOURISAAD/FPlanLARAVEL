@@ -8,7 +8,7 @@
             <h3 style='color:white;'>Ajouter votre repas</h3>
             <p style='font-size:0.7em;color:white;opacity:0.7'>Upload your own home-made recipe, and share it with the other members of the community</p>
             </div>
-            <img  src="{{ asset('images/svg/paela.svg') }}" alt = "Tutorial" height = "100%" width = "100px">
+            <img  src="{{ asset('images/svg/paela.svg') }}" alt = "Tutorial" height = "100%" width = "200px">
         </div>
         <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;    width: 100%;color:#222A23;">
 
@@ -18,7 +18,7 @@
         <button class="mybutton" onclick="Livewire.emit('openModal', 'recettes.suggestions')"><i class="fa-solid fa-file-import"></i> Importer des recettes</button>
 
 
-
+        <!--
         <form action="" wire:submit.prevent="add">
             <label for="name">Ajouter une recette :</label>
             <input class="mybuttonW" type="text" wire:model.defer="name">
@@ -27,6 +27,7 @@
             {{$message}}
             @enderror
         </form>
+    -->
         <input wire:model="search" class="mybuttonW" type="text" placeholder="Find"/>
         </div>
 

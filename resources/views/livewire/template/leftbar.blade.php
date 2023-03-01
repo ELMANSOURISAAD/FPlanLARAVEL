@@ -8,10 +8,7 @@
 
 
         </div>
-        <div class="hamburger">
-            <i class="menuIcon fa fa-bars"> </i>
-            <i class="closeIcon fa fa-close"> </i>
-        </div>
+
     </div>
     <div class="menu showMenu">
         <ul class="flexlist">
