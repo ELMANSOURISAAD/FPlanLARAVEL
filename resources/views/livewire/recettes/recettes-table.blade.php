@@ -1,6 +1,15 @@
 
 <div  class="first-data backcolor" x-data="{selection: @entangle('selection').defer}">
 
+
+
+        <div style="width:100%;border-radius: 30px;background-color:#FB9300;display:flex;justify-content:space-between">
+            <div style="padding:10px">
+            <h3 style='color:white;'>Ajouter votre repas</h3>
+            <p>Upload your own home-made recipe, and share it with the other members of the community</p>
+            </div>
+            <img  src="{{ asset('images/svg/paela.svg') }}" alt = "Tutorial" height = "100%" width = "100px">
+        </div>
         <div class="panel" style="display:flex;flex-direction: row;justify-content: space-around;    width: 100%;color:#222A23;">
 
         <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>

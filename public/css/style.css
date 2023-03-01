@@ -5,6 +5,7 @@ a {
   color: black;
   text-decoration: none; /* no underline */
 }
+
 body {
 
   font-family: "Poppins", sans-serif;
@@ -40,12 +41,12 @@ body {
 }
 
 .container {
- 
+
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  gap: 30px;
+
   grid-auto-flow: row;
   grid-template-areas:
     "left Header Header Header right"
@@ -87,12 +88,21 @@ body {
 
 /* LEFT column */
 
+.selectedmenu{
+    font-family:"Poppins", sans-serif;
+    color:#4E3A9B;
+    font-size:1.1em;
+}
+.menuitem{
+color:#A59FBF;
+}
+
 .left {
-    padding:20px;
+    padding:60px;
     background-color: #FFFFFF;
   grid-area: left;
   flex-direction: column;
-
+    justify-content: space-between;
   display:flex;
 
 
@@ -110,12 +120,13 @@ body {
 }
 
 .first-data {
+    gap:10%;
     margin:20px;
   grid-area: first-data;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-around;
+
 
 }
 
@@ -146,6 +157,11 @@ body {
   flex-direction: column;
   align-items: center;
 
+}
+p{
+    color:white;
+    font-size: 1.1em;
+    text-align: center;
 }
 
 
@@ -238,7 +254,7 @@ span {
 }
 
 .button-6 {
-    align-items: right;
+
     background-color: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: .25rem;
@@ -249,19 +265,19 @@ span {
     display: inline-flex;
     font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     justify-content: center;
     line-height: 1.25;
     margin: 0;
-    min-height: 3rem;
-    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    max-height: 2rem;
+    max-width: 2rem;
     text-decoration: none;
     transition: all 250ms;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
     vertical-align: baseline;
-    width: auto;
+
   }
 
   .button-6:hover,
@@ -287,31 +303,18 @@ span {
 
 /* effects & classes */
 
-input[type="date"]{
 
-
-  color: black;
-  font-size: 18px;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-}
-::-webkit-calendar-picker-indicator{
-
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 3px;
-}
 
 .flexlist {
+    height:100%;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
 }
+.flexlist li {
+    margin:15px;
+ }
 
-.flexgap {
-  gap: 1em;
-}
 
 
 

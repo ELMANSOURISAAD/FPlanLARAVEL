@@ -3,7 +3,7 @@
 
     <button class="button-6" role="button"><i class="fa-solid fa-bell"></i></button>
     <button class="button-6" role="button" style="background-color: #FB9300"> <img src="{{ asset('images/svg/user.svg') }}" alt="" class="icon"> </button>
-
+    <livewire:logout></livewire:logout>
   </div>
 
     <div class="flex">
