@@ -6,7 +6,7 @@
         <div style="width:100%;border-radius: 30px;background-color:#FB9300;display:flex;justify-content:space-between">
             <div style="padding:10px">
             <h3 style='color:white;'>Ajouter votre repas</h3>
-            <p>Upload your own home-made recipe, and share it with the other members of the community</p>
+            <p style='font-size:0.7em;color:white;opacity:0.7'>Upload your own home-made recipe, and share it with the other members of the community</p>
             </div>
             <img  src="{{ asset('images/svg/paela.svg') }}" alt = "Tutorial" height = "100%" width = "100px">
         </div>
@@ -29,9 +29,10 @@
         </form>
         <input wire:model="search" class="mybuttonW" type="text" placeholder="Find"/>
         </div>
-    <div class="title"><h3>Mes recettes</h3></div>
 
     <div class="recettes">
+        <div class="title"><h3>Mes recettes</h3></div>
+
         <table>
             <thead>
             <tr>

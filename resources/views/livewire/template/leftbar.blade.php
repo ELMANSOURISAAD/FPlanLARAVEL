@@ -39,7 +39,7 @@
                     <i class="fa-solid fa-plate-wheat"></i>
                     <span @if(Route::current()->getName() == 'Recettes')
                         class="selectedmenu"
-                        @endif">MES RECETTE</span>
+                        @endif">Recettes</span>
 
                 </li></a>
 
@@ -53,7 +53,7 @@
                     <i class="fa-solid fa-egg"></i>
                     <span @if(Route::current()->getName() == 'Ingredients')
                         class="selectedmenu"
-                        @endif>INGREDIENTS</span>
+                        @endif>Ingrédients</span>
 
                 </li></a>
 
@@ -68,7 +68,7 @@
                     <i class="fa-solid fa-basket-shopping"></i>
                     <span @if(Route::current()->getName() == 'Inventaires')
                         class="selectedmenu"
-                        @endif>INVENTAIRE</span>
+                        @endif>Inventaire</span>
                 </li>
             </a>
 
@@ -99,7 +99,7 @@
                     <i class="fa-solid fa-user-group"></i>
                     <span @if(Route::current()->getName() == 'Groups')
                         class="selectedmenu"
-                        @endif>GROUPS</span>
+                        @endif>Groups</span>
                     </li></a>
         </ul>
 
@@ -109,7 +109,7 @@
 
     </div>
     <div>
-        <div style="    padding: 10px;width:100%;border-radius: 0 0 30px 30px;background-color:#FB9300;display:flex;justify-content:space-around;flex-direction:column;align-items: center;">
+        <div style="  padding: 10px;border-radius: 0 0 30px 30px;background-color:#FB9300;display:flex;justify-content:space-around;flex-direction:column;align-items: center;">
             <div style="width:100%">
 
                     <p>Share recipes with the community</p>

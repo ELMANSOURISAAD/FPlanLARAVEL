@@ -17,6 +17,13 @@ body {
     /* background: -webkit-linear-gradient(to top, #BDDABF , #D6E8D7);
    background: linear-gradient(to top, #BDDABF , #D6E8D7); */
 }
+
+.recettes{
+    padding:10px;
+    text-align: center;
+    background: white;
+    border-radius: 30px;
+}
 .mybutton{
     color: #fff;
     background: #FB9300;
@@ -106,7 +113,7 @@ color:#A59FBF;
 }
 
 .left {
-    padding:60px;
+  
     background-color: #FFFFFF;
   grid-area: left;
   flex-direction: column;
@@ -242,11 +249,10 @@ span {
 }
 
 
-  .reportchild {
-    flex: 1 0 calc(50% - 10px);; /* explanation below */
-    margin: 5px;
-    height: 100px;
-
+  .flexreport {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 
   }
 
@@ -374,7 +380,7 @@ background-color: gold;
 /* table */
 
 table {
-  border: 1px solid #ccc;
+  
   border-collapse: collapse;
   margin: 0;
   padding: 0;
@@ -388,8 +394,8 @@ table {
 }
 
 table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
+  background-color: white;
+  
   padding: .35em;
 }
 
