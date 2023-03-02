@@ -39,6 +39,7 @@ body {
 }
 
 .mybuttonW{
+    border:none;
     color: #000;
     background: white;
     border-radius: 30px;
