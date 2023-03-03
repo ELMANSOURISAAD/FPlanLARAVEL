@@ -66,7 +66,7 @@ body {
   grid-auto-flow: row;
   grid-template-areas:
     "left Header Header Header Header right"
-    "left Header Header Header Header right"
+    "left first-data first-data first-data first-data right"
     "left first-data first-data first-data first-data right"
     "left first-data first-data first-data first-data right"
     "left first-data first-data first-data first-data right"
@@ -114,6 +114,7 @@ color:#A59FBF;
 }
 
 .left {
+    padding:10px;
     height:100%;
    
     background-color: #FFFFFF;
@@ -274,6 +275,7 @@ p{
 /* right */
 
 .right {
+    padding:10px;
     height:100%;
     background-color: #FFFFFF;
   grid-area: right;
@@ -381,6 +383,24 @@ span {
 
 /* effects & classes */
 
+
+.imagerotate {
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+  }
+  .imagerotate:hover {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  
 
 
 .flexlist {
