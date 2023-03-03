@@ -23,6 +23,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Element::class);
     }
+
+
     public function Inventaires()
     {
         return $this->hasMany(Inventaire::class);
@@ -33,6 +35,11 @@ class User extends Authenticatable
     }
 
     public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    public function Ingroups()
     {
         return $this->belongsToMany(Group::class);
 
