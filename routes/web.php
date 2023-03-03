@@ -25,6 +25,7 @@ Route::get('/Recettes', \App\Http\Livewire\Recettes\Recettes::class)->name('Rece
 Route::get('/Ingredients', \App\Http\Livewire\Elements\Elements::class)->name('Ingredients')->middleware('auth');
 Route::get('/Inventaires', \App\Http\Livewire\Inventaires\Inventaires::class)->name('Inventaires')->middleware('auth');
 Route::get('/Calendar', \App\Http\Livewire\Calendar\Calendar::class)->name('Calendar')->middleware('auth');
+Route::get('/Groups', \App\Http\Livewire\Groups\Groups::class)->name('Groups')->middleware('auth');
 Route::get('/Reporting', \App\Http\Livewire\Reporting\Reporting::class)->name('Reporting')->middleware('auth');
 
 
