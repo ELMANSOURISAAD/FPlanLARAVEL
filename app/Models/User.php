@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory;
     public $table = 'user';
 
-    protected $fillable = ['name','email','recette_id','password'];
+    protected $fillable = ['name','email','recette_id','password','group_id'];
 
     public function recettes()
     {
@@ -30,6 +30,17 @@ class User extends Authenticatable
     public function Repas()
     {
         return $this->hasMany(Repas::class);
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+
+    }
+
+    public function group_user()
+    {
+        return $this->hasMany(GroupUser::class);
     }
 
     public function SetPasswordAttribute($value){

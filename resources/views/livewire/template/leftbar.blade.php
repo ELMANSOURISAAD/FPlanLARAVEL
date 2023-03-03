@@ -86,7 +86,7 @@
 
 
 
-            <a href="{{ route('Inventaires') }}">
+            <a href="{{ route('Groups') }}">
                 <li @if(Route::current()->getName() == 'Groups')
                     class="selectedmenu"
                     @else
