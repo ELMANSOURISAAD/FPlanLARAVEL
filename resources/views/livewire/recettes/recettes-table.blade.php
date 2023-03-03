@@ -8,7 +8,7 @@
             <h3 style='color:white;'>Ajouter votre repas</h3>
             <p style='font-size:0.7em;color:white;opacity:0.7'>Upload your own home-made recipe, and share it with the other members of the community</p>
             </div>
-            <img  src="{{ asset('images/svg/paela.svg') }}" alt = "Tutorial" height = "100%" width = "200px">
+            <img  src="{{ asset('images/svg/paela.svg') }}" class="imagerotate" height = "100%" width = "200px">
         </div>
         <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;    width: 100%;color:#222A23;">
 
