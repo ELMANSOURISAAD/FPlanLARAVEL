@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class GroupUser extends Model
 {
     use HasFactory;
-
+    public $table = 'group_users';
 
 
     public function groups()
@@ -20,4 +20,6 @@ class GroupUser extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
 }
