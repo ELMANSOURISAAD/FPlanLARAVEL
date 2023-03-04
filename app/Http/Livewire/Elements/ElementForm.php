@@ -17,7 +17,7 @@ class ElementForm extends Component
     ];
 
     public function save(){
-        $this->validate();
+        
         $this->element->save();
         $this->emit('ElementUpdated');
     }

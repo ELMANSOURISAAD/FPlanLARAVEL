@@ -2,8 +2,13 @@
 
 namespace App\Http\Livewire\Recettes;
 
+use App\Http\Livewire\Inventaires\Inventaires;
 use App\Models\Element;
 use App\Models\ElementRecette;
+use App\Models\Group;
+use App\Models\GroupInventaire;
+use App\Models\GroupUser;
+use App\Models\Inventaire;
 use App\Models\Recette;
 use App\Models\Repas;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +24,15 @@ class suggestions extends ModalComponent
         Recette::getQuery()->delete();
         Element::getQuery()->delete();
         ElementRecette::getQuery()->delete();
+
+        // GROUPS
+        Group::getQuery()->delete();
+        GroupUser::getQuery()->delete();
+        GroupInventaire::getQuery()->delete();
+
+        // INVENTAIRE
+        Inventaire::getQuery()->delete();
+
 
         $ingredients = array(
             "Beurre" => array("unit" => "grammes", "price" => 2.5, "calories" => 7),

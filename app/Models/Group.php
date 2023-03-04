@@ -9,6 +9,18 @@ class Group extends Model
 {
     use HasFactory;
 
+    public function inventaires()
+    {
+        return $this->belongsToMany(Inventaire::class)
+            ->withPivot('pourcentage');
+    }
+
+    public function group_inventaire()
+    {
+        return $this->hasMany(GroupInventaire::class);
+    }
+
+
     public function users()
     {
         return $this->belongsToMany(User::class);

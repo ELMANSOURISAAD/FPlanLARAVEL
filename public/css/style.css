@@ -5,7 +5,9 @@ a {
   color: #372E5D;
   text-decoration: none; /* no underline */
 }
-
+form {
+    display:flex;justify-content:center
+}
 body {
 
   font-family: "Poppins", sans-serif;
@@ -94,7 +96,7 @@ body {
 
 .actionsheader{
     width: 100%;
-   
+
     display:flex;
     flex-direction: row;
 
@@ -116,7 +118,7 @@ color:#A59FBF;
 .left {
     padding:10px;
     height:100%;
-   
+
     background-color: #FFFFFF;
   grid-area: left;
   flex-direction: column;
@@ -150,7 +152,7 @@ a,li{
 
 .days{
   width:80%;
- 
+
   display:grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -214,60 +216,63 @@ p{
 #my-pie-chart-container {
     display: flex;
     align-items: center;
-    
+
   }
-  
+
   #my-pie-chart {
     background: conic-gradient(#7C5FED 0.00% 25%, #FFECD1 25% 70%, #FB9300 70% 78%, #00A650 78%);
     border-radius: 50%;
       width: 150px;
       height: 150px;
   }
-  
+
   #legenda {
     margin-left: 20px;
     background-color: white;
     padding: 5px;
   }
-  
+
   .entry {
     display: flex;
     align-items: center;
+
   }
-  
+
   .entry-color {
       height: 10px;
       width: 10px;
   }
-  
+
   .entry-text {
     margin-left: 5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
   }
-  
+
   #color-red {
     background-color: red;
   }
-  
+
   #color-orange {
     background-color: orange;
   }
-  
+
   #color-yellow {
     background-color: yellow;
   }
-  
+
   #color-green {
     background-color: green;
   }
-  
+
   #color-blue {
     background-color: blue;
   }
-  
+
   #color-black {
     background-color: black;
   }
-  
+
   #color-brown {
     background-color: brown;
   }
@@ -280,7 +285,7 @@ p{
     background-color: #FFFFFF;
   grid-area: right;
   flex-direction: column;
-  
+
   display:flex;
 
 
@@ -400,11 +405,11 @@ span {
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-  
+
 
 
 .flexlist {
-   
+
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -462,14 +467,15 @@ table {
 
 table tr {
   background-color: white;
-  
+
   padding: .35em;
 }
 
 table th,
 table td {
+    text-align: left;
   padding: .625em;
-  
+
 }
 
 table th {
@@ -536,7 +542,7 @@ table {
 table thead {
   border: none;
   clip: rect(0 0 0 0);
-  
+
   margin: -1px;
   overflow: hidden;
   padding: 0;
