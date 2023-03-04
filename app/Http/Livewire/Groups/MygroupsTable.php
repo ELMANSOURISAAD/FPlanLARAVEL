@@ -20,7 +20,7 @@ class MygroupsTable extends Component
 
     public int $editId = 0;
     public int $inviteId = 0;
-
+    public int $inventaireShares = 0;
 
     protected $rules = [
         'name' => 'required|string|min:3',
@@ -98,6 +98,13 @@ class MygroupsTable extends Component
 
 
 
+    public function SeeInventaire($id)
+    {
+        $this->inventaireShares = $id;
+    }
+
+
+
 
 
 
@@ -110,18 +117,9 @@ class MygroupsTable extends Component
 
         $mygroups = (User::find($userId)->groups()->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)->paginate(2));
-        // test add user to group
-
-         //$agroup = Group::find(5);
-         //$agroup->users()->attach(23);
-
-
-        $ibelongtogroups = (User::find($userId)->Ingroups()->paginate(2, ['*'], 'inGroups'));
-        //dd($ibelongtogroups);
 
         return view('livewire.groups.mygroups-table', [
             'groups' => $mygroups,
-            'ingroups' => $ibelongtogroups,
         ]);
     }
 
