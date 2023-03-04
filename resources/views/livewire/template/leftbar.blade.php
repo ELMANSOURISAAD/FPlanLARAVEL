@@ -84,9 +84,21 @@
             </a>
 
 
+            <a><li @if(Route::current()->getName() == 'Ingroups' || Route::current()->getName() == 'Mygroups')
+                class="selectedmenu"
+                @else
+                class="menuitem"
+                @endif>
 
+                    <i class="fa-solid fa-user-group"></i>
+                    <span @if(Route::current()->getName() == 'Ingroups' || Route::current()->getName() == 'Mygroups')
+                        class="selectedmenu"
+                        @endif>Groups</span>
 
-            <a href="{{ route('Mygroups') }}">
+                </li>
+            </a>
+
+            <a style="font-size:0.7em;margin-left:15%" href="{{ route('Mygroups') }}">
                 <li @if(Route::current()->getName() == 'Mygroups')
                     class="selectedmenu"
                     @else
@@ -100,7 +112,7 @@
                     </li>
                 </a>
 
-                <a  href="{{ route('Ingroups') }}">
+                <a  style="font-size:0.7em;margin-left:15%" href="{{ route('Ingroups') }}">
                     <li @if(Route::current()->getName() == 'Ingroups')
                         class="selectedmenu"
                         @else

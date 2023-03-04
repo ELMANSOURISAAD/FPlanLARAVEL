@@ -9,25 +9,7 @@
         <img  src="{{ asset('images/svg/paela.svg') }}" class="imagerotate" height = "100%" width = "200px">
     </div>
 
-    <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;    width: 100%;color:#222A23;">
 
-    <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteGroups(selection)"> Supprimer </button>
-
-    <form action="" wire:submit.prevent="add(Object.fromEntries(new FormData($event.target)))">
-        <label for="name">Creer un group :</label>
-        <input type="text" wire:model.defer="name">
-        <input type="checkbox" name="incluregroupe" id="" checked>
-        <label for="incluregroupe">M'inclure dans le groupe</label>
-        <button type="submit" class="mybutton">Save</button>
-        @error("group.name")
-        {{$message}}
-        @enderror
-    </form>
-
-
-
-
-</div>
 
 <div class="groups">
     <div class="title" ><h3>Admin</h3></div>
@@ -38,6 +20,7 @@
             <th></th>
             <th scope="col" wire:click="setOrderField('name')">Nom</th>
             <th scope="col">Members</th>
+            <th scope="col">Calendrier</th>
 
         </tr>
         </thead>
@@ -48,6 +31,10 @@
                 </td>
                 <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
                 <td>{{count($group->users)}}</td>
+                <td data-label="Actions">
+                    <button type="button" class="mybutton"><i class="fa-regular fa-calendar-days"></i></button>
+                    <button type="button" class="mybutton" wire:click="LeaveGroup('{{ $group -> id }}')"><i class="fa-solid fa-right-from-bracket"></i></button>
+                 </td>
 
             </tr>
 
