@@ -86,18 +86,33 @@
 
 
 
-            <a href="{{ route('Groups') }}">
-                <li @if(Route::current()->getName() == 'Groups')
+            <a href="{{ route('Mygroups') }}">
+                <li @if(Route::current()->getName() == 'Mygroups')
                     class="selectedmenu"
                     @else
                 class="menuitem"
                     @endif>
 
                     <i class="fa-solid fa-user-group"></i>
-                    <span @if(Route::current()->getName() == 'Groups')
+                    <span @if(Route::current()->getName() == 'Mygroups')
                         class="selectedmenu"
-                        @endif>Groups</span>
-                    </li></a>
+                        @endif>Mygroups</span>
+                    </li>
+                </a>
+
+                <a  href="{{ route('Ingroups') }}">
+                    <li @if(Route::current()->getName() == 'Ingroups')
+                        class="selectedmenu"
+                        @else
+                    class="menuitem"
+                        @endif>
+
+                        <i class="fa-solid fa-user-group"></i>
+                        <span @if(Route::current()->getName() == 'Ingroups')
+                            class="selectedmenu"
+                            @endif>Ingroups</span>
+                        </li>
+                    </a>
         </ul>
 
     </div>

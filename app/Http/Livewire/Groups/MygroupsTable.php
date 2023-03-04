@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Group;
 
-class GroupsTable extends Component
+class MygroupsTable extends Component
 {
 
     use WithPagination;
@@ -19,6 +19,8 @@ class GroupsTable extends Component
     public string $name;
 
     public int $editId = 0;
+    public int $inviteId = 0;
+
 
     protected $rules = [
         'name' => 'required|string|min:3',
@@ -26,7 +28,7 @@ class GroupsTable extends Component
 
     protected $listeners = [
         'GroupUpdated' => 'OnGroupUpdated',
-        'GroupAdded' => 'OnGroupAdd',
+        'GroupAdded' => '$refresh',
         'refreshGroups' => '$refresh'
     ];
 
@@ -39,7 +41,7 @@ class GroupsTable extends Component
         $group->name = $this->name;
         $group->user_id = Auth::id();
         $group->save();
-        if(isset($checked['incluregroupe']))
+       if(isset($checked['incluregroupe']))
         {
             $group->users()->attach(Auth::id());
         }
@@ -47,6 +49,18 @@ class GroupsTable extends Component
         $this->emit('GroupAdded');
     }
 
+
+    public function EditThis(int $id)
+    {
+        $this->editId = $id;
+
+    }
+
+    public function InviteSomeone(int $id)
+    {
+        $this->inviteId = $id;
+
+    }
 
     public function deleteGroups($ids)
     {
@@ -84,22 +98,28 @@ class GroupsTable extends Component
 
 
 
+
+
+
+
+
+
     public function render()
     {
         $userId = Auth::id();
 
-        $mygroups = (User::find($userId)->groups()->simplePaginate(2));
-        //dd($mygroups);
+        $mygroups = (User::find($userId)->groups()->where('name','like', '%'.$this->search.'%')
+            ->orderBy($this->orderField, $this->orderDirection)->paginate(2));
         // test add user to group
 
          //$agroup = Group::find(5);
          //$agroup->users()->attach(23);
 
 
-        $ibelongtogroups = (User::find($userId)->Ingroups()->simplePaginate(2));
+        $ibelongtogroups = (User::find($userId)->Ingroups()->paginate(2, ['*'], 'inGroups'));
         //dd($ibelongtogroups);
 
-        return view('livewire.groups.groups-table', [
+        return view('livewire.groups.mygroups-table', [
             'groups' => $mygroups,
             'ingroups' => $ibelongtogroups,
         ]);

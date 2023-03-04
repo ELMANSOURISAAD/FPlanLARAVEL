@@ -23,9 +23,11 @@ class Inventairestable extends Component
     public string $stock;
 
     public int $editId = 0;
+    public int $shareId = 0;
 
     protected $listeners = [
         'InventaireUpdated' => 'OnInventaireUpdated',
+        'InventaireShared' => 'OnInventaireShared',
         'InventaireAdded' => 'OnInventaireAdd'
     ];
 
@@ -79,12 +81,17 @@ class Inventairestable extends Component
     // Listening to events
     public function OnInventaireUpdated()
     {
-        $this->reset('editId');
+        $this->reset('editId','shareId');
     }
 
     public function OnInventaireAdd()
     {
-        $this->reset('editId');
+        $this->reset('editId','shareId');
+    }
+
+    public function OnInventaireShared()
+    {
+        $this->reset('editId','shareId');
     }
 
     public function EditThis(int $id)
@@ -95,7 +102,7 @@ class Inventairestable extends Component
 
     public function ShareThis(int $id)
     {
-        //$this->editId = $id;
+        $this->shareId = $id;
 
     }
 
@@ -106,10 +113,13 @@ class Inventairestable extends Component
         $userId = Auth::id();
 
         $elements = User::find($userId)->elements;
-        $inventaires = User::find($userId)->inventaires()
+        $inventaires = User::find($userId)->inventaires()->with('groups')
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
             ->simplePaginate(4);
+
+
+
 
         return view('livewire.inventaires.inventairestable', [
             'inventaires' => $inventaires,

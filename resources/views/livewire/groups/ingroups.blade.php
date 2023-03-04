@@ -2,5 +2,5 @@
     <livewire:template.header />
         <livewire:template.leftbar />
             <livewire:template.rightbar />
-            <livewire:groups.groups-table />
+            <livewire:groups.ingroups-table />
 </div>

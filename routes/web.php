@@ -19,15 +19,13 @@ Route::get('/', function () {
     return redirect()->route('Calendar');
 });
 
-
-
 Route::get('/Recettes', \App\Http\Livewire\Recettes\Recettes::class)->name('Recettes')->middleware('auth');
 Route::get('/Ingredients', \App\Http\Livewire\Elements\Elements::class)->name('Ingredients')->middleware('auth');
 Route::get('/Inventaires', \App\Http\Livewire\Inventaires\Inventaires::class)->name('Inventaires')->middleware('auth');
 Route::get('/Calendar', \App\Http\Livewire\Calendar\Calendar::class)->name('Calendar')->middleware('auth');
-Route::get('/Groups', \App\Http\Livewire\Groups\Groups::class)->name('Groups')->middleware('auth');
+Route::get('/Mygroups', \App\Http\Livewire\Groups\Mygroups::class)->name('Mygroups')->middleware('auth');
+Route::get('/Ingroups', \App\Http\Livewire\Groups\Ingroups::class)->name('Ingroups')->middleware('auth');
 Route::get('/Reporting', \App\Http\Livewire\Reporting\Reporting::class)->name('Reporting')->middleware('auth');
-
 
 Route::get('/register' , App\Http\Livewire\Register::class)->name('register');
 Route::get('/login' , App\Http\Livewire\Login::class)->name('login');

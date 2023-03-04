@@ -38,6 +38,7 @@
             <th></th>
             <th scope="col" wire:click="setOrderField('name')">Nom</th>
             <th scope="col">Members</th>
+
         </tr>
         </thead>
         <tbody>
@@ -46,15 +47,10 @@
                 <td><input  type="checkbox"  x-model.defer="selection" value="{{$group->id}}"  >
                 </td>
                 <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
-                <td>2</td>
+                <td>{{count($group->users)}}</td>
+
             </tr>
 
-        @if( $editId === $group -> id )
-
-            <livewire:groups.group-form :group="$group" :key="time().$group->id"/>
-
-
-        @endif
 
 
 
@@ -63,43 +59,11 @@
 
         </tbody>
     </table>
-    {{ $groups->links('vendor.pagination.default') }}
 
-
-    <div class="title" ><h3>Groups</h3></div>
-
-    <table>
-        <thead>
-        <tr>
-
-            <th scope="col" wire:click="setOrderField('name')">Nom</th>
-            <th scope="col">Members</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($ingroups as $group)
-            <tr>
-
-                </td>
-                <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
-                <td>2</td>
-            </tr>
-
-        @if( $editId === $group -> id )
-
-            <livewire:groups.group-form :group="$group" :key="time().$group->id"/>
-
-
-        @endif
+    {{ $groups->appends(request()->input())->links('vendor.pagination.default') }}
 
 
 
-
-        @endforeach
-
-        </tbody>
-    </table>
-    {{ $groups->links('vendor.pagination.default') }}
 
 
 </div>

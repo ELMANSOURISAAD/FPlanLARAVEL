@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GroupUser extends Model
+class GroupInventaire extends Model
 {
     use HasFactory;
-    public $table = 'group_user';
+
+    protected $table = 'group_inventaire'; // to fix labeling issue
 
 
     public function groups()
@@ -16,10 +17,8 @@ class GroupUser extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function users()
+    public function inventaires()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Inventaire::class);
     }
-
-
 }

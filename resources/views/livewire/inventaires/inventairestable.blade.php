@@ -48,21 +48,33 @@
 
                 <th scope="col">Unité</th>
                 <th scope="col">Stock</th>
+                <th scope="col">Shared?</th>
                 <th scope="col">ACTIONS</th>
+
             </tr>
             </thead>
             <tbody>
             @foreach ($inventaires as $inventaire)
+
                 <tr>
                     <td><input  type="checkbox"  x-model.defer="selection" value="{{$inventaire->id}}"  >
                     </td>
                     <td data-label="Nom"><a href="#">{{ $inventaire->name }}</a></td>
                     <td data-label="unit">{{ $inventaire->unit }} </td>
                     <td data-label="Stock">{{ $inventaire->stock }}</td>
+                    <td data-label="Shared">
+
+                        @forelse ($inventaire->groups as $share)
+                            {{ $share->name }} -> {{ $share->pivot->pourcentage }}%
+                        @empty
+                            0%
+                        @endforelse
+
+                    </td>
                     <td data-label="Actions">
                         <button class="mybutton" type="button"><i class="far fa-eye"></i></button>
                         <button class="mybutton" type="button" wire:click="EditThis('{{$inventaire->id}}')"><i class="fas fa-edit"></i></button>
-                        <button class="mybutton" type="button" onclick="Livewire.emit('openModal', 'inventaires.sharemodal',{{ json_encode(["inventaire" => $inventaire->id]) }})"><i class="fa-solid fa-square-share-nodes"></i></button>
+                        <button class="mybutton" type="button" wire:click="ShareThis('{{$inventaire->id}}')"><i class="fa-solid fa-square-share-nodes"></i></button>
                     </td>
                 </tr>
 
@@ -71,6 +83,11 @@
 
                     <livewire:inventaires.inventaire-form :inventaire="$inventaire" :key="$inventaire->id"/>
 
+                @endif
+
+                @if( $shareId === $inventaire -> id )
+
+                    <livewire:inventaires.inventaire-shareform :inventaire="$inventaire" :key="$inventaire->id"/>
 
                 @endif
             @endforeach
