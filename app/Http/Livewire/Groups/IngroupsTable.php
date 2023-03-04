@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Groups;
 
+use App\Models\Group;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ class IngroupsTable extends Component
     public string $orderField = 'name';
     public string $orderDirection = 'ASC';
 
+    protected $listeners = ['refreshComponent' => '$refresh'];
 
     public function setOrderField(string $name)
     {
@@ -29,6 +31,12 @@ class IngroupsTable extends Component
         }
         $this->orderField = $name ;
 
+    }
+
+    public function LeaveGroup($id)
+    {
+        Group::find($id)->users()->detach(Auth::id());
+        $this->emit('refreshComponent');
     }
 
 
