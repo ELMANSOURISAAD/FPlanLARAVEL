@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Inventaires;
 
-
+use App\Models\Group;
 use App\Models\Inventaire;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +18,9 @@ class Inventairestable extends Component
     public string $orderDirection = 'ASC';
     public array $selection = [];
 
-    public string $name;
-    public string $unit;
-    public string $stock;
+    public string $name = '';
+    public string $unit = '';
+    public int $stock = 0;
 
     public int $editId = 0;
     public int $shareId = 0;
@@ -72,6 +72,12 @@ class Inventairestable extends Component
 
     }
 
+    public function DeleteInventaireFromGroupe($id_inventaire,$id_groupe)
+    {
+        Group::find($id_groupe)->inventaires()->detach($id_inventaire);
+        session()->flash('testflash', 'Crevard detected');
+    }
+
 
 
 
@@ -96,12 +102,16 @@ class Inventairestable extends Component
 
     public function EditThis(int $id)
     {
+        $this->reset('editId','shareId');
         $this->editId = $id;
 
     }
 
     public function ShareThis(int $id)
     {
+
+        $this->reset('editId','shareId');
+
         $this->shareId = $id;
 
     }
@@ -116,7 +126,7 @@ class Inventairestable extends Component
         $inventaires = User::find($userId)->inventaires()->with('groups')
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
-            ->simplePaginate(4);
+            ->Paginate(6);
 
 
 

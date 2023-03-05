@@ -1,20 +1,20 @@
 
-    <div class="main-wrapper first-data backcolor">
+    <div class="first-data backcolor">
         <style>
             .container {
 
 
                 grid-template-areas:
-    "left Header Header Header right"
-    "left Header Header Header right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right"
-    "left first-data first-data first-data right";
+    "left Header Header Header Header right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right"
+    "left first-data first-data first-data first-data right";
             }
             .first-data{
                 display:flex;

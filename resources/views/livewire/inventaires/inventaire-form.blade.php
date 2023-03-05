@@ -1,6 +1,6 @@
 
-<td colspan="5">
-    <form action="" wire:submit.prevent="save">
+<td colspan="6">
+    <form class="inform" action="" wire:submit.prevent="save">
         <label for="name">Nom</label>
 
         <select name="" id="" wire:model.defer="inventaire.name">
@@ -21,7 +21,7 @@
             @endforeach
         </select>
         <label for="unit">Stock</label>
-        <input type="number" step="0.01" wire:model.defer="inventaire.stock">
+        <input type="number" step="1" wire:model.defer="inventaire.stock">
         <button class="mybutton" type="submit">Enregistrer</button>
         @error("inventaire.name")
         {{$message}}

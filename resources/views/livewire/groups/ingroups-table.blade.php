@@ -1,5 +1,5 @@
 
-<div  class="first-data backcolor" x-data="{selection: @entangle('selection').defer}">
+<div  class="first-data backcolor">
 
     <div style="width:100%;border-radius: 30px;background-color:#FB9300;display:flex;justify-content:space-between">
         <div style="padding:10px">
@@ -12,12 +12,12 @@
 
 
 <div class="groups">
-    <div class="title" ><h3>Admin</h3></div>
+    <div class="title" ><h3>Groupes</h3></div>
 
     <table>
         <thead>
         <tr>
-            <th></th>
+
             <th scope="col" wire:click="setOrderField('name')">Nom</th>
             <th scope="col">Members</th>
             <th scope="col">Calendrier</th>
@@ -25,13 +25,14 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($groups as $group)
+
+        @forelse ($groups as $group)
             <tr>
-                <td><input  type="checkbox"  x-model.defer="selection" value="{{$group->id}}"  >
-                </td>
+
                 <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
                 <td>{{count($group->users)}}</td>
                 <td data-label="Actions">
+                    <button class="mybutton" type="button" wire:click="SeeInventaire('{{ $group -> id }}')"><i class="far fa-eye"></i></button>
                     <button type="button" class="mybutton"><i class="fa-regular fa-calendar-days"></i></button>
                     <button type="button" class="mybutton" wire:click="LeaveGroup('{{ $group -> id }}')"><i class="fa-solid fa-right-from-bracket"></i></button>
                  </td>
@@ -39,10 +40,20 @@
             </tr>
 
 
+            @if( $inventaireShares === $group -> id )
+
+            <livewire:groups.group-inventaire :group="$group" :key="time().$group->id"/>
 
 
+            @endif
 
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="3" style="text-align: center"> NO RECORDS </td>
+        </tr>
+
+
+        @endforelse
 
         </tbody>
     </table>

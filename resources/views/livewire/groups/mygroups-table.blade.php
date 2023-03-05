@@ -24,13 +24,16 @@
         @enderror
     </form>
 
+    <button class="mybutton" onclick="Livewire.emit('openModal', 'recettes.suggestions')"><i class="fa-solid fa-file-import"></i> Importer des recettes</button>
+
+
 
 
 
 </div>
 
 <div class="groups">
-    <div class="title" ><h3>Admin</h3></div>
+    <div class="title" ><h3>Admin. groupes</h3></div>
 
     <table>
         <thead>
@@ -42,14 +45,13 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($groups as $group)
+        @forelse ($groups as $group)
             <tr>
                 <td><input  type="checkbox"  x-model.defer="selection" value="{{$group->id}}"  >
                 </td>
                 <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
                 <td>{{count($group->users)}}</td>
                 <td data-label="Actions">
-                    <button class="mybutton" type="button" wire:click="SeeInventaire('{{ $group -> id }}')"><i class="far fa-eye"></i></button>
                     <button class="mybutton" type="button" wire:click="EditThis('{{ $group -> id }}')"><i class="fas fa-edit"></i></button>
                     <button class="mybutton" type="button" wire:click="InviteSomeone('{{ $group -> id }}')"><i class="fa-solid fa-person-harassing"></i></button>
                 </td>
@@ -71,16 +73,13 @@
             @endif
 
 
-            @if( $inventaireShares === $group -> id )
-
-            <livewire:groups.group-inventaire :group="$group" :key="time().$group->id"/>
-
-
-            @endif
+            @empty
+            <tr>
+                <td colspan="4" style="text-align: center"> NO RECORDS </td>
+            </tr>
 
 
-
-        @endforeach
+        @endforelse
 
         </tbody>
     </table>

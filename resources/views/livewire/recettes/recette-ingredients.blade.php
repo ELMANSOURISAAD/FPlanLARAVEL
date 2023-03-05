@@ -1,6 +1,6 @@
 <tr><td colspan="5">
         <div>
-            <form action="" wire:submit.prevent="addIngredientToRecette">
+            <form class="inform" action="" wire:submit.prevent="addIngredientToRecette">
             <label for="Name">Add an ingredient :</label>
             <select name="" id="" wire:model.defer="element_toadd" wire:change="updateFrontUnit">
                 <option value=""></option>
@@ -10,7 +10,7 @@
                 @endforeach
             </select>
                 <label for="quantity">Quantity</label>
-                <input type="number" step="0.01" wire:model.defer="quantity_toadd"><i>{{ $unitFront }}</i>
+                <input type="number" step="1" wire:model.defer="quantity_toadd"><i>{{ $unitFront }}</i>
                 <button type="submit" class="mybutton"> Go </button>
             </form>
         </div>

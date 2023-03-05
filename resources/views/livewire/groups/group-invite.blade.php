@@ -1,10 +1,11 @@
 
 <td colspan="4">
-    <form action="" wire:submit.prevent="invite">
-        <label for="user">user</label>
-        <input type="text" name="user" wire:model.defer="user">
+    <form class="inform" action="" wire:submit.prevent="invite">
+        <label for="user">Inviter un ami  </label>
+         <input type="text" name="user" wire:model.defer="user">
 
-        <input type="submit" value="Go">
+        <button class="mybutton" type="submit">Enregistrer</button>
+
     </form>
 
     @error("user")

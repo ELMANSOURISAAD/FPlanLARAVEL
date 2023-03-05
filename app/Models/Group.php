@@ -12,7 +12,7 @@ class Group extends Model
     public function inventaires()
     {
         return $this->belongsToMany(Inventaire::class)
-            ->withPivot('pourcentage');
+            ->withPivot(["quantity","unit"]);
     }
 
     public function group_inventaire()

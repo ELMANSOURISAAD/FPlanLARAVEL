@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Groups;
 
+use App\Models\GroupInventaire;
 use App\Models\Group;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,6 +17,8 @@ class IngroupsTable extends Component
     public string $search = '';
     public string $orderField = 'name';
     public string $orderDirection = 'ASC';
+    public int $inventaireShares = 0;
+
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
@@ -35,10 +38,30 @@ class IngroupsTable extends Component
 
     public function LeaveGroup($id)
     {
+
+        $userId = Auth::id();
+
+
+
+        foreach (Group::find($id)->inventaires as $inventaire) {
+            if($inventaire->user_id === $userId)
+            {
+                Group::find($id)->inventaires()->detach($inventaire->id);
+            }
+        }
+
+        // Quitter le groupe
         Group::find($id)->users()->detach(Auth::id());
+
         $this->emit('refreshComponent');
     }
 
+
+
+    public function SeeInventaire($id)
+    {
+        $this->inventaireShares = $id;
+    }
 
 
 
@@ -56,7 +79,7 @@ class IngroupsTable extends Component
 
 
         $ibelongtogroups = (User::find($userId)->Ingroups()->where('name','like', '%'.$this->search.'%')
-        ->orderBy($this->orderField, $this->orderDirection)->paginate(2));
+        ->orderBy($this->orderField, $this->orderDirection)->paginate(6));
     // test add user to group
         //dd($ibelongtogroups);
 

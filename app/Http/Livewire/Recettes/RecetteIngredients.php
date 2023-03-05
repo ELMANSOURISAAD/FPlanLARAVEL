@@ -38,7 +38,6 @@ class RecetteIngredients extends Component
         $this->recette->elements()->detach($id_element);
         $this->emit('refreshRecettes');
         session()->flash('ElementDeleted', 'Ingredient successfully deleted.');
-
     }
     public function updateFrontUnit(){
         $element = Element::find($this->element_toadd);
