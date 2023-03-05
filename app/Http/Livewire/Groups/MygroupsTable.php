@@ -16,7 +16,7 @@ class MygroupsTable extends Component
     public string $orderField = 'name';
     public string $orderDirection = 'ASC';
     public array $selection = [];
-    public string $name;
+    public string $name = '';
 
     public int $editId = 0;
     public int $inviteId = 0;
@@ -28,7 +28,7 @@ class MygroupsTable extends Component
 
     protected $listeners = [
         'GroupUpdated' => 'OnGroupUpdated',
-        'GroupAdded' => '$refresh',
+        'GroupAdded' => 'OnGroupAdded',
         'refreshGroups' => '$refresh'
     ];
 
@@ -52,18 +52,32 @@ class MygroupsTable extends Component
 
     public function EditThis(int $id)
     {
+        $this->reset('inviteId','name');
         $this->editId = $id;
 
     }
 
     public function InviteSomeone(int $id)
     {
+        $this->reset('editId');
         $this->inviteId = $id;
 
     }
 
     public function deleteGroups($ids)
     {
+        // Supprimer les inventaires partagés
+        foreach ($ids as $id) {
+           // $parent = Group::find($id);
+           // foreach ($parent->inventaires as $child){
+            //    $child->delete();
+           // }
+
+          // supprimer le groupe
+
+
+        }
+
         Group::destroy($ids);
         $this->selection = [];
 
@@ -90,10 +104,10 @@ class MygroupsTable extends Component
     }
 
 
-    public function OnGroupAdd()
+    public function OnGroupAdded()
     {
 
-        $this->reset('editId');
+        $this->reset('editId','name');
     }
 
 

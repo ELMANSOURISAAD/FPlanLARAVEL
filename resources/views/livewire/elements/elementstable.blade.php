@@ -1,11 +1,21 @@
 
 <div class="first-data backcolor" x-data="{selection: @entangle('selection').defer}">
 
-    <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;width: 100%;color:#222A23">
 
-        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteElements(selection)" > Supprimer </button>
 
-        <form action="" wire:submit.prevent="add">
+    <div style="width:100%;border-radius: 30px;background-color:#FB9300;display:flex;justify-content:space-between">
+        <div style="padding:10px">
+        <h3 style='color:white;'>Ajouter votre repas</h3>
+        <p style='font-size:0.7em;color:white;opacity:0.7'>Upload your own home-made recipe, and share it with the other members of the community</p>
+        </div>
+        <img  src="{{ asset('images/svg/paela.svg') }}" class="imagerotate" height = "100%" width = "200px">
+    </div>
+    <div  style="display:flex;flex-direction: column;justify-content: center;;color:#222A23;">
+
+
+        <form style="  font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;" action="" wire:submit.prevent="add">
             <label for="name">Ajouter un element :</label>
             <input type="text" wire:model.defer="name">
             <label for="name">Unité :</label>
@@ -34,11 +44,17 @@
             {{$message}}
             @enderror
         </form>
-        <input wire:model="search" type="text" placeholder="Chercher un element..."/>
+
     </div>
+
+
     <div class="title"><h3>Mes Elements</h3></div>
 
     <div class="elements">
+        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteElements(selection)" > Supprimer </button>
+        <div class="search" style="width:100%">
+        <input  style="width:100%" wire:model="search" type="text" placeholder="Chercher un element..."/>
+        </div>
         <table>
             <thead>
             <tr>
@@ -76,8 +92,9 @@
 
             </tbody>
         </table>
-        {{ $elements->links() }}
 
+        {{ $elements->links('vendor.pagination.default') }}
+        
 
 
     </div>

@@ -43,6 +43,7 @@ class RecettesTable extends Component
         $recette->user_id = Auth::id();
         $recette->save();
         $this->emit('RecetteAdded');
+
     }
 
 
@@ -86,6 +87,7 @@ class RecettesTable extends Component
 
     public function OnRecetteAdd()
     {
+        $this->name = '';
         $this->reset('editId');
     }
 
@@ -110,7 +112,7 @@ class RecettesTable extends Component
         $recettes = User::find($userId)->recettes()
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
-            ->simplePaginate(2);
+            ->Paginate(6);
 
         return view('livewire.recettes.recettes-table', [
             'recettes' => $recettes,

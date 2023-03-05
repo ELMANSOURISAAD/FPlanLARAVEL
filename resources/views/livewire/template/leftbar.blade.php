@@ -4,6 +4,7 @@
         <div class="operations">
             <div class="flex">
             <h3 style="color:#361E92">Food </h3> <h3 style="color:#F3A358">Planning </h3>
+            {{ $name }}
             </div>
 
 
@@ -20,8 +21,8 @@
                 @endif>
 
 
-                    <i class="fa-solid fa-house"></i>
-                    <span @if(Route::current()->getName() == 'Calendar')
+                <i class="fa-regular fa-calendar-days"></i>
+                                    <span class="spanmenu" @if(Route::current()->getName() == 'Calendar')
                             class="selectedmenu"
                         @endif>Calendar</span>
                     </li></a>
@@ -34,7 +35,7 @@
                 @endif>
 
                     <i class="fa-solid fa-plate-wheat"></i>
-                    <span @if(Route::current()->getName() == 'Recettes')
+                    <span class="spanmenu" @if(Route::current()->getName() == 'Recettes')
                         class="selectedmenu"
                         @endif">Recettes</span>
 
@@ -48,7 +49,7 @@
                 @endif>
 
                     <i class="fa-solid fa-egg"></i>
-                    <span @if(Route::current()->getName() == 'Ingredients')
+                    <span class="spanmenu" @if(Route::current()->getName() == 'Ingredients')
                         class="selectedmenu"
                         @endif>Ingrédients</span>
 
@@ -63,68 +64,62 @@
                 @endif>
 
                     <i class="fa-solid fa-basket-shopping"></i>
-                    <span @if(Route::current()->getName() == 'Inventaires')
+                    <span class="spanmenu" @if(Route::current()->getName() == 'Inventaires')
                         class="selectedmenu"
                         @endif>Inventaire</span>
                 </li>
             </a>
 
-            <a href="{{ route('Reporting') }}"><li @if(Route::current()->getName() == 'Reporting')
-                class="selectedmenu"
-                @else
+
+
+
+            <a  href="{{ route('Ingroups') }}">
+                <li @if(Route::current()->getName() == 'Ingroups')
+                    class="selectedmenu"
+                    @else
                 class="menuitem"
-                @endif>
+                    @endif>
 
-                    <i class="fa-solid fa-cash-register"></i>
-                    <span @if(Route::current()->getName() == 'Reporting')
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span class="spanmenu" @if(Route::current()->getName() == 'Ingroups')
                         class="selectedmenu"
-                        @endif>Reporting</span>
+                        @endif>Groupes</span>
+                    </li>
+                </a>
 
-                </li>
-            </a>
 
-
-            <a><li @if(Route::current()->getName() == 'Ingroups' || Route::current()->getName() == 'Mygroups')
-                class="selectedmenu"
-                @else
-                class="menuitem"
-                @endif>
-
-                    <i class="fa-solid fa-user-group"></i>
-                    <span @if(Route::current()->getName() == 'Ingroups' || Route::current()->getName() == 'Mygroups')
-                        class="selectedmenu"
-                        @endif>Groups</span>
-
-                </li>
-            </a>
-
-            <a style="font-size:0.7em;margin-left:15%" href="{{ route('Mygroups') }}">
+            <a  href="{{ route('Mygroups') }}">
                 <li @if(Route::current()->getName() == 'Mygroups')
                     class="selectedmenu"
                     @else
                 class="menuitem"
                     @endif>
 
-                    <i class="fa-solid fa-user-group"></i>
-                    <span @if(Route::current()->getName() == 'Mygroups')
+                    <i class="fa-brands fa-watchman-monitoring"></i>
+                    <span class="spanmenu" @if(Route::current()->getName() == 'Mygroups')
                         class="selectedmenu"
-                        @endif>Mygroups</span>
+                        @endif>Administrer</span>
                     </li>
                 </a>
 
-                <a  style="font-size:0.7em;margin-left:15%" href="{{ route('Ingroups') }}">
-                    <li @if(Route::current()->getName() == 'Ingroups')
-                        class="selectedmenu"
-                        @else
-                    class="menuitem"
-                        @endif>
 
-                        <i class="fa-solid fa-user-group"></i>
-                        <span @if(Route::current()->getName() == 'Ingroups')
+{{--
+
+                <a href="{{ route('Reporting') }}"><li @if(Route::current()->getName() == 'Reporting')
+                    class="selectedmenu"
+                    @else
+                    class="menuitem"
+                    @endif>
+
+                        <i class="fa-solid fa-cash-register"></i>
+                        <span @if(Route::current()->getName() == 'Reporting')
                             class="selectedmenu"
-                            @endif>Ingroups</span>
-                        </li>
-                    </a>
+                            @endif>Reporting</span>
+
+                    </li>
+                </a> --}}
+
+
         </ul>
 
     </div>

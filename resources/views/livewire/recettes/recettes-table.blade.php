@@ -10,16 +10,13 @@
             </div>
             <img  src="{{ asset('images/svg/paela.svg') }}" class="imagerotate" height = "100%" width = "200px">
         </div>
-        <div class="panel" style="display:flex;flex-direction: row;justify-content: space-between;    width: 100%;color:#222A23;">
-
-        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>
+        <div  style="display:flex;flex-direction: column;justify-content: center;;color:#222A23;">
 
 
-        <button class="mybutton" onclick="Livewire.emit('openModal', 'recettes.suggestions')"><i class="fa-solid fa-file-import"></i> Importer des recettes</button>
 
-
-        <!--
-        <form action="" wire:submit.prevent="add">
+        <form style="  font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;" action="" wire:submit.prevent="add">
             <label for="name">Ajouter une recette :</label>
             <input class="mybuttonW" type="text" wire:model.defer="name">
             <button class="mybutton" type="submit">Save</button>
@@ -27,13 +24,18 @@
             {{$message}}
             @enderror
         </form>
-    -->
-        <input wire:model="search" class="mybuttonW" type="text" placeholder="Find"/>
+
+
         </div>
 
-    <div class="recettes">
-        <div class="title" ><h3>Mes recettes</h3></div>
+   <div class="title" ><h3>Mes recettes</h3></div>
 
+    <div class="recettes">
+        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteRecettes(selection)"> Supprimer </button>
+
+        <div class="search" style="width:100%">
+            <input  style="width:100%" wire:model="search" type="text" placeholder="Chercher un element..."/>
+            </div>
         <table>
             <thead>
             <tr>

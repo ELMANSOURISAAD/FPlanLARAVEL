@@ -1,11 +1,12 @@
 
-<td colspan="5">
-    <form action="" wire:submit.prevent="share">
-        <label for="pourcentage">Pourcentage</label>
-        <input type="number" name="pourcentage" wire:model.defer="pourcentage">
+<td colspan="6">
+    <form class="inform" action="" wire:submit.prevent="share">
+        <label for="pourcentage">Quantité</label>
+        <input type="number" name="quantity" wire:model.defer="quantity">
         <select name="group" id="" wire:model.defer="group">
-            @foreach ($groups as $group)
             <option value=""></option>
+            @foreach ($groups as $group)
+
                 <option value="{{$group->id}}">{{$group->name}}</option>
             @endforeach
         </select>

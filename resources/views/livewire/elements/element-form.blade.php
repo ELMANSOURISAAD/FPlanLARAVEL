@@ -1,6 +1,6 @@
 
 <td colspan="6">
-    <form action="" wire:submit.prevent="save">
+    <form class="inform" action="" wire:submit.prevent="save">
         <label for="name">Nom</label>
         <input type="text" name="name" wire:model.defer="element.name">
         <label for="unit">Unité (g/l/piece)</label>
@@ -12,9 +12,9 @@
             @endforeach
         </select>
         <label for="price">price (€)</label>
-        <input type="number" name="price" step="0.01" wire:model.defer="element.price">
+        <input type="number" name="price" step="0.1" wire:model.defer="element.price">
         <label for="calories">Calories (KJ)</label>
-        <input type="number" name="calories" step="0.01" wire:model.defer="element.calories">
+        <input type="number" name="calories" step="1" wire:model.defer="element.calories">
 
         <button class="mybutton" type="submit">Enregistrer</button>
         @error("element.name")

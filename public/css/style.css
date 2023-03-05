@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
 [x-cloak] { display: none !important; }
 
+input[type="text"], input[type="password"], textarea, select {
+    outline: none;
+}
 a {
   color: #372E5D;
   text-decoration: none; /* no underline */
 }
-form {
-    display:flex;justify-content:center
+.inform {
+    display:flex;justify-content:center;gap:1%;
 }
 body {
 
@@ -20,12 +23,7 @@ body {
    background: linear-gradient(to top, #BDDABF , #D6E8D7); */
 }
 
-.recettes{
-    padding:10px;
-    text-align: center;
-    background: white;
-    border-radius: 30px;
-}
+
 .mybutton{
     color: #fff;
     background: #FB9300;
@@ -298,7 +296,7 @@ p{
 
 
 
-span {
+.spanmenu {
     margin-left: 10%;
     color:#DFDCEA;
     font-size: 1em;
@@ -388,7 +386,9 @@ span {
 
 /* effects & classes */
 
-
+.active{
+    background-color: #FFF9F3;
+}
 .imagerotate {
     -webkit-transition-duration: 1s;
     -moz-transition-duration: 1s;
@@ -440,9 +440,7 @@ ul {
 
 .title  {
 color:#1C1146;
-    font-size: 1.5em;
-    margin: .5em 0 .75em;
-
+font-size: 1.5em;
 }
 
 

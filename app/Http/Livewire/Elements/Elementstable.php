@@ -102,7 +102,7 @@ class Elementstable extends Component
         $elements = User::find($userId)->elements()
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
-            ->simplePaginate(5);
+            ->Paginate(6);
         return view('livewire.elements.elementstable', [
             'elements' => $elements
         ]);
