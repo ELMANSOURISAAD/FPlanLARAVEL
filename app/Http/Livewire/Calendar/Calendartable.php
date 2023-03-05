@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire\Calendar;
 
-
+use App\Models\Course;
+use App\Models\Inventaire;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class Calendartable extends Component
         'refreshComponent' => '$refresh'
     ];
 
-    public array $currentselection = [];
+    public array $listedecourses = [];
     public array $selected = [];
 
     private function convertIngredient($ingredient, $amount, $start_unit, $end_unit) {
@@ -191,7 +192,7 @@ class Calendartable extends Component
             return $result;
 
         } else {
-            
+
             return 0;
         }
     }
@@ -218,6 +219,7 @@ class Calendartable extends Component
                 $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
                 $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
                 $disponibles[$inventaire->name]['name'] = $inventaire->name;
+                $disponibles[$inventaire->name]['id'] = $inventaire->id;
 
             }
 
@@ -230,7 +232,7 @@ class Calendartable extends Component
 
         foreach ($repas as $onerepas)
         {
-            $b=0;
+
             if($onerepas->recette)
             {
                 foreach ($onerepas->recette->elements()->get() as $element)
@@ -249,6 +251,13 @@ class Calendartable extends Component
                         $besoins[$element->name]['quantity']  = $element->pivot->quantity;
                         $besoins[$element->name]['unit'] = $element->unit;
                         $besoins[$element->name]['name'] = $element->name;
+
+                        $besoins[$element->name]['id'] = 0 ;
+                        if(isset($disponibles[$element->name]['id']))
+                        {
+                            $besoins[$element->name]['id'] = $disponibles[$element->name]['id'];
+                        }
+
                     }
 
                 }
@@ -265,12 +274,13 @@ class Calendartable extends Component
 
             if (array_key_exists($nom_besoin, $disponibles))
             {
-                    // si l'element existe dans l'inventaire 
+                    // si l'element existe dans l'inventaire
                 if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes") < $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
 
                     $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes") - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                     $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
                     $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
+                    $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
                 }
 
             }
@@ -279,6 +289,7 @@ class Calendartable extends Component
                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
+                $tobuy[$nom_besoin]['id'] = $besoin_data['id'];
 
             }
 
@@ -292,21 +303,22 @@ class Calendartable extends Component
 
 public function refresh_data()
 {
-    $this->currentselection = [];
+    $this->listedecourses = [];
     foreach ($this->selected as $date)
     {
         $date = Carbon::parse($date);
         $missing = $this->MissingInventory($date);
 
         foreach ($missing as $titre => $data) {
-                    if (array_key_exists($titre, $this->currentselection))
+                    if (array_key_exists($titre, $this->listedecourses))
                 {
-                    $this->currentselection[$titre]['quantity'] += $data['quantity'];
+                    $this->listedecourses[$titre]['quantity'] += $data['quantity'];
                 }
                 else
                 {
-                  $this->currentselection[$titre]['quantity'] = $data['quantity'];
-                  $this->currentselection[$titre]['unit'] = $data['unit'];
+                  $this->listedecourses[$titre]['quantity'] = $data['quantity'];
+                  $this->listedecourses[$titre]['unit'] = $data['unit'];
+                  $this->listedecourses[$titre]['id'] = $data['id'];
                 }
         }
 
@@ -331,6 +343,29 @@ public function refresh_data()
 
             // $this->reset('currentselection','selected');
         }
+    }
+
+
+    public function CreateCourse($id_inventaire,$name,$quantity,$unit)
+    {
+        if($id_inventaire == 0)
+        {
+            $inventaire = new Inventaire;
+            $inventaire->name = $name;
+            $inventaire->stock = 0;
+            $inventaire->user_id = Auth::id();
+            $inventaire->unit = $unit;
+            $inventaire->save();
+            $id_inventaire = $inventaire->id;
+        }
+
+            $course = new Course;
+            $course->user_id = Auth::id();
+            $course->save();
+            $id_course = $course->id;
+            $inventaire = Inventaire::find($id_inventaire);
+            ($inventaire->courses()->attach($id_course, ['quantity'=> $quantity , 'unit'=> $unit ]));
+
     }
 
     // Listener a la suppression d'une recette dans l'agenda.

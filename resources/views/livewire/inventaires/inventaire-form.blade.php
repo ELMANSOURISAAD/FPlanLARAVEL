@@ -1,5 +1,5 @@
 
-<td colspan="6">
+<td colspan="7">
     <form class="inform" action="" wire:submit.prevent="save">
         <label for="name">Nom</label>
 

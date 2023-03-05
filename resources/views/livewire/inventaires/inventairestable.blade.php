@@ -4,7 +4,7 @@
 
     <div style="width:100%;border-radius: 30px;background-color:#FB9300;display:flex;justify-content:space-between">
         <div style="padding:10px">
-        <h3 style='color:white;'>Ajouter votre repas</h3>
+        <h3 style='color:white;'>Gerer votre cuisine</h3>
         <p style='font-size:0.7em;color:white;opacity:0.7'>Upload your own home-made recipe, and share it with the other members of the community</p>
         </div>
         <img  src="{{ asset('images/svg/paela.svg') }}" class="imagerotate" height = "100%" width = "200px">
@@ -49,7 +49,7 @@
     <div class="title"><h3>Mon Inventaire  </h3></div>
 
     <div class="elements">
-        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteElements(selection)" > Supprimer </button>
+        <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteInventaires(selection)" > Supprimer </button>
         <div class="search" style="width:100%">
         <input  style="width:100%" wire:model="search" type="text" placeholder="Chercher un element..."/>
         </div>
@@ -62,6 +62,7 @@
                 <th scope="col">Unité</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Shared?</th>
+                <th scope="col">Missing?</th>
                 <th scope="col">ACTIONS</th>
 
             </tr>
@@ -81,6 +82,15 @@
                             {{ $share->name }} -> {{ $share->pivot->quantity }} {{ $share->pivot->unit }}
 
                             <i class="fa-solid fa-xmark" wire:click="DeleteInventaireFromGroupe('{{$inventaire -> id}}','{{$share -> id}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+                            <br>
+                        @empty
+
+                        @endforelse
+
+                    </td>
+                    <td data-label="Missing">
+                        @forelse ($inventaire->courses as $course)
+                            {{ $course->pivot->quantity }} {{ $course->pivot->unit }}
                             <br>
                         @empty
 

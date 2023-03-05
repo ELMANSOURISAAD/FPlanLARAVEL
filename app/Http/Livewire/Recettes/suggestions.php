@@ -20,18 +20,17 @@ class suggestions extends ModalComponent
 
     public function Go()
     {
-        //Repas::getQuery()->delete();
-        //Recette::getQuery()->delete();
-        //Element::getQuery()->delete();
-        //ElementRecette::getQuery()->delete();
+        $id = Auth::id();
+        Repas::where('user_id','=',$id)->delete();
+        Recette::where('user_id','=',$id)->delete();
+        Element::where('user_id','=',$id)->delete();
 
         // GROUPS
-        //Group::getQuery()->delete();
-        //GroupUser::getQuery()->delete();
-        //GroupInventaire::getQuery()->delete();
+        Group::where('user_id','=',$id)->delete();
+        GroupUser::where('user_id','=',$id)->delete();
 
         // INVENTAIRE
-        //Inventaire::getQuery()->delete();
+        Inventaire::where('user_id','=',$id)->delete();
 
 
         $ingredients = array(
