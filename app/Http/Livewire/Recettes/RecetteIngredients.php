@@ -44,13 +44,25 @@ class RecetteIngredients extends Component
 
         $this->unitFront = $element->unit;
     }
-    public function addIngredientToRecette()
+ public function addIngredientToRecette()
     {
 
-        // TO DO : Si l'element existe deja dans la recette,il faut mettre a jour la quantité.
-
         $this->validate();
-        $this->recette->elements()->attach($this->element_toadd, ['quantity'=> $this->quantity_toadd ]);
+
+                        if($this->recette->elements()->find($this->element_toadd))
+                        {
+                            // TODO : convertir si l'unité a changé entre temps
+                            $t = $this->recette->elements()->find($this->element_toadd);
+                            $t->pivot->quantity += $this->quantity_toadd;
+                            $t->pivot->save();
+                        }
+                        else
+                        {
+                            $this->recette->elements()->attach($this->element_toadd, ['quantity'=> $this->quantity_toadd ]);
+
+                        }
+
+
         $this->emit('refreshRecettes');
         session()->flash('ElementDeleted', 'Ingredient successfully Added.');
         $this->reset('element_toadd','quantity_toadd');
