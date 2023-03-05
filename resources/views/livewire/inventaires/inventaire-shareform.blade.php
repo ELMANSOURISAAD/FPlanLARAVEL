@@ -1,5 +1,5 @@
 
-<td colspan="6">
+<td colspan="7">
     <form class="inform" action="" wire:submit.prevent="share">
         <label for="pourcentage">Quantité</label>
         <input type="number" name="quantity" wire:model.defer="quantity">
@@ -13,7 +13,11 @@
         <input type="submit" value="Go">
     </form>
 
-    @error("pourcentage")
+    @error("quantity")
+        {{$message}}
+        @enderror
+
+        @error("unit")
         {{$message}}
         @enderror
 </td>

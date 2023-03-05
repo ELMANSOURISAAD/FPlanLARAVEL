@@ -123,10 +123,13 @@ class Inventairestable extends Component
         $userId = Auth::id();
 
         $elements = User::find($userId)->elements;
-        $inventaires = User::find($userId)->inventaires()->with('groups')
+        $inventaires = User::find($userId)->inventaires()->with('groups','courses')
             ->where('name','like', '%'.$this->search.'%')
             ->orderBy($this->orderField, $this->orderDirection)
             ->Paginate(6);
+
+
+
 
 
 

@@ -5,7 +5,7 @@
 
     <div style="width:100%;border-radius: 30px;background-color:#FB9300;display:flex;justify-content:space-between">
         <div style="padding:10px">
-        <h3 style='color:white;'>Ajouter votre repas</h3>
+        <h3 style='color:white;'>Ajouter vos ingrédients</h3>
         <p style='font-size:0.7em;color:white;opacity:0.7'>Upload your own home-made recipe, and share it with the other members of the community</p>
         </div>
         <img  src="{{ asset('images/svg/paela.svg') }}" class="imagerotate" height = "100%" width = "200px">
@@ -94,7 +94,7 @@
         </table>
 
         {{ $elements->links('vendor.pagination.default') }}
-        
+
 
 
     </div>

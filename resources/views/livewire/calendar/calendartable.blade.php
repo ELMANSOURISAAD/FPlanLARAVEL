@@ -222,8 +222,10 @@
         <div class="days" style="width:100%;display:flex;justify-content: space-around">
             <div>
                 <h3> Liste de courses : </h3>
-                @forelse ($currentselection as $name=>$quantity)
+                @forelse ($listedecourses as $name=>$quantity)
                     <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
+                    <i class="fa-regular fa-square-plus" wire:click="CreateCourse('{{$quantity['id']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+
 
                 @empty
                     NOTHING TO SHOW
