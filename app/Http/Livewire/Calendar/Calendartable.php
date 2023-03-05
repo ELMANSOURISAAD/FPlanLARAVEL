@@ -18,7 +18,8 @@ class Calendartable extends Component
     protected $listeners = [
         'RepasAdded' => 'OnRepasAdded',
         'RepasDeletedB' => 'OnRepasDeletedB',
-        'refreshComponent' => '$refresh'
+        'refreshComponent' => '$refresh',
+        'CourseAdded' => '$refresh'
     ];
 
     public array $listedecourses = [];
@@ -198,13 +199,13 @@ class Calendartable extends Component
     }
     public function MissingInventory($adate)
     {
-
+        $b = 0;
         $tobuy = [];
         $disponibles = [];
         $besoins = [];
         $userId = Auth::id();
 
-        $inventaires = User::find($userId)->inventaires()->get();
+        $inventaires = User::find($userId)->inventaires()->with('courses')->get();
         foreach ($inventaires as $inventaire)
         {
 
@@ -220,9 +221,22 @@ class Calendartable extends Component
                 $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
                 $disponibles[$inventaire->name]['name'] = $inventaire->name;
                 $disponibles[$inventaire->name]['id'] = $inventaire->id;
-
             }
 
+        }
+
+
+        foreach ($inventaires as $inventaire)
+        {
+            foreach ($inventaire->courses as $course)
+            {
+
+            if (array_key_exists($inventaire->name, $disponibles))
+            {
+                $disponibles[$inventaire->name]['quantity'] += $course->pivot->quantity;
+            }
+
+            }
         }
 
         // $disponibles = ["Poulet" => 0.2]
@@ -235,32 +249,25 @@ class Calendartable extends Component
 
             if($onerepas->recette)
             {
-                foreach ($onerepas->recette->elements()->get() as $element)
+            foreach ($onerepas->recette->elements()->get() as $element)
+            {
+
+                // convert to gramme
+                // convertIngredient("poivre", 1, "pincée", "cuillères à café")
+
+                if (array_key_exists($element->name, $besoins))
                 {
 
-                    // convert to gramme
-                    // convertIngredient("poivre", 1, "pincée", "cuillères à café")
-
-                    if (array_key_exists($element->name, $besoins))
-                    {
-
-                        $besoins[$element->name]['quantity'] +=  $element->pivot->quantity;
-                    }
-                    else
-                    {
-                        $besoins[$element->name]['quantity']  = $element->pivot->quantity;
-                        $besoins[$element->name]['unit'] = $element->unit;
-                        $besoins[$element->name]['name'] = $element->name;
-
-                        $besoins[$element->name]['id'] = 0 ;
-                        if(isset($disponibles[$element->name]['id']))
-                        {
-                            $besoins[$element->name]['id'] = $disponibles[$element->name]['id'];
-                        }
-
-                    }
-
+                    $besoins[$element->name]['quantity'] +=  $element->pivot->quantity;
                 }
+                else
+                {
+                    $besoins[$element->name]['quantity']  = $element->pivot->quantity;
+                    $besoins[$element->name]['unit'] = $element->unit;
+                    $besoins[$element->name]['name'] = $element->name;
+                }
+
+            }
 
             }
         }
@@ -274,10 +281,12 @@ class Calendartable extends Component
 
             if (array_key_exists($nom_besoin, $disponibles))
             {
-                    // si l'element existe dans l'inventaire
-                if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes") < $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
 
-                    $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes") - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
+            if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
+
+                $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
+
+                    $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                     $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
                     $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
                     $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
@@ -289,7 +298,7 @@ class Calendartable extends Component
                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
-                $tobuy[$nom_besoin]['id'] = $besoin_data['id'];
+                $tobuy[$nom_besoin]['id'] = 0;
 
             }
 
@@ -348,6 +357,8 @@ public function refresh_data()
 
     public function CreateCourse($id_inventaire,$name,$quantity,$unit)
     {
+
+
         if($id_inventaire == 0)
         {
             $inventaire = new Inventaire;
@@ -359,12 +370,39 @@ public function refresh_data()
             $id_inventaire = $inventaire->id;
         }
 
+        $inventaire = Inventaire::find($id_inventaire);
+
+        ($courses = $inventaire->courses);
+
+
+        if(!$courses->isEmpty())
+        {
+
+            foreach ($courses as $miss) {
+                $miss->pivot->quantity = $miss->pivot->quantity +  $quantity;
+
+                $miss->pivot->save();
+
+            }
+
+
+        }
+        else
+        {
+
             $course = new Course;
             $course->user_id = Auth::id();
             $course->save();
             $id_course = $course->id;
-            $inventaire = Inventaire::find($id_inventaire);
             ($inventaire->courses()->attach($id_course, ['quantity'=> $quantity , 'unit'=> $unit ]));
+
+
+        }
+
+
+        $this->refresh_data();
+        $this->emit('CourseAdded');
+
 
     }
 
@@ -408,6 +446,7 @@ public function refresh_data()
             'repas' => $repas,
             'inventaires' => $inventaires,
             'carbonDate' => $this->carbonDate,
+
         ]);
 
     }
