@@ -236,7 +236,7 @@ class ListRepasForDay extends Component
         $besoins = [];
         $userId = Auth::id();
 
-        $inventaires = User::find($userId)->inventaires()->get();
+        $inventaires = User::find($userId)->inventaires()->with('courses')->get();
         foreach ($inventaires as $inventaire)
         {
 
@@ -251,8 +251,25 @@ class ListRepasForDay extends Component
                 $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
                 $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
                 $disponibles[$inventaire->name]['name'] = $inventaire->name;
+                $disponibles[$inventaire->name]['id'] = $inventaire->id;
+            }
+
+        }
+
+
+        foreach ($inventaires as $inventaire)
+        {
+            foreach ($inventaire->courses as $course) {
+
+            if (array_key_exists($inventaire->name, $disponibles))
+            {
+
+                $disponibles[$inventaire->name]['quantity'] += $course->pivot->quantity;
 
             }
+
+            }
+
 
         }
 
@@ -291,22 +308,24 @@ class ListRepasForDay extends Component
         // $besoins =  ["Semoule" => 5.0]
 
 
-        
+
 
         foreach ($besoins as $nom_besoin => $besoin_data)
         {
 
             if (array_key_exists($nom_besoin, $disponibles))
             {
+               // dd($this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"));
+                if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"))
+                    {
 
-            if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
+                    $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
 
-                $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
-                
-                    $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
-                    $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
-                    $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
-                }
+                        $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
+                        $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
+                        $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
+                        $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
+                    }
 
             }
             else
@@ -314,11 +333,12 @@ class ListRepasForDay extends Component
                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
+                $tobuy[$nom_besoin]['id'] = 0;
 
             }
 
         }
-
+       // dd($tobuy);
         return $tobuy;
     }
 
@@ -326,6 +346,7 @@ class ListRepasForDay extends Component
 
     public function render()
     {
+
         return view('livewire.calendar.list-repas-for-day',[
             'repas' => $this->getRepasForDay($this->day),
             'stats' => $this->getRepasStatsForDay($this->day),
