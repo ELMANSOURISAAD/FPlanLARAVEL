@@ -274,10 +274,14 @@ class ListRepasForDay extends Component
         }
 
         // $disponibles = ["Poulet" => 0.2]
-
+        $heisasking = false;
         $repas = User::find($userId)->repas()
-            ->where('date_repas', $adate->toDateString())->get();
+        ->where('date_repas','=', $adate->toDateString())->get();
 
+        if(!$repas->isEmpty()){$heisasking = true;}
+        $repas = User::find($userId)->repas()
+        ->where('date_repas','<=', $adate->toDateString())->get();
+        if($heisasking){
         foreach ($repas as $onerepas)
         {
             $b=0;
@@ -305,6 +309,7 @@ class ListRepasForDay extends Component
 
             }
         }
+    }
         // $besoins =  ["Semoule" => 5.0]
 
 

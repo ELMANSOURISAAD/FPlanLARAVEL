@@ -446,6 +446,7 @@ public function refresh_data()
             'repas' => $repas,
             'inventaires' => $inventaires,
             'carbonDate' => $this->carbonDate,
+            "selection" => $this->selected,
 
         ]);
 
