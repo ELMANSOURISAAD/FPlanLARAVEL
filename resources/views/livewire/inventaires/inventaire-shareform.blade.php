@@ -10,7 +10,7 @@
                 <option value="{{$group->id}}">{{$group->name}}</option>
             @endforeach
         </select>
-        <input type="submit" value="Go">
+        <input type="submit" value="Enregistrer">
     </form>
 
     @error("quantity")

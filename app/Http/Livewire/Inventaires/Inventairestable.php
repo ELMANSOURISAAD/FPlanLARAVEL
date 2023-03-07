@@ -78,6 +78,46 @@ class Inventairestable extends Component
         session()->flash('testflash', 'Crevard detected');
     }
 
+    public function ListeDeCourse()
+    {
+        $fileName = 'courses.csv';
+        $headers = array(
+            "Content-Encoding: UTF-8",
+            "Content-type"        => "text/csv; charset=UTF-8",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+        $columns = array('Produit', 'Unité', 'Quantité');
+
+
+
+        $inventaires = User::find(Auth::id())->inventaires;
+
+
+
+        $callback = function() use($inventaires, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($inventaires as $inventaire) {
+                foreach ($inventaire->courses as $course) {
+
+                    $row['Produit']  = $inventaire->name;
+                    $row['Unité']    = $course->pivot->unit;
+                    $row['Quantité']    = $course->pivot->quantity;
+
+                    fputcsv($file, array($row['Produit'], $row['Unité'], $row['Quantité']));
+                }
+
+            }
+
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }
+
 
 
 

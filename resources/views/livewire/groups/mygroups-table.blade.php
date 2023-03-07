@@ -51,9 +51,9 @@
                 </td>
                 <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
                 <td>{{count($group->users)}}</td>
-                <td data-label="Actions">
-                    <button class="mybutton" type="button" wire:click="EditThis('{{ $group -> id }}')"><i class="fas fa-edit"></i></button>
-                    <button class="mybutton" type="button" wire:click="InviteSomeone('{{ $group -> id }}')"><i class="fa-solid fa-person-harassing"></i></button>
+                <td data-label="Actions" style="display: flex">
+                    <button class="mybutton" type="button" wire:click="EditThis('{{ $group -> id }}')"><i class="fas fa-edit"></i> Modifier</button>
+                    <button class="mybutton" type="button" wire:click="InviteSomeone('{{ $group -> id }}')"><i class="fa-solid fa-person-harassing"></i> Inviter </button>
                 </td>
             </tr>
 

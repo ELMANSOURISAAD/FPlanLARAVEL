@@ -38,14 +38,14 @@ class suggestions extends ModalComponent
 
 
         $ingredients = array(
-            "Beurre" => array("unit" => "grammes", "price" => 2.5, "calories" => 7),
+         "Beurre" => array("unit" => "grammes", "price" => 2.5, "calories" => 7),
         "Carottes" => array("unit" => "kilogrammes", "price" => 1.2, "calories" => 0.41),
         "Farine" => array("unit" => "grammes", "price" => 0.75, "calories" => 3.8),
         "Huile d'olive" => array("unit" => "cuillères à soupe", "price" => 0.15, "calories" => 120),
         "Oeufs" => array("unit" => "unités", "price" => 0.25, "calories" => 155),
         "Poivre" => array("unit" => "grammes", "price" => 0.05, "calories" => 3.2),
         "Pommes de terre" => array("unit" => "kilogrammes", "price" => 1.1, "calories" => 0.77),
-        "Sel" => array("unit" => "cuillères à café", "price" => 0.02, "calories" => 0),
+        "Sel" => array("unit" => "grammes", "price" => 0.02, "calories" => 0),
         "Sucre" => array("unit" => "grammes", "price" => 0.8, "calories" => 3.87),
         "Tomates" => array("unit" => "kilogrammes", "price" => 2.5, "calories" => 0.18),
 

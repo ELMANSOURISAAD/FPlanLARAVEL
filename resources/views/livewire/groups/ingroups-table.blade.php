@@ -31,10 +31,10 @@
 
                 <td data-label="Nom"><a href="#">{{ $group->name }}</a></td>
                 <td>{{count($group->users)}}</td>
-                <td data-label="Actions">
-                    <button class="mybutton" type="button" wire:click="SeeInventaire('{{ $group -> id }}')"><i class="far fa-eye"></i></button>
-                    <button type="button" class="mybutton"><i class="fa-regular fa-calendar-days"></i></button>
-                    <button type="button" class="mybutton" wire:click="LeaveGroup('{{ $group -> id }}')"><i class="fa-solid fa-right-from-bracket"></i></button>
+                <td data-label="Actions" style='display:flex;'>
+                    <button class="mybutton" type="button" wire:click="SeeInventaire('{{ $group -> id }}')"><i class="far fa-eye"></i> Inventaire du groupe</button>
+                    <button type="button" class="mybutton"><i class="fa-regular fa-calendar-days"></i> Calendrier</button>
+                    <button type="button" class="mybutton" wire:click="LeaveGroup('{{ $group -> id }}')"><i class="fa-solid fa-right-from-bracket"></i> Quitter le groupe</button>
                  </td>
 
             </tr>

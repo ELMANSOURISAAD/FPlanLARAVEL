@@ -368,14 +368,30 @@ public function refresh_data()
         } */
 
         // not multiple
+        if(($key = array_search($date, $this->selected)) !== false) {
+            unset($this->selected[$key]);
+        }
+        else
+        {
         $this->selected = [];
         $this->selected[] = $date;
+        }
+
+
         $this->refresh_data();
 
     }
+    public function CreateCourseAll()
+    {
 
+        foreach ($this->listedecourses as $name => $quantity) {
+            $this->CreateCourse($quantity['id'],$name,$quantity['quantity'],$quantity['unit'],$quantity['id_repas']);
+        }
+        $this->refresh_data();
+        $this->emit('CourseAdded');
+    }
 
-    public function CreateCourse($id_inventaire,$name,$quantity,$unit,$id_repas)
+    private function CreateCourse($id_inventaire,$name,$quantity,$unit,$id_repas)
     {
 
 
@@ -422,9 +438,15 @@ public function refresh_data()
         }
 
 
+
+    }
+
+    public function CreateCourseLine($id_inventaire,$name,$quantity,$unit,$id_repas)
+    {
+
+        $this->CreateCourse($id_inventaire,$name,$quantity,$unit,$id_repas);
         $this->refresh_data();
         $this->emit('CourseAdded');
-
 
     }
 

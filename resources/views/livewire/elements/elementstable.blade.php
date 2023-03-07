@@ -75,9 +75,9 @@
                     <td data-label="Unit"><a href="#">{{ $element->unit }}</a></td>
                     <td data-label="Coût">{{ $element->price }} &#8364;</td>
                     <td data-label="Calories">{{ $element->calories }} KJ</td>
-                    <td data-label="Actions">
-                        <button class="mybutton" type="button"><i class="far fa-eye"></i></button>
-                        <button class="mybutton" type="button" wire:click="EditThis('{{ $element -> id }}')"><i class="fas fa-edit"></i></button>
+                    <td data-label="Actions" style="display: flex">
+
+                        <button class="mybutton" type="button" wire:click="EditThis('{{ $element -> id }}')"><i class="fas fa-edit"></i> Modifier </button>
                     </td>
                 </tr>
 

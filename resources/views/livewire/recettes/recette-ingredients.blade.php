@@ -11,7 +11,7 @@
             </select>
                 <label for="quantity">Quantity</label>
                 <input type="number" step="1" wire:model.defer="quantity_toadd"><i>{{ $unitFront }}</i>
-                <button type="submit" class="mybutton"> Go </button>
+                <button type="submit" class="mybutton"> Enregistrer </button>
             </form>
         </div>
         @if (session()->has('ElementDeleted'))
