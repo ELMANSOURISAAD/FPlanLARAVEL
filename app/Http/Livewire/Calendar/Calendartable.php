@@ -350,7 +350,8 @@ public function refresh_data()
 
     public function addselection($date)
     {
-        if(!in_array($date,$this->selected))
+        // multiple
+    /*     if(!in_array($date,$this->selected))
         {
             $this->selected[] = $date;
             $this->refresh_data();
@@ -364,7 +365,13 @@ public function refresh_data()
             $this->refresh_data();
 
             // $this->reset('currentselection','selected');
-        }
+        } */
+
+        // not multiple
+        $this->selected = [];
+        $this->selected[] = $date;
+        $this->refresh_data();
+
     }
 
 
