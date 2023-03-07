@@ -20,7 +20,9 @@
             <li style="color:cornflowerblue" >{{$name}} : {{$stat}}  </li>
         @endforeach
         <div>
-            <span style="color:#A59FBF;"> Cumul : </span>
+            @if($MissingInventory)
+            <span style="color:#A59FBF;"> A acheter: </span>
+            @endif
             @forelse ($MissingInventory as $name=>$quantity)
                 <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
 

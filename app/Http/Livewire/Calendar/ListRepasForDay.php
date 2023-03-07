@@ -202,6 +202,8 @@ class ListRepasForDay extends Component
 
     public function DeleteRepasFromDay($id_repas)
     {
+        $repas = Repas::find($id_repas);
+        ($repas->courses()->delete());
         Repas::destroy($id_repas);
         $this->emit("RepasDeletedB");
     }
@@ -230,7 +232,7 @@ class ListRepasForDay extends Component
     }
     public function MissingInventory($adate)
     {
-        $b = 0;
+
         $tobuy = [];
         $disponibles = [];
         $besoins = [];
@@ -257,6 +259,7 @@ class ListRepasForDay extends Component
         }
 
 
+
         foreach ($inventaires as $inventaire)
         {
             foreach ($inventaire->courses as $course) {
@@ -278,13 +281,17 @@ class ListRepasForDay extends Component
         $repas = User::find($userId)->repas()
         ->where('date_repas','=', $adate->toDateString())->get();
 
-        if(!$repas->isEmpty()){$heisasking = true;}
+        if(!$repas->isEmpty())
+        {$heisasking = true;}
+
         $repas = User::find($userId)->repas()
         ->where('date_repas','<=', $adate->toDateString())->get();
-        if($heisasking){
+        if($heisasking)
+        {
+
         foreach ($repas as $onerepas)
         {
-            $b=0;
+
             if($onerepas->recette)
             {
             foreach ($onerepas->recette->elements()->get() as $element)
@@ -309,7 +316,10 @@ class ListRepasForDay extends Component
 
             }
         }
+
     }
+
+
         // $besoins =  ["Semoule" => 5.0]
 
 
@@ -320,7 +330,7 @@ class ListRepasForDay extends Component
 
             if (array_key_exists($nom_besoin, $disponibles))
             {
-               // dd($this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"));
+
                 if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"))
                     {
 
@@ -343,8 +353,9 @@ class ListRepasForDay extends Component
             }
 
         }
-       // dd($tobuy);
+
         return $tobuy;
+
     }
 
 

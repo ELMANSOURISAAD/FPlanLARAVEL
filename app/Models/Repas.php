@@ -19,5 +19,10 @@ class Repas extends Model
         return $this->belongsTo(Recette::class);
     }
 
+    public function Courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
 
 }

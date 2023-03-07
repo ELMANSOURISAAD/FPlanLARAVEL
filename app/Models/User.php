@@ -29,6 +29,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Inventaire::class);
     }
+
+    public function Courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+
     public function Repas()
     {
         return $this->hasMany(Repas::class);

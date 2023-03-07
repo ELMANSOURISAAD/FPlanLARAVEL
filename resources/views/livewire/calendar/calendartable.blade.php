@@ -224,14 +224,14 @@
 
                 <h3> Liste de courses pour :
                     @forelse ($selection as $day)
-                    {{ $day }} ; 
+                    {{ $day }} ;
                     @empty
 
                     @endforelse
                 </h3>
                 @forelse ($listedecourses as $name=>$quantity)
                     <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
-                    <i class="fa-regular fa-square-plus" wire:click="CreateCourse('{{$quantity['id']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+                    <i class="fa-regular fa-square-plus" wire:click="CreateCourse('{{$quantity['id']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}','{{$quantity['id_repas']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
 
 
                 @empty

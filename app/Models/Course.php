@@ -14,6 +14,11 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function repas()
+    {
+        return $this->belongsTo(Repas::class);
+    }
+
 
     public function inventaires()
     {
