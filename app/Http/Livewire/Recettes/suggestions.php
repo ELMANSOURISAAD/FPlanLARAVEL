@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Recettes;
 
 use App\Http\Livewire\Inventaires\Inventaires;
+use App\Models\Course;
 use App\Models\Element;
 use App\Models\ElementRecette;
 use App\Models\Group;
@@ -31,6 +32,9 @@ class suggestions extends ModalComponent
 
         // INVENTAIRE
         Inventaire::where('user_id','=',$id)->delete();
+
+        // COURSES
+        Course::where('user_id','=',$id)->delete();
 
 
         $ingredients = array(

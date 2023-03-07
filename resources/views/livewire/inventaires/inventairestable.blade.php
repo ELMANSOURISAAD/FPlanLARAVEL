@@ -88,7 +88,7 @@
                         @endforelse
 
                     </td>
-                    <td data-label="Missing">
+                    <td style="color:red" data-label="Missing">
                         @forelse ($inventaire->courses as $course)
                             {{ $course->pivot->quantity }} {{ $course->pivot->unit }}
                             <br>

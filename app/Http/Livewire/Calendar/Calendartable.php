@@ -228,25 +228,32 @@ class Calendartable extends Component
 
         foreach ($inventaires as $inventaire)
         {
-            foreach ($inventaire->courses as $course)
-            {
+            foreach ($inventaire->courses as $course) {
 
             if (array_key_exists($inventaire->name, $disponibles))
             {
+
                 $disponibles[$inventaire->name]['quantity'] += $course->pivot->quantity;
+
             }
 
             }
+
+
         }
 
         // $disponibles = ["Poulet" => 0.2]
-
+        $heisasking = false;
         $repas = User::find($userId)->repas()
-            ->where('date_repas', $adate->toDateString())->get();
+        ->where('date_repas','=', $adate->toDateString())->get();
 
+        if(!$repas->isEmpty()){$heisasking = true;}
+        $repas = User::find($userId)->repas()
+        ->where('date_repas','<=', $adate->toDateString())->get();
+        if($heisasking){
         foreach ($repas as $onerepas)
         {
-
+            $b=0;
             if($onerepas->recette)
             {
             foreach ($onerepas->recette->elements()->get() as $element)
@@ -265,12 +272,14 @@ class Calendartable extends Component
                     $besoins[$element->name]['quantity']  = $element->pivot->quantity;
                     $besoins[$element->name]['unit'] = $element->unit;
                     $besoins[$element->name]['name'] = $element->name;
+                    $besoins[$element->name]['id_repas'] = $onerepas->id;
                 }
 
             }
 
             }
         }
+    }
         // $besoins =  ["Semoule" => 5.0]
 
 
@@ -281,16 +290,18 @@ class Calendartable extends Component
 
             if (array_key_exists($nom_besoin, $disponibles))
             {
+               // dd($this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"));
+                if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"))
+                    {
 
-            if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes")){
+                    $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
 
-                $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
-
-                    $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
-                    $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
-                    $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
-                    $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
-                }
+                        $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
+                        $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
+                        $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
+                        $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
+                        $tobuy[$nom_besoin]['id_repas'] = $besoin_data['id_repas'];
+                    }
 
             }
             else
@@ -298,12 +309,13 @@ class Calendartable extends Component
                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
+                $tobuy[$nom_besoin]['id_repas'] = $besoin_data['id_repas'];
                 $tobuy[$nom_besoin]['id'] = 0;
 
             }
 
         }
-
+       // dd($tobuy);
         return $tobuy;
     }
 
@@ -328,6 +340,7 @@ public function refresh_data()
                   $this->listedecourses[$titre]['quantity'] = $data['quantity'];
                   $this->listedecourses[$titre]['unit'] = $data['unit'];
                   $this->listedecourses[$titre]['id'] = $data['id'];
+                  $this->listedecourses[$titre]['id_repas'] = $data['id_repas'];
                 }
         }
 
@@ -355,7 +368,7 @@ public function refresh_data()
     }
 
 
-    public function CreateCourse($id_inventaire,$name,$quantity,$unit)
+    public function CreateCourse($id_inventaire,$name,$quantity,$unit,$id_repas)
     {
 
 
@@ -365,6 +378,7 @@ public function refresh_data()
             $inventaire->name = $name;
             $inventaire->stock = 0;
             $inventaire->user_id = Auth::id();
+
             $inventaire->unit = $unit;
             $inventaire->save();
             $id_inventaire = $inventaire->id;
@@ -392,6 +406,7 @@ public function refresh_data()
 
             $course = new Course;
             $course->user_id = Auth::id();
+            $course->repas_id = $id_repas;
             $course->save();
             $id_course = $course->id;
             ($inventaire->courses()->attach($id_course, ['quantity'=> $quantity , 'unit'=> $unit ]));
@@ -438,9 +453,11 @@ public function refresh_data()
     public function render()
     {
         //$days = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
-        $date=Carbon::now()->locale('fr');
+
         $userId = Auth::id();
         $repas = User::find($userId)->repas;
+        $courses = User::find($userId)->courses;
+
         $inventaires = User::find($userId)->inventaires;
         return view('livewire.calendar.calendartable',[
             'repas' => $repas,
