@@ -45,8 +45,12 @@
             @enderror
         </form>
 
+
+
     </div>
-    <div class="title"><h3>Mon Inventaire  </h3></div>
+    <div class="title"><h3>Mon Inventaire  </h3> </div>
+    <button class="mybutton" wire:click="ListeDeCourse()"><i class="fa-solid fa-file-import"></i> Generer la liste de course</button>
+
 
     <div class="elements">
         <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteInventaires(selection)" > Supprimer </button>
@@ -61,9 +65,9 @@
 
                 <th scope="col">Unité</th>
                 <th scope="col">Stock</th>
-                <th scope="col">Shared?</th>
-                <th scope="col">Missing?</th>
-                <th scope="col">ACTIONS</th>
+                <th scope="col">Partages</th>
+                <th scope="col">Manquants</th>
+                <th scope="col">Actions</th>
 
             </tr>
             </thead>
@@ -97,10 +101,9 @@
                         @endforelse
 
                     </td>
-                    <td data-label="Actions">
-                        <button class="mybutton" type="button"><i class="far fa-eye"></i></button>
-                        <button class="mybutton" type="button" wire:click="EditThis('{{$inventaire->id}}')"><i class="fas fa-edit"></i></button>
-                        <button class="mybutton" type="button" wire:click="ShareThis('{{$inventaire->id}}')"><i class="fa-solid fa-square-share-nodes"></i></button>
+                    <td data-label="Actions" style="display:flex">
+                        <button class="mybutton" type="button" wire:click="EditThis('{{$inventaire->id}}')"><i class="fas fa-edit"></i> Modifier</button>
+                        <button class="mybutton" type="button" wire:click="ShareThis('{{$inventaire->id}}')"><i class="fa-solid fa-square-share-nodes"></i> Partager avec le groupe</button>
                     </td>
                 </tr>
 

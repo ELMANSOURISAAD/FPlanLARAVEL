@@ -54,10 +54,10 @@
                     <td data-label="Nom"><a href="#">{{ $recette->name }}</a></td>
                     <td data-label="Coût">{{ $recette->price }} &#8364;</td>
                     <td data-label="Calorires">{{ $recette->calories }} KJ</td>
-                    <td data-label="Actions">
-                        <button type="button" class="mybutton"><i class="far fa-eye"></i></button>
-                        <button type="button" class="mybutton" wire:click="EditThis('{{ $recette -> id }}')"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="mybutton" wire:click="editIngredientsId('{{ $recette -> id }}')"><i class="fas fa-gear" title="voir les ingredients"></i></button>
+                    <td data-label="Actions" style="display:flex">
+
+                        <button type="button" class="mybutton" wire:click="EditThis('{{ $recette -> id }}')"><i class="fas fa-edit"></i> Modifier </button>
+                        <button type="button" class="mybutton" wire:click="editIngredientsId('{{ $recette -> id }}')"><i class="fas fa-gear" title="voir les ingredients"></i> Modifier les ingrédients </button>
                     </td>
                 </tr>
 

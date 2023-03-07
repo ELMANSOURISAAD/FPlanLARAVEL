@@ -19,6 +19,28 @@ class InventaireForm extends Component
 
     public function save(){
         $this->validate();
+        $id = $this->inventaire->id;
+
+        $old_inventaire = Inventaire::find($id);
+
+        $old_quantity = $old_inventaire->stock;
+
+        ($new_quantity = $this->inventaire->stock);
+        $difference = $new_quantity - $old_quantity ;
+        if($difference>0)
+        {
+            $courses = $old_inventaire->courses;
+            // supposed to be one
+            foreach ($courses as $course ) {
+                $course->pivot->quantity = $course->pivot->quantity - $difference;
+                if($course->pivot->quantity<=0)
+                {
+                    $course->delete();
+                }
+                $course->pivot->save();
+            }
+
+        }
         $this->inventaire->save();
         $this->emit('InventaireUpdated');
     }

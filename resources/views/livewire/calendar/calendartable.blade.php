@@ -199,18 +199,21 @@
                      @endif
                      style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
 
-                        <livewire:calendar.list-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
-
+                    <div>
+                        <livewire:calendar.list-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
+                    </div>
                         @if($buttonVisible == $carbonDate->dayOfYear)
-                            <livewire:calendar.make-repas-for-day :day="$carbonDate" :key="time().$carbonDate"/>
+                        <div>
+                            <livewire:calendar.make-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
+                        </div>
                         @endif
                     <div style="width:80%;display:flex;flex-direction: row;gap:7px;align-items:space-around">
-                        <button class="buttona"  wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                        <button class="buttona"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
                             <i class="fa-duotone fa-plus" ></i>
                         </button>
-                    <button class="buttona"  wire:click="addselection('{{$carbonDate->toDateString()}}')" >
-                        <i class="fa-solid fa-basket-shopping"></i>
-                    </button>
+                        <button class="buttona"  :wire:key="$i.now().$carbonDate->toDateString" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </button>
                     </div>
 
                     </li>
@@ -220,22 +223,28 @@
                 </ul>
             </div>
         <div class="days" style="width:100%;display:flex;justify-content: space-around">
-            <div>
 
-                <h3> Liste de courses pour :
-                    @forelse ($selection as $day)
-                    {{ $day }} ;
-                    @empty
+            <div class="weekdays">  <h3 style="background: cadetblue;"> Liste de courses : </h3>
+            </div>
 
-                    @endforelse
-                </h3>
+            <div style="margin-top:10px;display:flex;flex-direction:column">
+                @if ($listedecourses)
+                <button wire:click="CreateCourseAll()" class="myButton"> Tout ajouter<i class="fa-regular fa-square-plus"  style="cursor: grab;color:red;font-size: 10px"></i></button>
+
+                @endif
                 @forelse ($listedecourses as $name=>$quantity)
-                    <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
-                    <i class="fa-regular fa-square-plus" wire:click="CreateCourse('{{$quantity['id']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}','{{$quantity['id_repas']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+                <div style="width:100;display:flex;margin-top:10px;justify-content:space-between"">
 
+                        <span>{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}}</span>
+                        <button class="myButton">
+                            <i class="fa-regular fa-square-plus" wire:click="CreateCourseLine('{{$quantity['id']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}','{{$quantity['id_repas']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+                         </button>
+
+
+                </div>
 
                 @empty
-                    NOTHING TO SHOW
+
                 @endforelse
                </div>
 
