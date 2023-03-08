@@ -38,17 +38,16 @@ class suggestions extends ModalComponent
 
 
         $ingredients = array(
-         "Beurre" => array("unit" => "grammes", "price" => 2.5, "calories" => 7),
-        "Carottes" => array("unit" => "kilogrammes", "price" => 1.2, "calories" => 0.41),
+        "Beurre" => array("unit" => "grammes", "price" => 2.5, "calories" => 7),
+        "Carottes" => array("unit" => "grammes", "price" => 0.0012, "calories" => 0.41),
         "Farine" => array("unit" => "grammes", "price" => 0.75, "calories" => 3.8),
         "Huile d'olive" => array("unit" => "cuillères à soupe", "price" => 0.15, "calories" => 120),
-        "Oeufs" => array("unit" => "unités", "price" => 0.25, "calories" => 155),
+        "Oeufs" => array("unit" => "pieces", "price" => 0.25, "calories" => 155),
         "Poivre" => array("unit" => "grammes", "price" => 0.05, "calories" => 3.2),
-        "Pommes de terre" => array("unit" => "kilogrammes", "price" => 1.1, "calories" => 0.77),
+        "Pommes de terre" => array("unit" => "grammes", "price" => 0.001, "calories" => 0.77),
         "Sel" => array("unit" => "grammes", "price" => 0.02, "calories" => 0),
         "Sucre" => array("unit" => "grammes", "price" => 0.8, "calories" => 3.87),
-        "Tomates" => array("unit" => "kilogrammes", "price" => 2.5, "calories" => 0.18),
-
+        "Tomates" => array("unit" => "grammes", "price" => 2.5, "calories" => 0.18),
         );
         foreach ($ingredients as $ingredient=>$data) {
             $element = new Element;
@@ -61,69 +60,57 @@ class suggestions extends ModalComponent
         }
 
 
-        $recettes = array(
-            "Omelette",
-            "Salade niçoise",
-            "Poulet rôti",
-            "Quiche lorraine",
-            "Tarte aux pommes",
-        );
-        foreach ($recettes as $recette) {
-            $t = new Recette;
-            $t->name = $recette;
-            $t->user_id = Auth::id();
-            $t->save();
-        }
 
 
 
         $recipes = array(
             "Omelette" => array(
-                "Oeuf" => array("quantity" => 1, "unit" => "piece"),
-                "Sel" => array("quantity" => 1, "unit" => "pincée"),
-                "Huile" => array("quantity" => 1, "unit" => "cuillère à soupe")
+                "Oeufs" => array("quantity" => 1, "unit" => "pieces"),
+                "Sel" => array("quantity" => 1, "unit" => "grammes"),
+                "Huile d'olive" => array("quantity" => 1, "unit" => "cuillères à soupe")
             ),
-            "Salade niçoise" => array(
-                "Thon" => array("quantity" => 200, "unit" => "grammes"),
-                "Salade verte" => array("quantity" => 1, "unit" => "piece"),
-                "Tomate" => array("quantity" => 2, "unit" => "piece"),
-                "Oignon rouge" => array("quantity" => 1, "unit" => "piece"),
-                "Concombre" => array("quantity" => 1, "unit" => "piece"),
-                "Olives noires" => array("quantity" => 50, "unit" => "grammes"),
-                "Anchois" => array("quantity" => 4, "unit" => "piece"),
-                "Vinaigre balsamique" => array("quantity" => 1, "unit" => "cuillère à soupe"),
-                "Huile d'olive" => array("quantity" => 3, "unit" => "cuillères à soupe")
+            "Soupe de carottes" => array(
+                "Carottes" => array("quantity" => 1000, "unit" => "grammes"),
+                "Beurre" => array("quantity" => 50, "unit" => "grammes"),
+                "Huile d'olive" => array("quantity" => 2, "unit" => "cuillères à soupe"),
+                "Sel" => array("quantity" => 10, "unit" => "grammes"),
+                "Poivre" => array("quantity" => 5, "unit" => "grammes")
             ),
-            "Poulet rôti" => array(
-                "Poulet" => array("quantity" => 1, "unit" => "piece"),
-                "Sel" => array("quantity" => 2, "unit" => "pincées"),
-                "Poivre" => array("quantity" => 1, "unit" => "pincée"),
-                "Ail" => array("quantity" => 2, "unit" => "gousses"),
-                "Thym" => array("quantity" => 1, "unit" => "brin"),
-                "Huile d'olive" => array("quantity" => 2, "unit" => "cuillères à soupe")
+            "Gratin de pomme de terre" => array(
+                "Pommes de terre" => array("quantity" => 1000, "unit" => "grammes"),
+                "Beurre" => array("quantity" => 50, "unit" => "grammes"),
+                "Farine" => array("quantity" => 50, "unit" => "grammes"),
+                "Sel" => array("quantity" => 10, "unit" => "grammes"),
+                "Poivre" => array("quantity" => 5, "unit" => "grammes"),
+                "Lait" => array("quantity" => 500, "unit" => "millilitres")
             ),
-            "Quiche lorraine" => array(
-                "Pâte brisée" => array("quantity" => 1, "unit" => "piece"),
-                "Lardons fumés" => array("quantity" => 200, "unit" => "grammes"),
-                "Oeufs" => array("quantity" => 3, "unit" => "piece"),
-                "Crème fraîche" => array("quantity" => 0.02, "unit" => "cl"),
-                "Lait" => array("quantity" => 0.2, "unit" => "l"),
-                "Gruyère râpé" => array("quantity" => 50, "unit" => "grammes")
+            "Omelette tomate" => array(
+                "Oeufs" => array("quantity" => 2, "unit" => "pieces"),
+                "Tomates" => array("quantity" => 500, "unit" => "grammes"),
+                "Beurre" => array("quantity" => 10, "unit" => "grammes"),
+                "Sel" => array("quantity" => 2, "unit" => "grammes"),
+                "Poivre" => array("quantity" => 2, "unit" => "grammes")
             ),
-            "Tarte aux pommes" => array(
-                "Pâte feuilletée" => array("quantity" => 1, "unit" => "piece"),
-                "Pommes" => array("quantity" => 3, "unit" => "piece"),
-                "Sucre" => array("quantity" => 100, "unit" => "grammes"),
-                "Cannelle" => array("quantity" => 1, "unit" => "pincée"),
-                "Beurre" => array("quantity" => 50, "unit" => "grammes")
-            )
         );
 
         foreach ($recipes as $recette => $ingredients) {
-            $temp_r = Recette::where('name', $recette)->first();
+
+            $t = new Recette;
+            $t->name = $recette;
+            $t->user_id = Auth::id();
+            $t->save();
+
+            $temp_r = Recette::where([
+                ['name', '=', $recette],
+                ['user_id', '=', Auth::id()]])->first();
             foreach ($ingredients as $name => $data) {
-                $element = Element::where('name',$name)->first();
-                    //$temp_r->elements()->attach($element,['quantity'=> $data['quantity']]);
+
+                $element = Element::where([
+                    ['name', '=', $name],
+                    ['user_id', '=', Auth::id()]])->first();
+               // dd($element);
+                    $temp_r->elements()->attach($element,['quantity'=> $data['quantity']]);
+                    $temp_r->save();
             }
 
         }
