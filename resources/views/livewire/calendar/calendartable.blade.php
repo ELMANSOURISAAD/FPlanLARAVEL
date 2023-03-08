@@ -203,17 +203,17 @@
                         <livewire:calendar.list-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
                     </div>
                         @if($buttonVisible == $carbonDate->dayOfYear)
-                        <div>
+
                             <livewire:calendar.make-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
-                        </div>
+
                         @endif
                     <div style="width:80%;display:flex;flex-direction: row;gap:7px;align-items:space-around">
-                        <button class="Mybutton"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
-                            <i class="fa-duotone fa-plus" ></i> repas
+                        <button class="buttona"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                            <i class="fa-duotone fa-plus" ></i>
                         </button>
-                        <button class="Mybutton"  :wire:key="$i.now().$carbonDate->toDateString" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
-                            <i class="fa-solid fa-eye"></i> Courses
-                        </button>
+                    <button class="buttona"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
+                        <i class="fa-solid fa-basket-shopping"></i>
+                    </button>
                     </div>
 
                     </li>
