@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\Calendar;
 
-use App\Models\Element;
-use App\Models\Recette;
 use App\Models\Repas;
 use App\Models\User;
 use Carbon\Carbon;
@@ -32,7 +30,7 @@ class MakeRepasForDay extends Component
         $repas->save();
 
         $this->emit('RepasAdded');
-        
+
         $this->reset("day");
     }
 

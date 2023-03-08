@@ -1,4 +1,4 @@
-        <div>
+        <div style="max-height: 100%">
 
             @if(($recettes->isNotEmpty()))
                 <select name="" id="" wire:model.defer="recette_id">
