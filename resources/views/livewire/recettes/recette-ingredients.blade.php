@@ -1,7 +1,7 @@
 <tr><td colspan="5">
         <div>
             <form class="inform" action="" wire:submit.prevent="addIngredientToRecette">
-            <label for="Name">Add an ingredient :</label>
+            <label for="Name">Ajouter un ingredient :</label>
             <select name="" id="" wire:model.defer="element_toadd" wire:change="updateFrontUnit">
                 <option value=""></option>
                 @foreach ($elements as $element)
@@ -9,7 +9,7 @@
                 <option value="{{$element->id}}">{{$element->name}}</option>
                 @endforeach
             </select>
-                <label for="quantity">Quantity</label>
+                <label for="quantity"> quantité </label>
                 <input type="number" step="1" wire:model.defer="quantity_toadd"><i>{{ $unitFront }}</i>
                 <button type="submit" class="mybutton"> Enregistrer </button>
             </form>

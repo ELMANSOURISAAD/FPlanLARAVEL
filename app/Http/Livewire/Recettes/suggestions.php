@@ -76,7 +76,7 @@ class suggestions extends ModalComponent
                 "Sel" => array("quantity" => 10, "unit" => "grammes"),
                 "Poivre" => array("quantity" => 5, "unit" => "grammes")
             ),
-            "Gratin de pomme de terre" => array(
+            "Gratin" => array(
                 "Pommes de terre" => array("quantity" => 1000, "unit" => "grammes"),
                 "Beurre" => array("quantity" => 50, "unit" => "grammes"),
                 "Farine" => array("quantity" => 50, "unit" => "grammes"),

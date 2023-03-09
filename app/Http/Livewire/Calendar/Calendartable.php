@@ -199,7 +199,7 @@ class Calendartable extends Component
     }
     public function MissingInventory($adate)
     {
-        $b = 0;
+
         $tobuy = [];
         $disponibles = [];
         $besoins = [];
@@ -220,7 +220,7 @@ class Calendartable extends Component
                 $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
                 $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
                 $disponibles[$inventaire->name]['name'] = $inventaire->name;
-                $disponibles[$inventaire->name]['id'] = $inventaire->id;
+                $disponibles[$inventaire->name]['id_inventaire'] = $inventaire->id;
             }
 
         }
@@ -253,7 +253,7 @@ class Calendartable extends Component
         if($heisasking){
         foreach ($repas as $onerepas)
         {
-            $b=0;
+
             if($onerepas->recette)
             {
             foreach ($onerepas->recette->elements()->get() as $element)
@@ -280,6 +280,7 @@ class Calendartable extends Component
             }
         }
     }
+    ($besoins);
         // $besoins =  ["Semoule" => 5.0]
 
 
@@ -299,7 +300,7 @@ class Calendartable extends Component
                         $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                         $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
                         $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
-                        $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
+                        $tobuy[$nom_besoin]['id_inventaire'] = $disponibles[$nom_besoin]['id_inventaire'];
                         $tobuy[$nom_besoin]['id_repas'] = $besoin_data['id_repas'];
                     }
 
@@ -310,12 +311,12 @@ class Calendartable extends Component
                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
                 $tobuy[$nom_besoin]['id_repas'] = $besoin_data['id_repas'];
-                $tobuy[$nom_besoin]['id'] = 0;
+                $tobuy[$nom_besoin]['id_inventaire'] = 0;
 
             }
 
         }
-       // dd($tobuy);
+
         return $tobuy;
     }
 
@@ -339,7 +340,7 @@ public function refresh_data()
                 {
                   $this->listedecourses[$titre]['quantity'] = $data['quantity'];
                   $this->listedecourses[$titre]['unit'] = $data['unit'];
-                  $this->listedecourses[$titre]['id'] = $data['id'];
+                  $this->listedecourses[$titre]['id_inventaire'] = $data['id_inventaire'];
                   $this->listedecourses[$titre]['id_repas'] = $data['id_repas'];
                 }
         }
@@ -385,7 +386,7 @@ public function refresh_data()
     {
 
         foreach ($this->listedecourses as $name => $quantity) {
-            $this->CreateCourse($quantity['id'],$name,$quantity['quantity'],$quantity['unit'],$quantity['id_repas']);
+            $this->CreateCourse($quantity['id_inventaire'],$name,$quantity['quantity'],$quantity['unit'],$quantity['id_repas']);
         }
         $this->refresh_data();
         $this->emit('CourseAdded');
