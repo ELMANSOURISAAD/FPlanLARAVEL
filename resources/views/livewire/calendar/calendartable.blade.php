@@ -208,11 +208,11 @@
 
                         @endif
                     <div style="width:80%;display:flex;flex-direction: row;gap:7px;align-items:space-around">
-                        <button class="buttona"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
-                            <i class="fa-duotone fa-plus" ></i>
+                        <button class="myButton"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                            <i class="fa-duotone fa-plus" ></i> repas
                         </button>
-                    <button class="buttona"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
-                        <i class="fa-solid fa-basket-shopping"></i>
+                    <button class="myButton"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
+                        <i class="fa-solid fa-basket-shopping"></i> courses
                     </button>
                     </div>
 
@@ -237,7 +237,7 @@
 
                         <span>{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}}</span>
                         <button class="myButton">
-                            <i class="fa-regular fa-square-plus" wire:click="CreateCourseLine('{{$quantity['id']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}','{{$quantity['id_repas']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+                            <i class="fa-regular fa-square-plus" wire:click="CreateCourseLine('{{$quantity['id_inventaire']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}','{{$quantity['id_repas']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
                          </button>
 
 

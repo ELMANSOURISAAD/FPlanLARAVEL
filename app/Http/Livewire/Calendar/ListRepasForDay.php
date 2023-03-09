@@ -202,8 +202,9 @@ class ListRepasForDay extends Component
 
     public function DeleteRepasFromDay($id_repas)
     {
-        $repas = Repas::find($id_repas);
-        ($repas->courses()->delete());
+        //$repas = Repas::find($id_repas);
+
+        // ($repas->courses()->delete());
         Repas::destroy($id_repas);
         $this->emit("RepasDeletedB");
     }
@@ -262,7 +263,7 @@ class ListRepasForDay extends Component
                 $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
                 $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
                 $disponibles[$inventaire->name]['name'] = $inventaire->name;
-                $disponibles[$inventaire->name]['id'] = $inventaire->id;
+                $disponibles[$inventaire->name]['id_inventaire'] = $inventaire->id;
             }
 
         }
@@ -348,7 +349,7 @@ class ListRepasForDay extends Component
                         $tobuy[$nom_besoin]['quantity'] = $t - $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                         $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
                         $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
-                        $tobuy[$nom_besoin]['id'] = $disponibles[$nom_besoin]['id'];
+                        $tobuy[$nom_besoin]['id_inventaire'] = $disponibles[$nom_besoin]['id_inventaire'];
                     }
 
             }
@@ -357,7 +358,7 @@ class ListRepasForDay extends Component
                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
-                $tobuy[$nom_besoin]['id'] = 0;
+                $tobuy[$nom_besoin]['id_inventaire'] = 0;
 
             }
 
