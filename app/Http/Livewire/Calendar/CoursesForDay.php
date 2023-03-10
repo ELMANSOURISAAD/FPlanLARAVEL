@@ -117,9 +117,14 @@ class CoursesForDay extends Component
 
                                 if ((array_key_exists($nom_besoin, $disponibles)) )
                             {
+                                
+                                $dispo_grammes = $disponibles[$nom_besoin]['unit'];
+                                $besoin_grammes = $besoin_data['unit'];
+                                if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
+                                {
                                 $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                                 $besoin_grammes = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
-
+                                }
                                 if($dispo_grammes < $besoin_grammes){
 
                                         $tobuy[$nom_besoin]['quantity'] = $besoin_grammes - $dispo_grammes;
@@ -474,16 +479,6 @@ class CoursesForDay extends Component
                 'cuillères à soupe' => 7.5,
                 'cuillères à café' => 2.5
             ),
-            'riz' => array(
-                'grammes' => 1,
-                "kilogrammes" => 1000,
-                'tasses' => 180
-            ),
-            'chocolat' => [
-                'grammes' => 1,
-                "kilogrammes" => 1000,
-                'carres' => 10,
-            ],
         );
 
 
