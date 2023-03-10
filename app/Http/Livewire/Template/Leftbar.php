@@ -17,6 +17,7 @@ class Leftbar extends Component
         'InventaireShared' => 'OnInventaireUpdated',
         'InventaireAdded' => 'OnInventaireUpdated',
         'InventaireDeleted' => 'OnInventaireUpdated',
+        'RecetteDeleted' => 'OnInventaireUpdated',
 
     ];
     public function OnInventaireUpdated()

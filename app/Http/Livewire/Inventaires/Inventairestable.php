@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventaires;
 
+use App\Models\Element;
 use App\Models\Group;
 use App\Models\Inventaire;
 use App\Models\Recette;
@@ -125,28 +126,129 @@ class Inventairestable extends Component
 
     public function ProposerRecettes()
     {
-        dd('on work');
-        $names = [];
-        $recettes = [];
-        $myInv = [];
-        $recettes = Recette::with('elements')->get();
+        
 
-        foreach ($recettes as $recette => $recette_data) {
-
-                foreach ($recette_data->elements as $element => $element_data) {
-                    $names[] = $element_data->name;
-                }
-            $recettes['ingredients'] = $names;
-        }
-        dd($recettes);
-
-        $names = [];
+        $available_inventaire = [];
         $inventaires = User::find(Auth::id())->inventaires;
-        foreach ($inventaires as $inventaire => $inventaire_data) {
-            $names[] = $inventaire_data->name;
-        }
-        $myInv['names'] = $names;
+       
+        foreach ($inventaires as $inventaire) {
 
+            $name = ($inventaire['name']);
+            
+            $found_element = Element::where('name','=',$name)->get();
+            if(!$found_element->IsEmpty())
+            {
+                $element = ($found_element->first);
+                $inventaire->element_id = $element->id->id;
+            }
+            
+            $available_inventaire[$name] = $inventaire;
+        }
+        
+    /*     "id" => 42
+        "name" => "Pommes de terre"
+        "unit" => "grammes"
+        "stock" => 0.0
+        "created_at" => "2023-03-10 17:46:36"
+        "updated_at" => "2023-03-10 17:46:36"
+        "user_id" => 25
+        "element_id" => "Pommes de terre" */
+        
+        $names = [];
+        
+        $recettes = Recette::with('elements')->where("user_id","<>",Auth::id())->get();
+       
+        foreach ($recettes as $recette_data) {
+                $recette_data->possible = true;
+                $name = $recette_data->name;
+                
+                foreach ($recette_data->elements as $element) {
+                    $names[] = array('id'=>$element->id, 'name'=> $element->name,'quantity'=> $element->pivot->quantity);
+                    if(!array_key_exists($element->name,$available_inventaire))
+                    {
+           
+                        $recette_data->possible = false;
+                    
+                    }
+
+                    if(array_key_exists($element->name,$available_inventaire))
+                    {
+           
+                        if($available_inventaire[$element->name])
+                        {
+                            if($element->pivot->quantity > $available_inventaire[$element->name]['stock'])
+                            {
+                                $recette_data->possible = false;
+                            }
+                        }
+                    
+                    }
+                    
+                }
+                
+            
+        }
+      
+
+
+        $possible = [];
+        foreach ($recettes as $recette) {
+            if($recette->possible === true)
+            {
+                $possible[] = $recette;
+            }
+        }
+
+
+        foreach ($possible as $recette) {
+            $toadd = new Recette;
+            $toadd->name = $recette->name;
+            $exist = Recette::where([
+                ['name', '=', $toadd->name],
+                ['user_id', '=', Auth::id()],
+            ])->get();
+            
+            if($exist->IsEmpty())
+            {
+            $toadd->user_id = Auth::id();
+            $toadd->save();
+            foreach ($recette->elements as $ingredient) {
+                $ihaveit = Element::where([
+                    ['name', '=', $ingredient->name],
+                    ['user_id', '=', Auth::id()],
+                ])->get();
+
+               if($ihaveit->IsEmpty())
+               {
+                $create = New Element;
+                $create->user_id = Auth::id();
+                $create->name = $ingredient->name;
+                $create->unit = $ingredient->unit;
+                $create->price = $ingredient->price;
+                $create->calories = $ingredient->calories;
+                $create->save();
+                $id = $create->id;
+               }
+               else
+               {
+
+                $id = $ihaveit->first()->id;
+                
+
+               }
+               $toadd->elements()->attach($id,['quantity'=> $ingredient->pivot->quantity ]);
+
+                
+            }
+        }
+            
+
+        }
+
+        $this->redirect('/Recettes');
+       
+
+       
 
     }
 

@@ -104,7 +104,7 @@
 
                     </td>
                     <td data-label="Actions" style="display:flex">
-                        <button class="mybutton" type="button" wire:click="EditThis('{{$inventaire->id}}')"><i class="fas fa-edit"></i> Modifier</button>
+                        <button class="mybutton" type="button" wire:click="EditThis('{{$inventaire->id}}')"><i class="fas fa-edit"></i> Modifier le stock</button>
                         <button class="mybutton" type="button" wire:click="ShareThis('{{$inventaire->id}}')"><i class="fa-solid fa-square-share-nodes"></i> Partager avec le groupe</button>
                     </td>
                 </tr>

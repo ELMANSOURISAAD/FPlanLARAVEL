@@ -49,8 +49,19 @@ class RecettesTable extends Component
 
     public function deleteRecettes($ids)
     {
-        Recette::destroy($ids);
+        foreach ($ids as $id) {
+            $recette = Recette::find($id);
+            $repas = $recette->repas;
+            foreach ($repas as $onerepas ) {
+                $courses = $onerepas->courses;
+                $courses->each->delete();
+                $onerepas->delete();
+            }
+            $recette->delete();
+        }
+       
         $this->selection = [];
+        $this->emit('RecetteDeleted');
 
     }
     public function setOrderField(string $name)
