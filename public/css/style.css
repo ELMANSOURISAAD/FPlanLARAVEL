@@ -110,7 +110,9 @@ body {
     font-size:1.1em;
 }
 .menuitem{
-color:#A59FBF;
+
+color:#DFDCEA;
+font-size: 1em;
 }
 
 .left {
@@ -416,6 +418,7 @@ p{
 }
 .flexlist li {
     margin:10px;
+    gap:10%
  }
 
 
