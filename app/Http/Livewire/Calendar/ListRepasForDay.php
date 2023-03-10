@@ -312,7 +312,16 @@ class ListRepasForDay extends Component
             if (array_key_exists($nom_besoin, $disponibles))
             {
 
-                if ($this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes")<$this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes"))
+                $dispo_grammes = $disponibles[$nom_besoin]['unit'];
+                $besoin_grammes = $besoin_data['unit'];
+
+                if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
+                 {
+                 $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
+                 $besoin_grammes = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
+                }
+              
+                if ($besoin_grammes<$dispo_grammes)
                     {
 
                     $t = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
