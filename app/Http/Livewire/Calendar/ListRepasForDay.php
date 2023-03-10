@@ -202,44 +202,15 @@ class ListRepasForDay extends Component
 
     public function DeleteRepasFromDay($id_repas)
     {
-        //$repas = Repas::find($id_repas);
+        $repas = Repas::find($id_repas);
 
-        // ($repas->courses()->delete());
+        ($repas->courses()->delete());
         Repas::destroy($id_repas);
         $this->emit("RepasDeletedB");
     }
 
 
-    public function getRepasStatsForDay($adate)
-    {
-        $stats = array(
-            "Coût" => array(
-                "unit" => 'euro',
-                "value" => 0,
-            ),
-            "Calories" => array(
-                "unit" => 'Kilojoules',
-                "value" => 0,
-            ),
 
-        );
-
-
-        $userId = Auth::id();
-        $repas = User::find($userId)->repas()
-            ->where('date_repas', $adate->toDateString())->get();
-
-        if($repas){
-        foreach ($repas as $bruh)
-        {
-            if($bruh->recette)
-            $stats['Coût']['value'] += ($bruh->recette->price);
-            $stats['Calories']['value'] += ($bruh->recette->calories);
-        }
-        }
-
-        return $stats;
-    }
     public function MissingInventory($adate)
     {
 
@@ -375,8 +346,6 @@ class ListRepasForDay extends Component
 
         return view('livewire.calendar.list-repas-for-day',[
             'repas' => $this->getRepasForDay($this->day),
-            'stats' => $this->getRepasStatsForDay($this->day),
-            'MissingInventory' => $this->MissingInventory($this->day),
             'daterecu' => $this->day,
         ]);
     }

@@ -3,12 +3,17 @@
 namespace App\Http\Livewire\Calendar;
 
 use Livewire\Component;
+use Carbon\Carbon;
 
 class Calendar extends Component
 {
+
+
     public function render()
     {
-
-        return view('livewire.calendar.calendar');
+        $today = Carbon::today();
+        return view('livewire.calendar.calendar',[
+            'day' => $today,
+        ]);
     }
 }

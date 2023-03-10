@@ -95,12 +95,11 @@
             }
 
             .days li{
-                font-size: 13px;
-                text-align: justify;
+                font-size: xx-small;
 
                 display: flex;
                 flex-direction: column;
-                align-content: center;
+
                 flex-wrap: wrap;
                 justify-content: space-between;;
                 text-decoration: none;
@@ -155,7 +154,7 @@
         </style>
 
             <div id="month-calendar">
-                <?php $carbonDate = \Carbon\Carbon::parse($carbonDate) ?>
+                <?php $carbonDate = \Carbon\Carbon::parse($day) ?>
                 <ul class="month">
                     <li wire:click="prevv('{{$carbonDate->locale('fr')}}')" class="prev"><i class="fas fa-angle-double-left"></i></li>
                     <li wire:click="nextt('{{$carbonDate->locale('fr')}}')" class="next"><i class="fas fa-angle-double-right"></i></li>
@@ -193,40 +192,97 @@
 
                     @for ($i = 0; $i < 7; $i++)
 
-                     <li
-                     @if (in_array($carbonDate->toDateString(),$selected))
-                     class="active"
-                     @endif
-                     style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+                     <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
 
                     <div>
                         <livewire:calendar.list-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
+                        <livewire:calendar.data-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
+
                     </div>
                         @if($buttonVisible == $carbonDate->dayOfYear)
 
                             <livewire:calendar.make-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
 
                         @endif
-                    <div style="width:80%;display:flex;flex-direction: row;gap:7px;align-items:space-around">
-                        <button class="myButton"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                    <div style="width:100%;display:flex;flex-direction: row;justify-content:center">
+                        <button class="myButton" style="width:80%"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
                             <i class="fa-duotone fa-plus" ></i> repas
                         </button>
-                    <button class="myButton"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
+
+{{--                      <button class="myButton"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="addselection('{{$carbonDate->toDateString()}}')" >
                         <i class="fa-solid fa-basket-shopping"></i> courses
-                    </button>
+                    </button> --}}
+
                     </div>
 
                     </li>
                     <?php $carbonDate->addDays(1); ?>
                     @endfor
+                    <?php $carbonDate->addDays(-7); ?>
 
                 </ul>
             </div>
-        <div class="days" style="width:100%;display:flex;justify-content: space-around">
 
-            <div class="weekdays">  <h3 style="background: cadetblue;"> Liste de courses : </h3>
+
+
+
+
+
+
+
+            <div id="month-calendar">
+
+            <div class="days" style="width:100%;display:flex;justify-content: space-around">
+
+
+
+
+                @for ($i = 0; $i < 7; $i++)
+
+                <li style="display: flex;flex-direction: column;justify-content: space-between;height: 100%;">
+                <div>
+
+                    <livewire:calendar.courses-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
+
+               </div>
+
+
+
+
+               </li>
+
+               <?php $carbonDate->addDays(1); ?>
+               @endfor
             </div>
 
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{--
             <div style="margin-top:10px;display:flex;flex-direction:column">
                 @if ($listedecourses)
                 <button wire:click="CreateCourseAll()" class="myButton"> Tout ajouter<i class="fa-regular fa-square-plus"  style="cursor: grab;color:red;font-size: 10px"></i></button>
@@ -237,7 +293,7 @@
 
                         <span>{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}}</span>
                         <button class="myButton">
-                            <i class="fa-regular fa-square-plus" wire:click="CreateCourseLine('{{$quantity['id_inventaire']}}','{{$name}}','{{$quantity['quantity']}}','{{$quantity['unit']}}','{{$quantity['id_repas']}}')" style="cursor: grab;color:red;font-size: 10px"></i>
+                            <i class="fa-regular fa-square-plus" wire:click="" style="cursor: grab;color:red;font-size: 10px"></i>
                          </button>
 
 
@@ -246,9 +302,36 @@
                 @empty
 
                 @endforelse
-               </div>
 
-        </div>
+
+
+
+                  @if ($stats)
+                    &#9632;  Stats :
+                    <ul>
+
+                        @foreach ($stats as $stat=>$data)
+                                <li style="color:cornflowerblue" >{{$stat}} : {{$data['value']}} {{$data['unit']}} </li>
+                            @endforeach
+                        </ul>
+                    @endif
+
+
+                    @if ($MissingInventory)
+                    <span style="color:tomato">&#9632;  Missing Inventory !</span>
+                    <ul>
+
+                       @forelse ($MissingInventory as $name=>$quantity)
+                            <li style="color:tomato" >{{$name}} -> {{$quantity['quantity']}} {{$quantity['unit']}} </li>
+
+                        @empty
+                        @endforelse
+
+                    </ul>
+                    @endif
+
+
+               </div> --}}
 
 
 

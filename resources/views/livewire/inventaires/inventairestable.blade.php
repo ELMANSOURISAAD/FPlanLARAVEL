@@ -49,8 +49,10 @@
 
     </div>
     <div class="title"><h3>Mon Inventaire  </h3> </div>
+    <div>
     <button class="mybutton" wire:click="ListeDeCourse()"><i class="fa-solid fa-file-import"></i> Generer la liste de course</button>
-
+    <button class="mybutton" wire:click="ProposerRecettes()"><i class="fa-solid fa-wand-magic-sparkles"></i> Recettes magiques !</button>
+    </div>
 
     <div class="elements">
         <button class="mybutton" x-show="selection.length > 0" x-on:click="$wire.deleteInventaires(selection)" > Supprimer </button>

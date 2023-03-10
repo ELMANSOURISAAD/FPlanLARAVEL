@@ -18,7 +18,7 @@
         <input type="text" wire:model.defer="name">
         <input type="checkbox" name="incluregroupe" id="" checked>
         <label for="incluregroupe">M'inclure dans le groupe</label>
-        <button type="submit" class="mybutton">Save</button>
+        <button type="submit" class="mybutton">Enregistrer</button>
         @error("group.name")
         {{$message}}
         @enderror
