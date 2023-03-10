@@ -1,5 +1,5 @@
 <div>
-    @if (!$repas->IsEmpty())
+    @if (!$repas->IsEmpty() && $MissingInventory)
     &#9632;  Courses cumulées :
     <ul style="text-align: left">
 
@@ -24,6 +24,8 @@
      @endif
 
      <?php  $totalprice = 0;?>
+
+
 
 
 

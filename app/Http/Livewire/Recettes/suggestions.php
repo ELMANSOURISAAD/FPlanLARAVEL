@@ -4,8 +4,10 @@ namespace App\Http\Livewire\Recettes;
 
 use App\Http\Livewire\Inventaires\Inventaires;
 use App\Models\Course;
+use App\Models\User;
+use App\Models\CourseInventaires;
 use App\Models\Element;
-use App\Models\ElementRecette;
+
 use App\Models\Group;
 use App\Models\GroupInventaire;
 use App\Models\GroupUser;
@@ -22,7 +24,7 @@ class suggestions extends ModalComponent
     public function Go()
     {
         $id = Auth::id();
-        Repas::where('user_id','=',$id)->delete();
+       /*  Repas::where('user_id','=',$id)->delete();
         Recette::where('user_id','=',$id)->delete();
         Element::where('user_id','=',$id)->delete();
 
@@ -31,10 +33,25 @@ class suggestions extends ModalComponent
         GroupUser::where('user_id','=',$id)->delete();
 
         // INVENTAIRE
-        Inventaire::where('user_id','=',$id)->delete();
+        Inventaire::where('user_id','=',$id)->delete(); */
 
         // COURSES
-        Course::where('user_id','=',$id)->delete();
+        $elements = User::find($id)->elements()->get();
+        $recettes = User::find($id)->recettes()->get();
+        $repas = User::find($id)->repas()->get();
+        $groups = User::find($id)->groups()->get();
+        $Ingroups = User::find($id)->Ingroups()->get();
+        $courses = User::find($id)->courses()->get();
+        $inventaires = User::find($id)->inventaires()->get();
+       // $courses = Course::where('user_id','=',$id)->inventaires();
+        $elements->each->delete();
+        $recettes->each->delete();
+        $repas->each->delete();
+        $groups->each->delete();
+        $Ingroups->each->delete();
+        $courses->each->delete();
+        $inventaires->each->delete();
+
 
 
         $ingredients = array(
