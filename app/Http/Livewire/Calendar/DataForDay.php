@@ -33,12 +33,13 @@ class DataForDay extends Component
         $repas = User::find($userId)->repas()
             ->where('date_repas', $adate->toDateString())->get();
 
-        if($repas){
+        if(!$repas->IsEmpty()){
         foreach ($repas as $bruh)
         {
-            if($bruh->recette)
+            if($bruh->recette){
             $stats['Coût']['value'] += ($bruh->recette->price);
             $stats['Calories']['value'] += ($bruh->recette->calories);
+        }
         }
         }
 
