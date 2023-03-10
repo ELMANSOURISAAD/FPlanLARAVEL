@@ -292,6 +292,7 @@ class CoursesForDay extends Component
         }
 
         $this->emit('CourseAdded');
+        $this->redirect('/Inventaires');
     }
 
     private function CreateCourse($id_inventaire,$name,$quantity,$unit,$id_repas)

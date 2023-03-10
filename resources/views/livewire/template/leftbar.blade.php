@@ -9,13 +9,13 @@
             </div>
 
         </div>
-        <div> Mail : {{ $user->email }} <br> User : {{ $user->name }}</div>
+        <div style="font-size: xx-small"> Mail : {{ $user->email }} <br> User : {{ $user->name }}</div>
 
     </div>
     <div class="menu showMenu">
         <ul class="flexlist">
             <a href="{{ route('Calendar') }}">
-                <li @if(Route::current()->getName() == 'Calendar')
+                <li @if($route == 'Calendar')
                 class="selectedmenu"
                 @else
                 class="menuitem"
@@ -28,7 +28,7 @@
 
 
             <a href="{{ route('Recettes') }}">
-                <li @if(Route::current()->getName() == 'Recettes')
+                <li @if($route == 'Recettes')
                 class="selectedmenu"
                 @else
                 class="menuitem"
@@ -40,7 +40,7 @@
             </a>
 
 
-            <a href="{{ route('Ingredients') }}"><li @if(Route::current()->getName() == 'Ingredients')
+            <a href="{{ route('Ingredients') }}"><li @if($route == 'Ingredients')
                 class="selectedmenu"
                 @else
                 class="menuitem"
@@ -54,7 +54,8 @@
 
 
             <a href="{{ route('Inventaires') }}">
-                <li @if(Route::current()->getName() == 'Inventaires')
+
+                <li @if($route == 'Inventaires')
                 class="selectedmenu"
                 @else
                 class="menuitem"
@@ -69,7 +70,8 @@
 
 
             <a  href="{{ route('Ingroups') }}">
-                <li @if(Route::current()->getName() == 'Ingroups')
+
+                <li @if($route == 'Ingroups')
                     class="selectedmenu"
                     @else
                 class="menuitem"
@@ -81,7 +83,7 @@
 
 
             <a  href="{{ route('Mygroups') }}">
-                <li @if(Route::current()->getName() == 'Mygroups')
+                <li @if($route == 'Mygroups')
                     class="selectedmenu"
                     @else
                 class="menuitem"
@@ -94,14 +96,14 @@
 
 {{--
 
-                <a href="{{ route('Reporting') }}"><li @if(Route::current()->getName() == 'Reporting')
+                <a href="{{ route('Reporting') }}"><li @if($route == 'Reporting')
                     class="selectedmenu"
                     @else
                     class="menuitem"
                     @endif>
 
                         <i class="fa-solid fa-cash-register"></i>
-                        <span @if(Route::current()->getName() == 'Reporting')
+                        <span @if($route == 'Reporting')
                             class="selectedmenu"
                             @endif>Reporting</span>
 

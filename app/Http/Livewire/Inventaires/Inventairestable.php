@@ -29,7 +29,8 @@ class Inventairestable extends Component
     protected $listeners = [
         'InventaireUpdated' => 'OnInventaireUpdated',
         'InventaireShared' => 'OnInventaireShared',
-        'InventaireAdded' => 'OnInventaireAdd'
+        'InventaireAdded' => 'OnInventaireAdded',
+        'InventaireDeleted' => 'OnInventaireDeleted'
     ];
 
 
@@ -48,7 +49,7 @@ class Inventairestable extends Component
         $inventaire->stock = $this->stock;
         $inventaire->user_id = Auth::id();
         $inventaire->save();
-        $this->emit('InventairetAdded');
+        $this->emit('InventaireAdded');
 
     }
 
@@ -57,6 +58,7 @@ class Inventairestable extends Component
     {
          Inventaire::destroy($ids);
          $this->selection = [];
+         $this->emit('InventaireDeleted');
 
     }
     public function setOrderField(string $name)
@@ -100,7 +102,7 @@ class Inventairestable extends Component
 
         $callback = function() use($inventaires, $columns) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
+            fputcsv($file, $columns,";");
 
             foreach ($inventaires as $inventaire) {
                 foreach ($inventaire->courses as $course) {
@@ -109,7 +111,7 @@ class Inventairestable extends Component
                     $row['Unité']    = $course->pivot->unit;
                     $row['Quantité']    = $course->pivot->quantity;
 
-                    fputcsv($file, array($row['Produit'], $row['Unité'], $row['Quantité']));
+                    fputcsv($file, array($row['Produit'], $row['Unité'], $row['Quantité']),";");
                 }
 
             }
@@ -156,7 +158,11 @@ class Inventairestable extends Component
         $this->reset('editId','shareId');
     }
 
-    public function OnInventaireAdd()
+    public function OnInventaireAdded()
+    {
+        $this->reset('editId','shareId');
+    }
+    public function OnInventaireDeleted()
     {
         $this->reset('editId','shareId');
     }
