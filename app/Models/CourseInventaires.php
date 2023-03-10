@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CourseInventaires extends Model
 {
     use HasFactory;
+
+    protected $table = 'course_inventaire'; // to fix labeling issue
     public function courses()
     {
         return $this->belongsTo(Course::class);

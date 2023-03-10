@@ -23,10 +23,7 @@ class Inventaire extends Model
         ->withPivot(["quantity","unit"]);
     }
 
-    public function course_inventaires()
-    {
-        return $this->hasMany(CourseInventaires::class);
-    }
+
 
     public function groups()
     {

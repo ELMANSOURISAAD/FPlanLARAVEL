@@ -1,7 +1,7 @@
         <div style="max-height: 100%">
 
             @if(($recettes->isNotEmpty()))
-                <select name="" id="" wire:model.defer="recette_id">
+                <select style="width:100%" name="" id="" wire:model.defer="recette_id">
                     <option value="0"></option>
                     @foreach($recettes as $recette)
 
