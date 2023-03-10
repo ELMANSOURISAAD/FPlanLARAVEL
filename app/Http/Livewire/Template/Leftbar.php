@@ -9,12 +9,21 @@ use Livewire\Component;
 
 class Leftbar extends Component
 {
+
+
+
+
     public function render()
     {
+
         $userId = Auth::id();
-        $name = User::find($userId)->name;
+        $inventaires = User::find($userId)->inventaires()->has('courses')->get();
+
+
+        $user = User::find($userId);
         return view('livewire.template.leftbar', [
-            'name' => $name,
+            'user' => $user,
+            'count_courses' => $inventaires->count()
         ]);
     }
 }

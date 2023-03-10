@@ -4,11 +4,12 @@
         <div class="operations">
             <div class="flex">
             <h3 style="color:#361E92">Food </h3> <h3 style="color:#F3A358">Planning </h3>
-            {{ $name }}
+
+
             </div>
 
-
         </div>
+        <div> Mail : {{ $user->email }} <br> User : {{ $user->name }}</div>
 
     </div>
     <div class="menu showMenu">
@@ -21,25 +22,22 @@
                 @endif>
 
 
-                <i class="fa-regular fa-calendar-days"></i>
-                                    <span class="spanmenu" @if(Route::current()->getName() == 'Calendar')
-                            class="selectedmenu"
-                        @endif>Calendar</span>
-                    </li></a>
+                <i class="fa-regular fa-calendar-days"></i>Calendar
+                    </li>
+            </a>
 
 
-            <a href="{{ route('Recettes') }}"><li @if(Route::current()->getName() == 'Recettes')
+            <a href="{{ route('Recettes') }}">
+                <li @if(Route::current()->getName() == 'Recettes')
                 class="selectedmenu"
                 @else
                 class="menuitem"
                 @endif>
 
-                    <i class="fa-solid fa-plate-wheat"></i>
-                    <span class="spanmenu" @if(Route::current()->getName() == 'Recettes')
-                        class="selectedmenu"
-                        @endif">Recettes</span>
+                    <i class="fa-solid fa-plate-wheat"></i>Recettes
 
-                </li></a>
+                </li>
+            </a>
 
 
             <a href="{{ route('Ingredients') }}"><li @if(Route::current()->getName() == 'Ingredients')
@@ -48,25 +46,22 @@
                 class="menuitem"
                 @endif>
 
-                    <i class="fa-solid fa-egg"></i>
-                    <span class="spanmenu" @if(Route::current()->getName() == 'Ingredients')
-                        class="selectedmenu"
-                        @endif>Ingrédients</span>
+                    <i class="fa-solid fa-egg"></i>Ingrédients
 
-                </li></a>
+                </li>
+            </a>
 
 
 
-            <a href="{{ route('Inventaires') }}"><li @if(Route::current()->getName() == 'Inventaires')
+            <a href="{{ route('Inventaires') }}">
+                <li @if(Route::current()->getName() == 'Inventaires')
                 class="selectedmenu"
                 @else
                 class="menuitem"
                 @endif>
 
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    <span class="spanmenu" @if(Route::current()->getName() == 'Inventaires')
-                        class="selectedmenu"
-                        @endif>Inventaire</span>
+                    <i class="fa-solid fa-basket-shopping"></i>Inventaire
+                    <span style="color:red;font-size:xx-small">@if ($count_courses>0)({{$count_courses}})@endif </span>
                 </li>
             </a>
 
@@ -80,10 +75,7 @@
                 class="menuitem"
                     @endif>
 
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span class="spanmenu" @if(Route::current()->getName() == 'Ingroups')
-                        class="selectedmenu"
-                        @endif>Groupes</span>
+                    <i class="fa-solid fa-circle-user"></i>Groupes
                     </li>
                 </a>
 
@@ -95,10 +87,7 @@
                 class="menuitem"
                     @endif>
 
-                    <i class="fa-brands fa-watchman-monitoring"></i>
-                    <span class="spanmenu" @if(Route::current()->getName() == 'Mygroups')
-                        class="selectedmenu"
-                        @endif>Administrer</span>
+                    <i class="fa-brands fa-watchman-monitoring"></i>Administrer</span>
                     </li>
                 </a>
 
