@@ -138,7 +138,7 @@ a,li{
 
 
 .first-data {
-    gap:15%;
+    gap:4%;
     padding:30px;
   grid-area: first-data;
   display: flex;
@@ -501,7 +501,8 @@ label {
       "left"
       "Header"
       "first-data"
-      "second-data";
+      "second-data"
+      "right";
   }
 
 

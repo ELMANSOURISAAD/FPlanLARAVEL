@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Inventaires;
 
 use App\Models\Group;
 use App\Models\Inventaire;
+use App\Models\Recette;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -120,7 +121,32 @@ class Inventairestable extends Component
 
 
 
+    public function ProposerRecettes()
+    {
+        dd('on work');
+        $names = [];
+        $recettes = [];
+        $myInv = [];
+        $recettes = Recette::with('elements')->get();
 
+        foreach ($recettes as $recette => $recette_data) {
+
+                foreach ($recette_data->elements as $element => $element_data) {
+                    $names[] = $element_data->name;
+                }
+            $recettes['ingredients'] = $names;
+        }
+        dd($recettes);
+
+        $names = [];
+        $inventaires = User::find(Auth::id())->inventaires;
+        foreach ($inventaires as $inventaire => $inventaire_data) {
+            $names[] = $inventaire_data->name;
+        }
+        $myInv['names'] = $names;
+
+
+    }
 
 
 
