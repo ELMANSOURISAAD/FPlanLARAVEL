@@ -117,8 +117,8 @@ class CoursesForDay extends Component
 
                                 if ((array_key_exists($nom_besoin, $disponibles)) )
                             {
-                                $dispo_grammes = $disponibles[$nom_besoin]['unit'];
-                                $besoin_grammes = $besoin_data['unit'];
+                                $dispo_grammes = $disponibles[$nom_besoin]['quantity'];
+                                $besoin_grammes = $besoin_data['quantity'];
                                 if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
                                 {
                                 $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
@@ -237,7 +237,7 @@ class CoursesForDay extends Component
 
         }
 
-
+        
         // $besoins =  ["Semoule" => 5.0]
 
 
@@ -249,8 +249,10 @@ class CoursesForDay extends Component
 
                                 if ((array_key_exists($nom_besoin, $disponibles)) )
                             {
-                                $dispo_grammes = $disponibles[$nom_besoin]['unit'];
-                                $besoin_grammes = $besoin_data['unit'];
+                                
+                                $dispo_grammes = $disponibles[$nom_besoin]['quantity'];
+                                $besoin_grammes = $besoin_data['quantity'];
+                                
                                 if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
                                 {
                                 $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
@@ -532,7 +534,7 @@ class CoursesForDay extends Component
 
     public function render()
     {
-
+        
         return view('livewire.calendar.courses-for-day',[
             'repas' => $this->getRepasForDay($this->day),
             'daterecu' => $this->day,

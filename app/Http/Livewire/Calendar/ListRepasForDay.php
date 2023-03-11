@@ -312,8 +312,8 @@ class ListRepasForDay extends Component
             if (array_key_exists($nom_besoin, $disponibles))
             {
 
-                $dispo_grammes = $disponibles[$nom_besoin]['unit'];
-                $besoin_grammes = $besoin_data['unit'];
+                $dispo_grammes = $disponibles[$nom_besoin]['quantity'];
+                $besoin_grammes = $besoin_data['quantity'];
 
                 if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
                  {
