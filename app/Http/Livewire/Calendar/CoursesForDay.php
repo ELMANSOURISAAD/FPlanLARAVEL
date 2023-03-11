@@ -331,10 +331,9 @@ class CoursesForDay extends Component
 
         if(!$courses->isEmpty())
         {
-
+            // TO DO : CHECK UNIT
             foreach ($courses as $miss) {
                 $miss->pivot->quantity = $miss->pivot->quantity +  $quantity;
-
                 $miss->pivot->save();
 
             }
