@@ -200,7 +200,7 @@ class InventaireForm extends Component
 
         ($new_quantity = $this->inventaire->stock);
         ($new_unit = $this->inventaire->unit);
-        
+
         if($new_unit==$old_unit)
         {
             $difference = $new_quantity - $old_quantity ;
@@ -209,7 +209,7 @@ class InventaireForm extends Component
         {
             $difference = $this->convertIngredient($name,$new_quantity,$new_unit,'grammes') -  $this->convertIngredient($name,$old_quantity,$old_unit,'grammes') ;
         }
-        
+       
 
         if($difference>0)
         {
@@ -219,19 +219,23 @@ class InventaireForm extends Component
                 $unit = $course->pivot->unit;
                 if($unit !== $new_unit)
                 {
+                    
                     $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,$unit,'grammes') - $difference;
+                    
                     $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,'grammes',$unit);
+                    
                 }
                 else
                 {
                     $course->pivot->quantity = $course->pivot->quantity - $difference;
 
                 }
+                $course->pivot->save();
                 if($course->pivot->quantity<=0)
                 {
-                    $course->delete();
+                    ($course->delete());
                 }
-                $course->pivot->save();
+                
             }
 
         }
