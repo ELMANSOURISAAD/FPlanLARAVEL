@@ -220,7 +220,7 @@ class InventaireForm extends Component
                 if($unit !== $new_unit)
                 {
                     
-                    $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,$unit,'grammes') - $difference;
+                    $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,$unit,'grammes') - $this->convertIngredient($name,$difference,$new_unit,'grammes');
                     
                     $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,'grammes',$unit);
                     
