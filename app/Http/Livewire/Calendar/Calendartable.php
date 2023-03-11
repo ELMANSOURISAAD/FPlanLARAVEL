@@ -17,7 +17,7 @@ class Calendartable extends Component
     public ?Carbon $day;
     protected $listeners = [
         'RepasAdded' => '$refresh',
-        'RepasDeletedB' => '$refresh',
+        'RepasDeleted' => '$refresh',
         'refreshComponent' => '$refresh',
         'CourseAdded' => '$refresh'
     ];
