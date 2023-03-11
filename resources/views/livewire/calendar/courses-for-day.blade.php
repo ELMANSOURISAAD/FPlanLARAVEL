@@ -6,7 +6,7 @@
        @forelse ($MissingInventory as $name=>$quantity)
 
             <li>{{$name}}: {{$quantity['quantity']}} {{$quantity['unit']}}</li>
-            <?php  $totalprice += $quantity['quantity'] * $quantity['price']?>
+            <?php  $totalprice += $quantity['quantity_g'] * $quantity['price']?>
 
 
         @empty

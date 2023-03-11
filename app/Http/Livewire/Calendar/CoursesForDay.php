@@ -117,7 +117,6 @@ class CoursesForDay extends Component
 
                                 if ((array_key_exists($nom_besoin, $disponibles)) )
                             {
-                                
                                 $dispo_grammes = $disponibles[$nom_besoin]['unit'];
                                 $besoin_grammes = $besoin_data['unit'];
                                 if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
@@ -131,7 +130,7 @@ class CoursesForDay extends Component
                                         $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
                                         $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
                                         $tobuy[$nom_besoin]['id_inventaire'] = $disponibles[$nom_besoin]['id_inventaire'];
-                                        $tobuy[$nom_besoin]['price'] = $besoin_data['price'];
+                                        $tobuy[$nom_besoin]['price'] = $besoin_data['price'] * $besoin_data['quantity'];
                                         $tobuy[$nom_besoin]['id_repas'] = $besoin_data['repas_id'];
                                     }
 
@@ -142,7 +141,7 @@ class CoursesForDay extends Component
                                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
                                 $tobuy[$nom_besoin]['id_inventaire'] = 0;
-                                $tobuy[$nom_besoin]['price'] = $besoin_data['price'];
+                                $tobuy[$nom_besoin]['price'] = $besoin_data['price'] * $besoin_data['quantity'];
                                 $tobuy[$nom_besoin]['id_repas'] = $besoin_data['repas_id'];
                             }
             }
@@ -150,7 +149,7 @@ class CoursesForDay extends Component
 
 
 
-
+            
         return $tobuy;
 
     }
@@ -250,13 +249,21 @@ class CoursesForDay extends Component
 
                                 if ((array_key_exists($nom_besoin, $disponibles)) )
                             {
+                                $dispo_grammes = $disponibles[$nom_besoin]['unit'];
+                                $besoin_grammes = $besoin_data['unit'];
+                                if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
+                                {
                                 $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                                 $besoin_grammes = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
-
+                                }
                                 if($dispo_grammes < $besoin_grammes){
 
                                         $tobuy[$nom_besoin]['quantity'] = $besoin_grammes - $dispo_grammes;
-                                        $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
+                                        $tobuy[$nom_besoin]['quantity_g'] = $besoin_grammes - $dispo_grammes;
+                                        if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
+                                        {
+                                            $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
+                                        }
                                         $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
                                         $tobuy[$nom_besoin]['id_inventaire'] = $disponibles[$nom_besoin]['id_inventaire'];
                                         $tobuy[$nom_besoin]['price'] = $besoin_data['price'];
@@ -267,6 +274,7 @@ class CoursesForDay extends Component
                             else
                             {
                                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
+                                $tobuy[$nom_besoin]['quantity_g']= $besoin_data['quantity'];
                                 $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
                                 $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
                                 $tobuy[$nom_besoin]['id_inventaire'] = 0;
@@ -278,7 +286,7 @@ class CoursesForDay extends Component
 
 
 
-
+           
         return $tobuy;
 
     }
