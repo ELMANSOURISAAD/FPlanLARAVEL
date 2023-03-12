@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\Calendar;
 
-use App\Models\Course;
-use App\Models\Inventaire;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +26,6 @@ class Calendartable extends Component
 
 
 
-public function GenerateCourses()
-{
-
-}
 
 
 

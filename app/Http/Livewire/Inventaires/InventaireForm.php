@@ -209,21 +209,20 @@ class InventaireForm extends Component
         {
             $difference = $this->convertIngredient($name,$new_quantity,$new_unit,'grammes') -  $this->convertIngredient($name,$old_quantity,$old_unit,'grammes') ;
         }
-       
 
-        if($difference>0)
-        {
+
+
             $courses = $old_inventaire->courses;
             // supposed to be one
             foreach ($courses as $course ) {
                 $unit = $course->pivot->unit;
                 if($unit !== $new_unit)
                 {
-                    
+
                     $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,$unit,'grammes') - $this->convertIngredient($name,$difference,$new_unit,'grammes');
-                    
+
                     $course->pivot->quantity = $this->convertIngredient($name,$course->pivot->quantity,'grammes',$unit);
-                    
+
                 }
                 else
                 {
@@ -235,10 +234,11 @@ class InventaireForm extends Component
                 {
                     ($course->delete());
                 }
-                
+
             }
 
-        }
+
+
         $this->inventaire->save();
         $this->emit('InventaireUpdated');
     }
