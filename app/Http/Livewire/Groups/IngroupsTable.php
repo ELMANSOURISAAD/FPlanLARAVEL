@@ -18,6 +18,7 @@ class IngroupsTable extends Component
     public string $orderField = 'name';
     public string $orderDirection = 'ASC';
     public int $inventaireShares = 0;
+    public int $inventaireCalendar = 0;
 
 
     protected $listeners = ['refreshComponent' => '$refresh'];
@@ -60,9 +61,16 @@ class IngroupsTable extends Component
 
     public function SeeInventaire($id)
     {
+        $this->reset('inventaireShares','inventaireCalendar');
         $this->inventaireShares = $id;
     }
 
+
+    public function SeeCalendar($id)
+    {
+        $this->reset('inventaireShares','inventaireCalendar');
+        $this->inventaireCalendar = $id;
+    }
 
 
 

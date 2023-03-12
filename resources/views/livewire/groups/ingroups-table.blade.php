@@ -33,7 +33,7 @@
                 <td>{{count($group->users)}}</td>
                 <td data-label="Actions" style='display:flex;'>
                     <button class="mybutton" type="button" wire:click="SeeInventaire('{{ $group -> id }}')"><i class="far fa-eye"></i> Inventaire du groupe</button>
-                    <button type="button" class="mybutton"><i class="fa-regular fa-calendar-days"></i> Calendrier</button>
+                    <button type="button" class="mybutton" wire:click="SeeCalendar('{{ $group -> id }}')"><i class="fa-regular fa-calendar-days"></i> Calendrier</button>
                     <button type="button" class="mybutton" wire:click="LeaveGroup('{{ $group -> id }}')"><i class="fa-solid fa-right-from-bracket"></i> Quitter le groupe</button>
                  </td>
 
@@ -43,6 +43,13 @@
             @if( $inventaireShares === $group -> id )
 
             <livewire:groups.group-inventaire :group="$group" :key="time().$group->id"/>
+
+
+            @endif
+
+            @if( $inventaireCalendar === $group -> id )
+
+            <livewire:groups.calendar.group-calendar :group="$group" :key="time().$group->id"/>
 
 
             @endif
