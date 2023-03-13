@@ -14,7 +14,7 @@ class Calendartable extends Component
 
     public ?Carbon $day;
     protected $listeners = [
-        'RepasAdded' => '$refresh',
+        'RepasAdded' => 'OnRepasAdded',
         'RepasDeleted' => '$refresh',
         'refreshComponent' => '$refresh',
         'CourseAdded' => '$refresh'
@@ -48,9 +48,7 @@ class Calendartable extends Component
 
     public function OnRepasAdded()
     {
-
         $this->reset('buttonVisible');
-
     }
 
 
@@ -62,12 +60,12 @@ class Calendartable extends Component
         //$days = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
 
         $userId = Auth::id();
-        $repas = User::find($userId)->repas;
-        $courses = User::find($userId)->courses;
+
+
 
         $inventaires = User::find($userId)->inventaires;
         return view('livewire.calendar.calendartable',[
-            'repas' => $repas,
+
             'inventaires' => $inventaires,
 
         ]);
