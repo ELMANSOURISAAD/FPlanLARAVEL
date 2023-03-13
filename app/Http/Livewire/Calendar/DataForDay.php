@@ -31,7 +31,9 @@ class DataForDay extends Component
 
         $userId = Auth::id();
         $repas = User::find($userId)->repas()
-            ->where('date_repas', $adate->toDateString())->get();
+            ->where('date_repas', $adate->toDateString())
+            ->where('group_id',0)
+            ->get();
 
         if(!$repas->IsEmpty()){
         foreach ($repas as $bruh)

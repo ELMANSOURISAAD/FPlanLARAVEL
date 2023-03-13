@@ -1,4 +1,7 @@
 <div style="max-height: 100%">
+
+
+
     @if ($repas)
             &#9632; Group Meals :
             <ul>
@@ -14,8 +17,6 @@
                 @endforelse
                 </ul>
      @endif
-
-
 
 
 

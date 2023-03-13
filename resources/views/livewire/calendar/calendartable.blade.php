@@ -69,12 +69,12 @@
 
                     </div>
                         @if($buttonVisible == $carbonDate->dayOfYear)
-
+                        <div>
                             <livewire:calendar.make-repas-for-day :day="$carbonDate" :wire:key="$i.now().$carbonDate"/>
-
+                        </div>
                         @endif
                     <div style="width:100%;display:flex;flex-direction: row;justify-content:center">
-                        <button class="myButton" style="width:80%"  :wire:key="$i.now().$carbonDate->dayOfYear" wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
+                        <button class="myButton" style="width:80%"   wire:click="showAddButtonForDay('{{$carbonDate->dayOfYear}}')" >
                             <i class="fa-duotone fa-plus" ></i> repas
                         </button>
 

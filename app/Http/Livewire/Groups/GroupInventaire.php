@@ -13,6 +13,12 @@ class GroupInventaire extends Component
 
     use WithPagination;
     public Group $group;
+    public int $group_id;
+
+
+    public function mount(){
+        $this->group_id = $this->group->id;
+    }
 
 
 

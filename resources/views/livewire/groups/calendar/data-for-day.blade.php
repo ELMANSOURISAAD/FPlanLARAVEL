@@ -1,5 +1,5 @@
 <div>@if ($stats)
-    &#9632; Z Stats :
+    &#9632; Stats :
     <ul>
 
         @foreach ($stats as $stat=>$data)

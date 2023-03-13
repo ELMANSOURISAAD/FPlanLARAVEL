@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Calendar;
+namespace App\Http\Livewire\Groups\calendar;
 
 
 
 use App\Models\Course;
+use App\Models\Group;
 use App\Models\Inventaire;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,145 +15,15 @@ use Livewire\Component;
 class CoursesForDay extends Component
 {
     public Carbon $day;
-
-    public function MissingInventoryNOCUMUL($adate)
-    {
-
-        $tobuy = [];
-        $disponibles = [];
-        $besoins = [];
-        $userId = Auth::id();
-
-        $inventaires = User::find($userId)->inventaires()->with('courses')->get();
-        foreach ($inventaires as $inventaire)
-        {
-
-            if (array_key_exists($inventaire->name, $disponibles))
-            {
-
-                $disponibles[$inventaire->name]['quantity'] += $inventaire->stock;
-
-            }
-            else
-            {
-                $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
-                $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
-                $disponibles[$inventaire->name]['name'] = $inventaire->name;
-                $disponibles[$inventaire->name]['id_inventaire'] = $inventaire->id;
-
-            }
-
-        }
+    public Group $group;
+    public int $group_id;
 
 
-
-        foreach ($inventaires as $inventaire)
-        {
-
-            foreach ($inventaire->courses as $course) {
-
-            if (array_key_exists($inventaire->name, $disponibles))
-            {
-
-                $disponibles[$inventaire->name]['quantity'] += $course->pivot->quantity;
-
-            }
-
-            }
-
-
-        }
-
-
-        $repas = User::find($userId)->repas()
-        ->where('date_repas','=', $adate->toDateString())->get();
-
-
-        if(!$repas->isEmpty())
-        {
-
-        foreach ($repas as $onerepas)
-        {
-
-            if($onerepas->recette)
-            {
-
-            foreach ($onerepas->recette->elements()->get() as $element)
-            {
-
-                if (array_key_exists($element->name, $besoins))
-                {
-
-                    $besoins[$element->name]['quantity'] += $element->pivot->quantity;
-
-                }
-                else
-                {
-                    $besoins[$element->name]['quantity'] = $element->pivot->quantity;
-                    $besoins[$element->name]['unit'] = $element->unit;
-                    $besoins[$element->name]['name'] = $element->name;
-                    $besoins[$element->name]['price'] = $element->price;
-                    $besoins[$element->name]['repas_id'] = $onerepas->id;
-                }
-
-
-
-
-            }
-
-            }
-        }
-
-        }
-
-
-        // $besoins =  ["Semoule" => 5.0]
-
-
-
-
-
-
-            foreach ($besoins as $nom_besoin => $besoin_data) {
-
-                                if ((array_key_exists($nom_besoin, $disponibles)) )
-                            {
-                                $dispo_grammes = $disponibles[$nom_besoin]['quantity'];
-                                $besoin_grammes = $besoin_data['quantity'];
-                                if($disponibles[$nom_besoin]['unit'] !== $besoin_data['unit'])
-                                {
-                                $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
-                                $besoin_grammes = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
-                                }
-                                if($dispo_grammes < $besoin_grammes){
-
-                                        $tobuy[$nom_besoin]['quantity'] = $besoin_grammes - $dispo_grammes;
-                                        $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($disponibles[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],"grammes",$disponibles[$nom_besoin]['unit']);
-                                        $tobuy[$nom_besoin]['unit'] = $disponibles[$nom_besoin]['unit'];
-                                        $tobuy[$nom_besoin]['id_inventaire'] = $disponibles[$nom_besoin]['id_inventaire'];
-                                        $tobuy[$nom_besoin]['price'] = $besoin_data['price'] * $besoin_data['quantity'];
-                                        $tobuy[$nom_besoin]['id_repas'] = $besoin_data['repas_id'];
-                                    }
-
-                            }
-                            else
-                            {
-                                $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
-                                $tobuy[$nom_besoin]['unit']= $besoin_data['unit'];
-                                $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
-                                $tobuy[$nom_besoin]['id_inventaire'] = 0;
-                                $tobuy[$nom_besoin]['price'] = $besoin_data['price'] * $besoin_data['quantity'];
-                                $tobuy[$nom_besoin]['id_repas'] = $besoin_data['repas_id'];
-                            }
-            }
-
-
-
-
-
-        return $tobuy;
-
+    public function mount(){
+        $this->group_id = $this->group->id;
     }
+
+
 
     public function MissingInventory($adate)
     {
@@ -162,23 +33,23 @@ class CoursesForDay extends Component
         $besoins = [];
         $userId = Auth::id();
 
-        $inventaires = User::find($userId)->inventaires()->with('courses')->get();
+        $inventaires = ($this->group->inventaires);
+
         foreach ($inventaires as $inventaire)
         {
 
             if (array_key_exists($inventaire->name, $disponibles))
             {
 
-                $disponibles[$inventaire->name]['quantity'] += $inventaire->stock;
+                $disponibles[$inventaire->name]['quantity'] += $inventaire->pivot->quantity;
 
             }
             else
             {
-                $disponibles[$inventaire->name]['quantity'] = $inventaire->stock;
-                $disponibles[$inventaire->name]['unit'] = $inventaire->unit;
+                $disponibles[$inventaire->name]['quantity'] = $inventaire->pivot->quantity;
+                $disponibles[$inventaire->name]['unit'] = $inventaire->pivot->unit;
                 $disponibles[$inventaire->name]['name'] = $inventaire->name;
                 $disponibles[$inventaire->name]['id_inventaire'] = $inventaire->id;
-
             }
 
         }
@@ -205,7 +76,7 @@ class CoursesForDay extends Component
 
         $repas = User::find($userId)->repas()
         ->where('date_repas','<=', $adate->toDateString())
-        ->where('group_id',0)
+        ->where('group_id',$this->group_id)
         ->get();
 
 
@@ -531,7 +402,7 @@ class CoursesForDay extends Component
         $userId = Auth::id();
         $repas = User::find($userId)->repas()
         ->where('date_repas', $adate->toDateString())
-        ->where('group_id',0)
+        ->where('group_id',$this->group_id)
         ->get();
         return $repas;
     }
@@ -543,7 +414,6 @@ class CoursesForDay extends Component
             'repas' => $this->getRepasForDay($this->day),
             'daterecu' => $this->day,
             'MissingInventory' => $this->MissingInventory($this->day),
-            'MissingInventoryNOCUMUL' => $this->MissingInventoryNOCUMUL($this->day),
             'totalprice' => 0
         ]);
     }

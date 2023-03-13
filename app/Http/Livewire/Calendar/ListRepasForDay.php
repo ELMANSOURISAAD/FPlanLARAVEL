@@ -194,6 +194,7 @@ class ListRepasForDay extends Component
         $userId = Auth::id();
         $repas = User::find($userId)->repas()
         ->where('date_repas', $adate->toDateString())
+        ->where('group_id', 0)
         ->get();
         return $repas;
     }
@@ -203,7 +204,6 @@ class ListRepasForDay extends Component
     public function DeleteRepasFromDay($id_repas)
     {
         $repas = Repas::find($id_repas);
-
         ($repas->courses()->delete());
         Repas::destroy($id_repas);
         $this->emit("RepasDeleted");
@@ -320,7 +320,7 @@ class ListRepasForDay extends Component
                  $dispo_grammes = $this->convertIngredient($disponibles[$nom_besoin]['name'],$disponibles[$nom_besoin]['quantity'],$disponibles[$nom_besoin]['unit'],"grammes");
                  $besoin_grammes = $this->convertIngredient($besoin_data['name'],$besoin_data['quantity'],$besoin_data['unit'],"grammes");
                 }
-              
+
                 if ($besoin_grammes<$dispo_grammes)
                     {
 

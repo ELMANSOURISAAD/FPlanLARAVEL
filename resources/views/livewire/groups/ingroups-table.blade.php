@@ -49,7 +49,7 @@
 
             @if( $inventaireCalendar === $group -> id )
 
-            <livewire:groups.calendar.group-calendar :group="$group" :key="time().$group->id"/>
+            <livewire:groups.calendar.group-calendar :group="$group" :day="\Carbon\Carbon::now()"  :key="time().$group->id"/>
 
 
             @endif
