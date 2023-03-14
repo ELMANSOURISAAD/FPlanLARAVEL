@@ -73,6 +73,29 @@ class CoursesForDay extends Component
 
         }
 
+        $disponibles_butnotshared = [];
+        $inventaires = User::find($userId)->inventaires()->get();
+        foreach ($inventaires as $inventaire)
+        {
+
+            if (array_key_exists($inventaire->name, $disponibles_butnotshared))
+            {
+
+                $disponibles_butnotshared[$inventaire->name]['quantity'] += $inventaire->stock;
+
+            }
+            else
+            {
+                $disponibles_butnotshared[$inventaire->name]['quantity'] = $inventaire->stock;
+                $disponibles_butnotshared[$inventaire->name]['unit'] = $inventaire->unit;
+                $disponibles_butnotshared[$inventaire->name]['name'] = $inventaire->name;
+                $disponibles_butnotshared[$inventaire->name]['id_inventaire'] = $inventaire->id;
+
+            }
+
+        }
+
+
 
         $repas = User::find($userId)->repas()
         ->where('date_repas','<=', $adate->toDateString())
@@ -146,6 +169,21 @@ class CoursesForDay extends Component
                                     }
 
                             }
+                            elseif ((array_key_exists($nom_besoin, $disponibles_butnotshared)) )
+                            {
+                                $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
+                                $tobuy[$nom_besoin]['quantity_g']= $besoin_data['quantity'];
+                                $tobuy[$nom_besoin]['unit']= $disponibles_butnotshared[$nom_besoin]['unit'];
+                                $tobuy[$nom_besoin]['name'] = $besoin_data['name'];
+                                if($tobuy[$nom_besoin]['unit'] !== $besoin_data['unit'])
+                                {
+                                            $tobuy[$nom_besoin]['quantity'] = $this->convertIngredient($tobuy[$nom_besoin]['name'],$tobuy[$nom_besoin]['quantity'],$besoin_data['unit'],$tobuy[$nom_besoin]['unit']);
+                                }
+
+                                $tobuy[$nom_besoin]['id_inventaire'] = 0;
+                                $tobuy[$nom_besoin]['price'] = $besoin_data['price'];
+                                $tobuy[$nom_besoin]['id_repas'] = $besoin_data['repas_id'];
+                            }
                             else
                             {
                                 $tobuy[$nom_besoin]['quantity']= $besoin_data['quantity'];
@@ -166,6 +204,41 @@ class CoursesForDay extends Component
 
     }
 
+
+    public function share($inventaire,$quantity){
+
+        $old_quantity = 0;
+        // get already shared quantity
+        if($inventaire->groups)
+        {
+
+            foreach ($inventaire->groups()->get() as $share) {
+                    $old_quantity += ($share->pivot->quantity);
+            }
+        }
+
+
+
+         if(($quantity + $old_quantity)  <= $inventaire->stock)
+        {
+                        if($inventaire->groups()->find($this->group))
+                        {
+
+                            $t = $inventaire->groups()->find($this->group);
+                            $t->pivot->quantity += $quantity;
+                            $t->pivot->save();
+                        }
+                        else
+                        {
+
+                        ($inventaire->groups()->attach($this->group, ['quantity'=> $quantity , 'unit'=> $inventaire->unit ]));
+                        }
+
+
+                        $this->emit('InventaireShared');
+        }
+    }
+
     public function CreateCourseDay($cumul)
     {
 
@@ -175,12 +248,73 @@ class CoursesForDay extends Component
         {$listedecourse = $this->MissingInventoryNOCUMUL($this->day);}
 
 
-        foreach ($listedecourse as $name => $quantity) {
-            $this->CreateCourse($quantity['id_inventaire'],$name,$quantity['quantity'],$quantity['unit'],$quantity['id_repas']);
+        foreach ($listedecourse as $name => $data) {
+
+            $invent = User::find(Auth::id())->inventaires()->having('name','=',$name)->get();
+           if(!$invent->IsEmpty())
+           {
+            $data['id_inventaire'] = $invent->first()->id;
+           }
+
+            if($data['id_inventaire'] == 0)
+            {
+                $this->CreateCourse($data['id_inventaire'],$name,$data['quantity'],$data['unit'],$data['id_repas']);
+            }
+            else
+            {
+
+                $inventaire = $invent->first();
+                $old_quantity = 0;
+                        // get already shared quantity
+                        if($inventaire->groups)
+                        {
+
+                            foreach ($inventaire->groups()->get() as $share) {
+                                    $old_quantity += ($share->pivot->quantity);
+                            }
+                        }
+
+                $unit = $inventaire -> unit;
+                $stock = $inventaire -> stock;
+
+                if($unit !== $data['unit'])
+                {
+                    $stock = $this->convertIngredient($name,$stock,$unit,$data['unit']);
+                }
+
+
+                // le stock est a l'unité" de la quantité qu'on souhaite ajouté
+
+                if($stock >= ($data['quantity'] +  $old_quantity))
+                {
+                    // on converti  en unité de stock avant de partager
+                    $this->share($inventaire, $this->convertIngredient($name,$data['quantity'],$data['unit'],$unit) );
+                }
+                else
+                {
+                    $notsharedquantity = $stock - $old_quantity;
+                    if($notsharedquantity>0)
+                    {
+                        // si on a du stock non partagé
+                        $this->share($inventaire, $this->convertIngredient($name,$notsharedquantity,$data['unit'],$unit) );
+                        $course = $data['quantity'] - $this->convertIngredient($name,$notsharedquantity,$unit,$data['unit']);
+                        $this->CreateCourse($data['id_inventaire'],$name,$course,$data['unit'],$data['id_repas']);
+
+                    }
+                    else
+                    {
+                        // pas de stock a partager
+                        $this->CreateCourse($data['id_inventaire'],$name,$data['quantity'],$data['unit'],$data['id_repas']);
+                    }
+                }
+
+
+            }
+
         }
 
         $this->emit('CourseAdded');
-        $this->redirect('/Inventaires');
+       // $this->redirect('/Inventaires');
     }
 
     private function CreateCourse($id_inventaire,$name,$quantity,$unit,$id_repas)
@@ -225,6 +359,9 @@ class CoursesForDay extends Component
             $course->save();
             $id_course = $course->id;
             ($inventaire->courses()->attach($id_course, ['quantity'=> $quantity , 'unit'=> $unit ]));
+            // share with group
+
+            $this->share($inventaire,$quantity);
             $inventaire->save();
 
         }

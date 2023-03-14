@@ -30,7 +30,6 @@ class MakeRepasForDay extends Component
         $repas->group_id = 0;
         $repas->user_id = Auth::id();
         $repas->save();
-        dd($repas);
         $this->emit('RepasAdded');
 
         $this->reset("day");
