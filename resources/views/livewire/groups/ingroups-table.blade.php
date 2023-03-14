@@ -46,8 +46,8 @@
 
 
             @endif
-
-            @if( $inventaireCalendar === $group -> id )
+            <?php $inventaireCalendar = $group -> id; ?>
+            @if( $inventaireCalendar === $group -> id && $inventaireShares === 0 )
 
             <livewire:groups.calendar.group-calendar :group="$group" :day="\Carbon\Carbon::now()"  :key="time().$group->id"/>
 
